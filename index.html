@@ -103,30 +103,31 @@
             color: #c9d1d9;
         }
         body.dark-mode .checklist-item {
-            background-color: #0d1117;
-            border-left-color: #58a6ff;
+            background-color: transparent;
+            border-left: none;
+            border-bottom-color: #21262d;
         }
         
         /* Red highlighting for checked items in ID Verification */
         #id-verification-details .checklist-item.checked {
             background-color: #ffe6e6;
-            border-left-color: #dc3545;
+            border-left: 3px solid #dc3545;
         }
         
         body.dark-mode #id-verification-details .checklist-item.checked {
             background-color: #3d1f1f;
-            border-left-color: #ff6b6b;
+            border-left: 3px solid #ff6b6b;
         }
         
         /* Green highlighting for pass checkboxes */
         .checklist-item.pass-checked {
             background-color: #d4edda !important;
-            border-left-color: #28a745 !important;
+            border-left: 3px solid #28a745 !important;
         }
         
         body.dark-mode .checklist-item.pass-checked {
             background-color: #1f3d2d !important;
-            border-left-color: #5cb85c !important;
+            border-left: 3px solid #5cb85c !important;
         }
         body.dark-mode label {
             color: #c9d1d9;
@@ -639,10 +640,11 @@
             overflow: hidden;
         }
         .checklist-item {
-            margin: 5px 0;
-            padding: 6px 10px;
-            background-color: #f9f9f9;
-            border-left: 3px solid #007bff;
+            margin: 2px 0;
+            padding: 8px 10px;
+            background-color: transparent;
+            border-left: none;
+            border-bottom: 1px solid #eee;
         }
         input[type="checkbox"] {
             margin-right: 8px;
@@ -655,7 +657,7 @@
         }
         .checked {
             background-color: #e8f5e9;
-            border-left-color: #4caf50;
+            border-left: 3px solid #4caf50;
         }
         @media print {
             .sidebar { display: none; }
@@ -875,113 +877,105 @@
         <div class="collapsible-content" id="step1-content">
 
         <div class="prompt-section">
-            <p style="font-weight: bold; margin-bottom: 15px; font-size: 16px;">Step 1: Review the customer's ID submission:</p>
+            <p style="font-weight: bold; margin-bottom: 15px; font-size: 16px;"><span style="color: #d63384; text-decoration: underline; text-underline-offset: 3px;">Step 1</span>: Review the customer's ID submission:</p>
 
         <!-- Detailed checklist for ID verification -->
         <div id="id-verification-details" style="margin-top: 20px;">
-            <div style="display: flex; gap: 20px;">
-                <!-- Left column: Collapsible sections -->
+            <div style="display: flex; gap: 30px;">
+                <!-- Left column: ID Document Requirements + Voided ID -->
                 <div style="flex: 1; min-width: 0;">
-        <h2 class="collapsible">ID Document Requirements</h2>
-        <div class="collapsible-content">
-            <div class="checklist-item">
-                <input type="checkbox" id="item1" onchange="checkIDDocRequirements()">
-                <label for="item1">Driver's License Number / ID Number / Passport Number / Permanent Resident Number is NOT visible and legible</label>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" id="item2" onchange="checkIDDocRequirements()">
-                <label for="item2">Full Legal Name is NOT visible and legible</label>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" id="item3" onchange="checkIDDocRequirements()">
-                <label for="item3">Date of Birth is NOT visible and legible</label>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" id="item4" onchange="checkIDDocRequirements()">
-                <label for="item4">Full Expiration Date is NOT visible and legible</label>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" id="item5" onchange="checkIDDocRequirements()">
-                <label for="item5">Full physical address is NOT visible and legible OR is PO BOX, General Delivery, or Generic address (Driver's License/State ID only)</label>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" id="item6" onchange="checkIDDocRequirements()">
-                <label for="item6">Whole face of customer is NOT visible</label>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" id="item7" onchange="checkIDDocRequirements()">
-                <label for="item7">Full Bar Code on the back of ID is NOT visible (Driver's License/State ID only)</label>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" id="item8" onchange="checkIDDocRequirements()">
-                <label for="item8">2D barcode is NOT clear and legible (Driver's License/State ID only)</label>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" id="item9" onchange="checkIDDocRequirements()">
-                <label for="item9">Image is blurry</label>
-            </div>
-        </div>
+                    <p style="font-weight: 700; font-size: 12px; color: #007bff; text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 6px 0; padding-bottom: 4px; border-bottom: 1px solid #d0e8ff;">ID Document Requirements</p>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="item1" onchange="checkIDDocRequirements()">
+                        <label for="item1">Driver's License Number / ID Number / Passport Number / Permanent Resident Number is NOT visible and legible</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="item2" onchange="checkIDDocRequirements()">
+                        <label for="item2">Full Legal Name is NOT visible and legible</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="item3" onchange="checkIDDocRequirements()">
+                        <label for="item3">Date of Birth is NOT visible and legible</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="item4" onchange="checkIDDocRequirements()">
+                        <label for="item4">Full Expiration Date is NOT visible and legible</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="item5" onchange="checkIDDocRequirements()">
+                        <label for="item5">Full physical address is NOT visible and legible OR is PO BOX, General Delivery, or Generic address (Driver's License/State ID only)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="item6" onchange="checkIDDocRequirements()">
+                        <label for="item6">Whole face of customer is NOT visible</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="item7" onchange="checkIDDocRequirements()">
+                        <label for="item7">Full Bar Code on the back of ID is NOT visible (Driver's License/State ID only)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="item8" onchange="checkIDDocRequirements()">
+                        <label for="item8">2D barcode is NOT clear and legible (Driver's License/State ID only)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="item9" onchange="checkIDDocRequirements()">
+                        <label for="item9">Image is blurry</label>
+                    </div>
 
-        <h2 class="collapsible">General ID Physical Attributes</h2>
-        <div class="collapsible-content">
-            <div class="checklist-item">
-                <input type="checkbox" id="item10" onchange="checkIDDocRequirements()">
-                <label for="item10">ID does NOT appear legitimate and original (appears to be a picture of a picture)</label>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" id="item11" onchange="checkIDDocRequirements()">
-                <label for="item11">ID is NOT in color</label>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" id="item12" onchange="checkIDDocRequirements()">
-                <label for="item12">Image appears fake, edited, altered, AI created, or taken from 3rd party sources</label>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" id="item13" onchange="checkIDDocRequirements()">
-                <label for="item13">ID is temporary</label>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" id="item14" onchange="checkIDDocRequirements()">
-                <label for="item14">ID is military, prison card, or tribal card</label>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" id="item15" onchange="checkIDDocRequirements()">
-                <label for="item15">ID is expired at time of submission</label>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" id="item16" onchange="checkIDDocRequirements()">
-                <label for="item16">ID appears fake or synthetic</label>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" id="item17" onchange="checkIDDocRequirements()">
-                <label for="item17">Necessary PII is NOT identifiable (even considering obstructions)</label>
-            </div>
-        </div>
-
-        <h2 class="collapsible">Voided ID</h2>
-        <div class="collapsible-content">
-            <div class="checklist-item">
-                <input type="checkbox" id="item18" onchange="checkIDDocRequirements()">
-                <label for="item18">ID is hole punched</label>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" id="item19" onchange="checkIDDocRequirements()">
-                <label for="item19">ID has a cut, clipped corner, or is taped together</label>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" id="item20" onchange="checkIDDocRequirements()">
-                <label for="item20">ID has a VOID stamp</label>
-            </div>
-        </div>
-                </div>
-                
-                <!-- Right column: Floating notes textarea -->
-                <div style="width: 300px; flex-shrink: 0;">
-                    <div style="position: sticky; top: 20px;">
-                        <label class="notes-label">Additional Notes:</label>
-                        <textarea id="id-notes" class="notes-textarea" style="height: 400px; resize: vertical;" placeholder="Enter any additional observations or details about the ID submission..."></textarea>
+                    <p style="font-weight: 700; font-size: 12px; color: #007bff; text-transform: uppercase; letter-spacing: 0.5px; margin: 15px 0 6px 0; padding-bottom: 4px; border-bottom: 1px solid #d0e8ff;">Voided ID</p>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="item18" onchange="checkIDDocRequirements()">
+                        <label for="item18">ID is hole punched</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="item19" onchange="checkIDDocRequirements()">
+                        <label for="item19">ID has a cut, clipped corner, or is taped together</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="item20" onchange="checkIDDocRequirements()">
+                        <label for="item20">ID has a VOID stamp</label>
                     </div>
                 </div>
+
+                <!-- Right column: General ID Physical Attributes -->
+                <div style="flex: 1; min-width: 0;">
+                    <p style="font-weight: 700; font-size: 12px; color: #007bff; text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 6px 0; padding-bottom: 4px; border-bottom: 1px solid #d0e8ff;">General ID Physical Attributes</p>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="item10" onchange="checkIDDocRequirements()">
+                        <label for="item10">ID does NOT appear legitimate and original (appears to be a picture of a picture)</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="item11" onchange="checkIDDocRequirements()">
+                        <label for="item11">ID is NOT in color</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="item12" onchange="checkIDDocRequirements()">
+                        <label for="item12">Image appears fake, edited, altered, AI created, or taken from 3rd party sources</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="item13" onchange="checkIDDocRequirements()">
+                        <label for="item13">ID is temporary</label>
+                    </div>
+
+                    <div class="checklist-item">
+                        <input type="checkbox" id="item15" onchange="checkIDDocRequirements()">
+                        <label for="item15">ID is expired at time of submission</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="item16" onchange="checkIDDocRequirements()">
+                        <label for="item16">ID appears fake or synthetic</label>
+                    </div>
+                    <div class="checklist-item">
+                        <input type="checkbox" id="item17" onchange="checkIDDocRequirements()">
+                        <label for="item17">Necessary PII is NOT identifiable (even considering obstructions)</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notes below both columns -->
+            <div style="margin-top: 20px;">
+                <label class="notes-label">Additional Notes:</label>
+                <textarea id="id-notes" class="notes-textarea" style="height: 150px; resize: vertical;" placeholder="Enter any additional observations or details about the ID submission..."></textarea>
             </div>
         </div>
 
@@ -998,7 +992,7 @@
         <div class="collapsible-content" id="step2-content">
 
         <div class="prompt-section">
-            <p style="font-weight: bold; margin-bottom: 15px; font-size: 16px;">Step 2: Review the customer's selfie submission:</p>
+            <p style="font-weight: bold; margin-bottom: 15px; font-size: 16px;"><span style="color: #d63384; text-decoration: underline; text-underline-offset: 3px;">Step 2</span>: Review the customer's selfie submission:</p>
 
             <!-- Detailed Checklist Section -->
             <div id="selfie-verification-details" style="margin-top: 20px;">
@@ -1017,7 +1011,7 @@
             </div>
             <div class="checklist-item">
                 <input type="checkbox" id="selfie-item2" onchange="checkSelfieSignalsComplete()">
-                <label for="selfie-item2">Whole face of customer is NOT visible</label>
+                <label for="selfie-item2">Whole face of customer must be visible and can be reasonably compared to the ID for all selfie submissions</label>
             </div>
             <div class="checklist-item">
                 <input type="checkbox" id="selfie-item3" onchange="checkSelfieSignalsComplete()">
@@ -1045,7 +1039,7 @@
             </div>
             <div class="checklist-item">
                 <input type="checkbox" id="selfie-item9" onchange="checkSelfieSignalsComplete()">
-                <label for="selfie-item9">Image is blurry</label>
+                <label for="selfie-item9">Image is blurry and cannot be reasonably compared to the ID.</label>
             </div>
             <div class="checklist-item">
                 <input type="checkbox" id="selfie-item10" onchange="checkSelfieSignalsComplete()">
@@ -1053,7 +1047,7 @@
             </div>
             <div class="checklist-item">
                 <input type="checkbox" id="selfie-item11" onchange="checkSelfieSignalsComplete()">
-                <label for="selfie-item11">Image includes hand gesture by customer (peace sign, hand sign, etc.)</label>
+                <label for="selfie-item11">Image includes hand gesture by customer the gesture obstructs clear visibility of the full face</label>
             </div>
         </div>
                 </div>
@@ -1086,10 +1080,10 @@
             <!-- Detailed Checklist Section -->
             <div id="account-verification-details" style="margin-top: 20px;">
                 <div style="display: flex; gap: 30px;">
-                    <!-- Left column: Steps 3 and 4 -->
+                    <!-- Left column: Step 3 signals -->
                     <div style="flex: 1; min-width: 0;">
         
-                        <h2 style="font-size: 20px; margin-bottom: 10px; color: #007bff;">Step 3: Signals of Inauthentic Identity</h2>
+                        <h2 style="font-size: 20px; margin-bottom: 10px; color: #333;"><span style="color: #d63384; text-decoration: underline; text-underline-offset: 3px;">Step 3</span>: Signals of Inauthentic Identity</h2>
                         <p style="font-size: 14px; margin-bottom: 15px; color: #555;">Review government ID and Selfie provided by the customer for signals of inauthenticity:</p>
                         
                         <div class="checklist-item">
@@ -1098,7 +1092,7 @@
                         </div>
                         <div class="checklist-item">
                             <input type="checkbox" id="auth-item2" onchange="updateSubjectIdentityAdvisory()">
-                            <label for="auth-item2">Tampered/fake government ID document (see Appendix 5.2.5 Guide to Fake IDs)</label>
+                            <label for="auth-item2">Tampered/fake government ID document</label>
                         </div>
                         <div class="checklist-item">
                             <input type="checkbox" id="auth-item3" onchange="updateSubjectIdentityAdvisory()">
@@ -1120,105 +1114,125 @@
                             <input type="checkbox" id="auth-item7" onchange="updateSubjectIdentityAdvisory()">
                             <label for="auth-item7">Different names, DOB, and/or SSNs used across IDV submissions</label>
                         </div>
-                        
-                        <h2 style="font-size: 20px; margin-top: 30px; margin-bottom: 10px; color: #007bff;">Step 4: Signals of Inconsistent/Mismatched Account Information</h2>
-                        <p style="font-size: 14px; margin-bottom: 15px; color: #555;">Review for inconsistent/mismatched account information:</p>
-        
-                        <h2 class="collapsible">Address/Zip Code Issues</h2>
-        <div class="collapsible-content">
-            <div class="checklist-item">
-                <input type="checkbox" id="acct-item1" onchange="updateSubjectIdentityAdvisory()">
-                <label for="acct-item1">Zip code linked to instrument does NOT match address on file AND IDV address does NOT match customer provided address</label>
-            </div>
-        </div>
 
-        <h2 class="collapsible">Email Address Issues</h2>
-        <div class="collapsible-content">
-            <div class="checklist-item">
-                <input type="checkbox" id="acct-item2" onchange="updateSubjectIdentityAdvisory()">
-                <label for="acct-item2">Email address is unusual - Name mismatched (not including nicknames)</label>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" id="acct-item3" onchange="updateSubjectIdentityAdvisory()">
-                <label for="acct-item3">Email address is gibberish (nonsensical characters)</label>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" id="acct-item4" onchange="updateSubjectIdentityAdvisory()">
-                <label for="acct-item4">Email indicates scalable tracking (e.g., btc00xx, btc01xx, btc02xx)</label>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" id="acct-item5" onchange="updateSubjectIdentityAdvisory()">
-                <label for="acct-item5">Use of disposable or atypical email domains (e.g., @iillii, @getnada)</label>
-            </div>
-        </div>
+                        <!-- Step 4 starts below Step 3 in the same column -->
+                        <h2 style="font-size: 18px; margin-top: 25px; margin-bottom: 10px; color: #333; padding-top: 15px; border-top: 2px solid #d0e8ff;"><span style="color: #d63384; text-decoration: underline; text-underline-offset: 3px;">Step 4</span>: Inconsistent/Mismatched Account Info</h2>
 
-        <h2 class="collapsible">$Cashtag/Display Name Issues</h2>
-        <div class="collapsible-content">
-            <div class="checklist-item">
-                <input type="checkbox" id="acct-item6" onchange="updateSubjectIdentityAdvisory()">
-                <label for="acct-item6">$Cashtag or display name is unusual - Name mismatched (not including nicknames/business names)</label>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" id="acct-item7" onchange="updateSubjectIdentityAdvisory()">
-                <label for="acct-item7">Gibberish $Cashtag or display name</label>
-            </div>
-        </div>
-
-        <h2 class="collapsible">IP/Time Zone/Location Issues</h2>
-        <div class="collapsible-content">
-            <div class="checklist-item">
-                <input type="checkbox" id="acct-item8" onchange="updateSubjectIdentityAdvisory()">
-                <label for="acct-item8">Location mismatch between IP address(es) and customer address(es)</label>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" id="acct-item9" onchange="updateSubjectIdentityAdvisory()">
-                <label for="acct-item9">Time zone mismatch to IP address(s)/customer address(es)</label>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" id="acct-item10" onchange="updateSubjectIdentityAdvisory()">
-                <label for="acct-item10">Non-US time zones (e.g., Asia/Dubai, America/Montevideo)</label>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" id="acct-item11" onchange="updateSubjectIdentityAdvisory()">
-                <label for="acct-item11">VPN/anonymous proxy IP addresses detected</label>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" id="acct-item12" onchange="updateSubjectIdentityAdvisory()">
-                <label for="acct-item12">Switching between non-VPN/anonymous proxy and VPN/anonymous proxy IP addresses</label>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" id="acct-item13" onchange="updateSubjectIdentityAdvisory()">
-                <label for="acct-item13">Nondescript time zones (e.g., "Central" vs. "US/Chicago")</label>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" id="acct-item14" onchange="updateSubjectIdentityAdvisory()">
-                <label for="acct-item14">Non-US SIM card or cellular carrier</label>
-            </div>
-            <div class="checklist-item">
-                <input type="checkbox" id="acct-item15" onchange="updateSubjectIdentityAdvisory()">
-                <label for="acct-item15">Country of IP/time zone NOT consistent with customer location or reasonable travel</label>
-            </div>
+                        <p style="font-weight: 700; font-size: 12px; color: #007bff; text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 6px 0; padding-bottom: 4px; border-bottom: 1px solid #d0e8ff;">Address/Zip Code</p>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="acct-item1" onchange="updateSubjectIdentityAdvisory()">
+                            <label for="acct-item1">Zip code linked to instrument does NOT match address on file AND IDV address does NOT match customer provided address</label>
                         </div>
 
+                        <p style="font-weight: 700; font-size: 12px; color: #007bff; text-transform: uppercase; letter-spacing: 0.5px; margin: 12px 0 6px 0; padding-bottom: 4px; border-bottom: 1px solid #d0e8ff;">Email Address</p>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="acct-item2" onchange="updateSubjectIdentityAdvisory()">
+                            <label for="acct-item2">Email address is unusual - Name mismatched (not including nicknames)</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="acct-item3" onchange="updateSubjectIdentityAdvisory()">
+                            <label for="acct-item3">Email address is gibberish (nonsensical characters)</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="acct-item4" onchange="updateSubjectIdentityAdvisory()">
+                            <label for="acct-item4">Email indicates scalable tracking (e.g., btc00xx, btc01xx, btc02xx)</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="acct-item5" onchange="updateSubjectIdentityAdvisory()">
+                            <label for="acct-item5">Use of disposable or atypical email domains (e.g., @iillii, @getnada)</label>
+                        </div>
+
+                        <p style="font-weight: 700; font-size: 12px; color: #007bff; text-transform: uppercase; letter-spacing: 0.5px; margin: 12px 0 6px 0; padding-bottom: 4px; border-bottom: 1px solid #d0e8ff;">$Cashtag/Display Name</p>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="acct-item6" onchange="updateSubjectIdentityAdvisory()">
+                            <label for="acct-item6">$Cashtag or display name is unusual - Name mismatched (not including nicknames/business names)</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="acct-item7" onchange="updateSubjectIdentityAdvisory()">
+                            <label for="acct-item7">Gibberish $Cashtag or display name</label>
+                        </div>
+
+                        <p style="font-weight: 700; font-size: 12px; color: #007bff; text-transform: uppercase; letter-spacing: 0.5px; margin: 12px 0 6px 0; padding-bottom: 4px; border-bottom: 1px solid #d0e8ff;">Device Issues</p>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="acct-item16" onchange="updateSubjectIdentityAdvisory()">
+                            <label for="acct-item16">Inconsistent or mismatching device names between name on device and customer's verified name</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="acct-item17" onchange="updateSubjectIdentityAdvisory()">
+                            <label for="acct-item17">Device on outdated version of Cash App (4.30 and below)</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="acct-item18" onchange="updateSubjectIdentityAdvisory()">
+                            <label for="acct-item18">Country of IP address and/or time zone of device is not consistent with customer location</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="acct-item19" onchange="updateSubjectIdentityAdvisory()">
+                            <label for="acct-item19">Failed Device Attestation on customer device</label>
+                        </div>
+
+                        <p style="font-weight: 700; font-size: 12px; color: #007bff; text-transform: uppercase; letter-spacing: 0.5px; margin: 12px 0 6px 0; padding-bottom: 4px; border-bottom: 1px solid #d0e8ff;">Connected User Graph</p>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="acct-item20" onchange="updateSubjectIdentityAdvisory()">
+                            <label for="acct-item20">Inconsistent Connected User Graph - Accounts linked by SSN AND payment source or device are not the same operator/use a different name</label>
+                        </div>
+
+                        <p style="font-weight: 700; font-size: 12px; color: #007bff; text-transform: uppercase; letter-spacing: 0.5px; margin: 12px 0 6px 0; padding-bottom: 4px; border-bottom: 1px solid #d0e8ff;">Display Name in ALL CAPS</p>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="acct-item21" onchange="updateSubjectIdentityAdvisory()">
+                            <label for="acct-item21">Customer's display name is in ALL CAPS (only use if email OR $Cashtag/display name signals are also present)</label>
+                        </div>
                     </div>
-                    
-                    <!-- Right column: Floating notes textarea -->
-                    <div style="width: 300px; flex-shrink: 0;">
-                        <div style="position: sticky; top: 20px;">
 
-                            
-                            <label class="notes-label">Additional Notes:</label>
-                            <textarea id="account-info-notes" class="notes-textarea" style="height: 400px; resize: vertical;" placeholder="Enter any additional observations about account authenticity..."></textarea>
-                            
-                            <!-- Fail Warning Message (hidden by default) -->
-                            <div id="failWarningMessage" style="display: none; margin-top: 15px; padding: 15px; background-color: #f8d7da; border: 2px solid #dc3545; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-                                <p style="margin: 0; font-size: 14px; font-weight: bold; color: #721c24; line-height: 1.5;">
-                                    ⚠️ CASE FAIL<br>
-                                    <span id="failWarningReason" style="font-weight: normal; display: block; margin-top: 8px;"></span>
-                                    <span style="display: block; margin-top: 8px;">This case should result in a FAIL.</span>
-                                </p>
-                            </div>
+                    <!-- Right column: IP/Time Zone/Location -->
+                    <div style="flex: 1; min-width: 0;">
+                        <p style="font-weight: 700; font-size: 12px; color: #007bff; text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 6px 0; padding-bottom: 4px; border-bottom: 1px solid #d0e8ff;">IP/Time Zone/Location</p>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="acct-item8" onchange="updateSubjectIdentityAdvisory()">
+                            <label for="acct-item8">Location mismatch between IP address(es) and customer address(es)</label>
                         </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="acct-item9" onchange="updateSubjectIdentityAdvisory()">
+                            <label for="acct-item9">Time zone mismatch to IP address(s)/customer address(es)</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="acct-item10" onchange="updateSubjectIdentityAdvisory()">
+                            <label for="acct-item10">Non-US time zones (e.g., Asia/Dubai, America/Montevideo)</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="acct-item11" onchange="updateSubjectIdentityAdvisory()">
+                            <label for="acct-item11">VPN/anonymous proxy IP addresses detected</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="acct-item12" onchange="updateSubjectIdentityAdvisory()">
+                            <label for="acct-item12">Switching between non-VPN/anonymous proxy and VPN/anonymous proxy IP addresses</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="acct-item13" onchange="updateSubjectIdentityAdvisory()">
+                            <label for="acct-item13">Nondescript time zones (e.g., "Central" vs. "US/Chicago")</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="acct-item14" onchange="updateSubjectIdentityAdvisory()">
+                            <label for="acct-item14">Non-US SIM card or cellular carrier</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="acct-item15" onchange="updateSubjectIdentityAdvisory()">
+                            <label for="acct-item15">Country of IP/time zone NOT consistent with customer location or reasonable travel</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Notes and warnings below the two columns -->
+                <div style="margin-top: 20px;">
+                    <label class="notes-label">Additional Notes:</label>
+                    <textarea id="account-info-notes" class="notes-textarea" style="height: 150px; resize: vertical;" placeholder="Enter any additional observations about account authenticity..."></textarea>
+                    
+                    <!-- Fail Warning Message (hidden by default) -->
+                    <div id="failWarningMessage" style="display: none; margin-top: 15px; padding: 15px; background-color: #f8d7da; border: 2px solid #dc3545; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <p style="margin: 0; font-size: 14px; font-weight: bold; color: #721c24; line-height: 1.5;">
+                            ⚠️ CASE FAIL<br>
+                            <span id="failWarningReason" style="font-weight: normal; display: block; margin-top: 8px;"></span>
+                            <span style="display: block; margin-top: 8px;">This case should result in a FAIL.</span>
+                        </p>
                     </div>
                 </div>
             </div>
@@ -1348,7 +1362,7 @@
                         
                         <div class="section-content-collapsible" id="source-account-identity-content">
                         <div class="prompt-section">
-                            <p style="font-weight: bold; margin-bottom: 15px; font-size: 16px;">Step 1: Government ID and Selfie IDV review</p>
+                            <p style="font-weight: bold; margin-bottom: 15px; font-size: 16px;"><span style="color: #d63384; text-decoration: underline; text-underline-offset: 3px;">Step 1</span>: IDV review</p>
                             <div style="margin-left: 20px;">
                                 <label style="display: block; margin-bottom: 10px; cursor: pointer;">
                                     <input type="radio" name="source-id-selfie-status" value="no-submission" style="margin-right: 8px;" onchange="handleSourceIDSelfieStatusChange()">
@@ -1374,12 +1388,12 @@
                                 
                                 <label style="display: block; margin-bottom: 10px; cursor: pointer;">
                                     <input type="radio" name="source-id-selfie-status" value="authentic" style="margin-right: 8px;" onchange="handleSourceIDSelfieStatusChange()">
-                                    ID and Selfie appear authentic
+                                    IDV/ Government ID/ Selfie appear authentic
                                 </label>
                                 
                                 <label style="display: block; margin-bottom: 10px; cursor: pointer;">
                                     <input type="radio" name="source-id-selfie-status" value="inconsistencies" style="margin-right: 8px;" onchange="handleSourceIDSelfieStatusChange()">
-                                    There are ID and/or Selfie inconsistencies
+                                    There are IDV inconsistencies
                                 </label>
                             </div>
 
@@ -1425,125 +1439,113 @@
                         
                         <!-- Step 2: Always visible (Account Information Signals) -->
                         <div style="margin-top: 30px; border-top: 2px solid #d0e8ff; padding-top: 20px;">
-                            <p style="font-weight: bold; margin-bottom: 15px; font-size: 16px;">Step 2: Review for signals of inconsistent/mismatched account information, indicative of an inauthentic identity</p>
+                            <p style="font-weight: bold; margin-bottom: 15px; font-size: 16px;"><span style="color: #d63384; text-decoration: underline; text-underline-offset: 3px;">Step 2</span>: Review for signals of inconsistent/mismatched account information, indicative of an inauthentic identity</p>
                             
                             <div style="display: flex; gap: 20px;">
                                 <div style="flex: 1; min-width: 0;">
-                                    <h2 class="collapsible">Address/Zip Code Issues</h2>
-                                    <div class="collapsible-content">
-                                        <div class="checklist-item">
-                                            <input type="checkbox" id="source-acct-item1" onchange="uncheckSourceStep2NoSignals()">
-                                            <label for="source-acct-item1">Zip code linked to the instrument does not match address on file AND address provided for IDV submission does not match customer provided address</label>
-                                        </div>
+                                    <p style="font-weight: 700; font-size: 12px; color: #007bff; text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 6px 0; padding-bottom: 4px; border-bottom: 1px solid #d0e8ff;">Address/Zip Code</p>
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="source-acct-item1" onchange="uncheckSourceStep2NoSignals()">
+                                        <label for="source-acct-item1">Zip code linked to the instrument does not match address on file AND address provided for IDV submission does not match customer provided address</label>
                                     </div>
                                     
-                                    <h2 class="collapsible">Email Address Issues</h2>
-                                    <div class="collapsible-content">
-                                        <div class="checklist-item">
-                                            <input type="checkbox" id="source-acct-item2" onchange="uncheckSourceStep2NoSignals()">
-                                            <label for="source-acct-item2">Email address is unusual - Name mismatched (not including nicknames)</label>
-                                        </div>
-                                        <div class="checklist-item">
-                                            <input type="checkbox" id="source-acct-item3" onchange="uncheckSourceStep2NoSignals()">
-                                            <label for="source-acct-item3">Email address is unusual - Gibberish (nonsensical characters)</label>
-                                        </div>
-                                        <div class="checklist-item">
-                                            <input type="checkbox" id="source-acct-item4" onchange="uncheckSourceStep2NoSignals()">
-                                            <label for="source-acct-item4">Email address is unusual - Indicates scalable tracking (e.g., btc00xx, btc01xx)</label>
-                                        </div>
-                                        <div class="checklist-item">
-                                            <input type="checkbox" id="source-acct-item5" onchange="uncheckSourceStep2NoSignals()">
-                                            <label for="source-acct-item5">Email address is unusual - Use of disposable or atypical email domains</label>
-                                        </div>
+                                    <p style="font-weight: 700; font-size: 12px; color: #007bff; text-transform: uppercase; letter-spacing: 0.5px; margin: 12px 0 6px 0; padding-bottom: 4px; border-bottom: 1px solid #d0e8ff;">Email Address</p>
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="source-acct-item2" onchange="uncheckSourceStep2NoSignals()">
+                                        <label for="source-acct-item2">Email address is unusual - Name mismatched (not including nicknames)</label>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="source-acct-item3" onchange="uncheckSourceStep2NoSignals()">
+                                        <label for="source-acct-item3">Email address is unusual - Gibberish (nonsensical characters)</label>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="source-acct-item4" onchange="uncheckSourceStep2NoSignals()">
+                                        <label for="source-acct-item4">Email address is unusual - Indicates scalable tracking (e.g., btc00xx, btc01xx)</label>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="source-acct-item5" onchange="uncheckSourceStep2NoSignals()">
+                                        <label for="source-acct-item5">Email address is unusual - Use of disposable or atypical email domains</label>
                                     </div>
                                     
-                                    <h2 class="collapsible">$Cashtag/Display Name Issues</h2>
-                                    <div class="collapsible-content">
-                                        <div class="checklist-item">
-                                            <input type="checkbox" id="source-acct-item6" onchange="uncheckSourceStep2NoSignals()">
-                                            <label for="source-acct-item6">$Cashtag or display name unusual - Name mismatched (not including nicknames or business names)</label>
-                                        </div>
-                                        <div class="checklist-item">
-                                            <input type="checkbox" id="source-acct-item7" onchange="uncheckSourceStep2NoSignals()">
-                                            <label for="source-acct-item7">$Cashtag or display name unusual - Gibberish name</label>
-                                        </div>
+                                    <p style="font-weight: 700; font-size: 12px; color: #007bff; text-transform: uppercase; letter-spacing: 0.5px; margin: 12px 0 6px 0; padding-bottom: 4px; border-bottom: 1px solid #d0e8ff;">$Cashtag/Display Name</p>
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="source-acct-item6" onchange="uncheckSourceStep2NoSignals()">
+                                        <label for="source-acct-item6">$Cashtag or display name unusual - Name mismatched (not including nicknames or business names)</label>
                                     </div>
-                                    
-                                    <h2 class="collapsible">IP/Time Zone/Location Issues</h2>
-                                    <div class="collapsible-content">
-                                        <div class="checklist-item">
-                                            <input type="checkbox" id="source-acct-item8" onchange="uncheckSourceStep2NoSignals()">
-                                            <label for="source-acct-item8">Location mismatch between IP address(es) and customer address(es)</label>
-                                        </div>
-                                        <div class="checklist-item">
-                                            <input type="checkbox" id="source-acct-item9" onchange="uncheckSourceStep2NoSignals()">
-                                            <label for="source-acct-item9">Time zone mismatch to IP address(s)/customer address(es)</label>
-                                        </div>
-                                        <div class="checklist-item">
-                                            <input type="checkbox" id="source-acct-item10" onchange="uncheckSourceStep2NoSignals()">
-                                            <label for="source-acct-item10">Non-US time zones (e.g. Asia/Dubai, America/Montevideo)</label>
-                                        </div>
-                                        <div class="checklist-item">
-                                            <input type="checkbox" id="source-acct-item11" onchange="uncheckSourceStep2NoSignals()">
-                                            <label for="source-acct-item11">VPN/anonymous proxy IP address detected</label>
-                                        </div>
-                                        <div class="checklist-item">
-                                            <input type="checkbox" id="source-acct-item12" onchange="uncheckSourceStep2NoSignals()">
-                                            <label for="source-acct-item12">Switching between non-VPN and VPN/anonymous proxy IP addresses</label>
-                                        </div>
-                                        <div class="checklist-item">
-                                            <input type="checkbox" id="source-acct-item13" onchange="uncheckSourceStep2NoSignals()">
-                                            <label for="source-acct-item13">Nondescript time zones (e.g., "Central" vs. "US/Chicago")</label>
-                                        </div>
-                                        <div class="checklist-item">
-                                            <input type="checkbox" id="source-acct-item14" onchange="uncheckSourceStep2NoSignals()">
-                                            <label for="source-acct-item14">Non-US SIM card or cellular carrier</label>
-                                        </div>
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="source-acct-item7" onchange="uncheckSourceStep2NoSignals()">
+                                        <label for="source-acct-item7">$Cashtag or display name unusual - Gibberish name</label>
                                     </div>
-                                    
-                                    <h2 class="collapsible">Device Issues</h2>
-                                    <div class="collapsible-content">
-                                        <div class="checklist-item">
-                                            <input type="checkbox" id="source-acct-item15" onchange="uncheckSourceStep2NoSignals()">
-                                            <label for="source-acct-item15">Inconsistent or mismatching device names between name on device and customer's verified name</label>
-                                        </div>
-                                        <div class="checklist-item">
-                                            <input type="checkbox" id="source-acct-item16" onchange="uncheckSourceStep2NoSignals()">
-                                            <label for="source-acct-item16">Device on outdated version of Cash App (4.30 and below)</label>
-                                        </div>
-                                        <div class="checklist-item">
-                                            <input type="checkbox" id="source-acct-item17" onchange="uncheckSourceStep2NoSignals()">
-                                            <label for="source-acct-item17">Country of IP address and/or time zone of device is not consistent with customer location</label>
-                                        </div>
-                                        <div class="checklist-item">
-                                            <input type="checkbox" id="source-acct-item18" onchange="uncheckSourceStep2NoSignals()">
-                                            <label for="source-acct-item18">Failed Device Attestation on customer device</label>
-                                        </div>
+
+                                    <p style="font-weight: 700; font-size: 12px; color: #007bff; text-transform: uppercase; letter-spacing: 0.5px; margin: 12px 0 6px 0; padding-bottom: 4px; border-bottom: 1px solid #d0e8ff;">Device Issues</p>
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="source-acct-item15" onchange="uncheckSourceStep2NoSignals()">
+                                        <label for="source-acct-item15">Inconsistent or mismatching device names between name on device and customer's verified name</label>
                                     </div>
-                                    
-                                    <h2 class="collapsible">Connected User Graph Issues</h2>
-                                    <div class="collapsible-content">
-                                        <div class="checklist-item">
-                                            <input type="checkbox" id="source-acct-item19" onchange="uncheckSourceStep2NoSignals()">
-                                            <label for="source-acct-item19">Inconsistent Connected User Graph - Accounts linked by SSN AND payment source or device are not the same operator/use a different name</label>
-                                        </div>
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="source-acct-item16" onchange="uncheckSourceStep2NoSignals()">
+                                        <label for="source-acct-item16">Device on outdated version of Cash App (4.30 and below)</label>
                                     </div>
-                                    
-                                    <h2 class="collapsible">Display Name in ALL CAPS</h2>
-                                    <div class="collapsible-content">
-                                        <div class="checklist-item">
-                                            <input type="checkbox" id="source-acct-item20" onchange="uncheckSourceStep2NoSignals()">
-                                            <label for="source-acct-item20">Customer's display name is in ALL CAPS (only use if email OR $Cashtag/display name signals are also present)</label>
-                                        </div>
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="source-acct-item17" onchange="uncheckSourceStep2NoSignals()">
+                                        <label for="source-acct-item17">Country of IP address and/or time zone of device is not consistent with customer location</label>
                                     </div>
-                                    
-                                    <!-- No Signals Checkbox -->
-                                    <div class="checklist-item" style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #e0e0e0;">
-                                        <input type="checkbox" id="source-acct-no-signals" onchange="handleSourceStep2NoSignals()">
-                                        <label for="source-acct-no-signals" style="font-style: italic; color: #666;">No signals of inconsistent/mismatched account information identified</label>
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="source-acct-item18" onchange="uncheckSourceStep2NoSignals()">
+                                        <label for="source-acct-item18">Failed Device Attestation on customer device</label>
                                     </div>
-                                    
+
+                                    <p style="font-weight: 700; font-size: 12px; color: #007bff; text-transform: uppercase; letter-spacing: 0.5px; margin: 12px 0 6px 0; padding-bottom: 4px; border-bottom: 1px solid #d0e8ff;">Connected User Graph</p>
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="source-acct-item19" onchange="uncheckSourceStep2NoSignals()">
+                                        <label for="source-acct-item19">Inconsistent Connected User Graph - Accounts linked by SSN AND payment source or device are not the same operator/use a different name</label>
+                                    </div>
+
+                                    <p style="font-weight: 700; font-size: 12px; color: #007bff; text-transform: uppercase; letter-spacing: 0.5px; margin: 12px 0 6px 0; padding-bottom: 4px; border-bottom: 1px solid #d0e8ff;">Display Name in ALL CAPS</p>
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="source-acct-item20" onchange="uncheckSourceStep2NoSignals()">
+                                        <label for="source-acct-item20">Customer's display name is in ALL CAPS (only use if email OR $Cashtag/display name signals are also present)</label>
+                                    </div>
                                 </div>
+
+                                <!-- Right column: IP/Time Zone/Location -->
+                                <div style="flex: 1; min-width: 0;">
+                                    <p style="font-weight: 700; font-size: 12px; color: #007bff; text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 6px 0; padding-bottom: 4px; border-bottom: 1px solid #d0e8ff;">IP/Time Zone/Location</p>
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="source-acct-item8" onchange="uncheckSourceStep2NoSignals()">
+                                        <label for="source-acct-item8">Location mismatch between IP address(es) and customer address(es)</label>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="source-acct-item9" onchange="uncheckSourceStep2NoSignals()">
+                                        <label for="source-acct-item9">Time zone mismatch to IP address(s)/customer address(es)</label>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="source-acct-item10" onchange="uncheckSourceStep2NoSignals()">
+                                        <label for="source-acct-item10">Non-US time zones (e.g. Asia/Dubai, America/Montevideo)</label>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="source-acct-item11" onchange="uncheckSourceStep2NoSignals()">
+                                        <label for="source-acct-item11">VPN/anonymous proxy IP address detected</label>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="source-acct-item12" onchange="uncheckSourceStep2NoSignals()">
+                                        <label for="source-acct-item12">Switching between non-VPN and VPN/anonymous proxy IP addresses</label>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="source-acct-item13" onchange="uncheckSourceStep2NoSignals()">
+                                        <label for="source-acct-item13">Nondescript time zones (e.g., "Central" vs. "US/Chicago")</label>
+                                    </div>
+                                    <div class="checklist-item">
+                                        <input type="checkbox" id="source-acct-item14" onchange="uncheckSourceStep2NoSignals()">
+                                        <label for="source-acct-item14">Non-US SIM card or cellular carrier</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- No Signals Checkbox -->
+                            <div class="checklist-item" style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #e0e0e0;">
+                                <input type="checkbox" id="source-acct-no-signals" onchange="handleSourceStep2NoSignals()">
+                                <label for="source-acct-no-signals" style="font-style: italic; color: #666;">No signals of inconsistent/mismatched account information identified</label>
                             </div>
                         
                         <!-- Combined Notes Section for Both Steps -->
@@ -1589,30 +1591,30 @@
                                     
                                     <!-- Steps 1 & 2 - Show when "Yes" is selected -->
                                     <div id="source-compromised-details" style="display: none; margin-top: 30px; padding-top: 20px; border-top: 2px solid #d0e8ff;">
-                                        <p style="font-weight: bold; margin-bottom: 15px; font-size: 16px;">Step 1: Review for signals indicating a compromised device</p>
+                                        <p style="font-weight: bold; margin-bottom: 15px; font-size: 16px;"><span style="color: #d63384; text-decoration: underline; text-underline-offset: 3px;">Step 1</span>: Review for signals indicating a compromised device</p>
                             
                             <div style="display: flex; gap: 20px;">
                                 <div style="flex: 1; min-width: 0;">
                                     <div class="checklist-item">
                                         <input type="checkbox" id="source-compromised-item1">
-                                        <label for="source-compromised-item1">The customer is claiming the device was lost or stolen</label>
+                                        <label for="source-compromised-item1">Customer claims in dispute claims or support cases they had unauthorized activity on their account due to a lost or stolen device</label>
                                     </div>
                                     <div class="checklist-item">
                                         <input type="checkbox" id="source-compromised-item2">
-                                        <label for="source-compromised-item2">The device was not in a known IP/Geolocation of the customer based on Event Stream activity</label>
+                                        <label for="source-compromised-item2">The disputed payment activity is inconsistent with prior account activity</label>
                                     </div>
                                     <div class="checklist-item">
                                         <input type="checkbox" id="source-compromised-item3">
-                                        <label for="source-compromised-item3">This compromised device activity occurred during/around the same time as the activity leading to the denylist as identified by the time of the adversity on the source account</label>
+                                        <label for="source-compromised-item3">Disputed payment activity occurring in an identifiable "incident"</label>
                                     </div>
                                     <div class="checklist-item" id="source-compromised-item4-container" style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #e0e0e0;">
                                         <input type="checkbox" id="source-compromised-item4" onchange="handleCompromisedPassCheckbox(this)">
-                                        <label for="source-compromised-item4" style="font-weight: 500;">The customer is claiming the device was lost or stolen AND the device was not in a known IP/Geolocation of the customer based on Event Stream activity AND this compromised device activity occurred during/around the same time as the activity leading to the denylist as identified by the time of the adversity on the source account</label>
+                                        <label for="source-compromised-item4" style="font-weight: 500;">Customer claims in dispute claims or in support cases that their device was recovered after being lost or stolen. A review indicates that the disputed activity is consistent with the timeline of when the customer claims the device was out of and then back in possession of the customer</label>
                                     </div>
                                     
                                     <!-- Step 2 - Same Box -->
                                     <div style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #d0e8ff;">
-                                        <p style="font-weight: bold; margin-bottom: 15px; font-size: 16px;">Step 2: Review for signals indicating compromised access</p>
+                                        <p style="font-weight: bold; margin-bottom: 15px; font-size: 16px;"><span style="color: #d63384; text-decoration: underline; text-underline-offset: 3px;">Step 2</span>: Review for signals indicating compromised access</p>
                                         
                                         <div class="checklist-item">
                                             <input type="checkbox" id="source-compromised-access0">
@@ -1623,8 +1625,8 @@
                                             <label for="source-compromised-access1">Successful account login from a new device with characteristics that have not been previously seen on the authentic customer account</label>
                                         </div>
                                         
-                                        <h2 class="collapsible">Activity performed by the new device</h2>
-                                        <div class="collapsible-content">
+                                        <p style="font-weight: 700; font-size: 12px; color: #007bff; text-transform: uppercase; letter-spacing: 0.5px; margin: 12px 0 6px 0; padding-bottom: 4px; border-bottom: 1px solid #d0e8ff;">Activity performed by the new device</p>
+                                        <div>
                                             <div class="checklist-item">
                                                 <input type="checkbox" id="source-compromised-access2">
                                                 <label for="source-compromised-access2">Changing established aliases after the new device(s) enters the account and these aliases may be inconsistent with the identity on the account</label>
@@ -1780,27 +1782,47 @@
                         <div class="section-content-collapsible" id="evaluate-accounts-content">
 
                         <div class="prompt-section" style="border-top: 2px solid #d0e8ff;">
-                            <!-- Account Context Switcher -->
-                            <div id="account-context-switcher" style="margin-bottom: 20px; padding: 14px 18px; background: linear-gradient(135deg, #e8f4fd, #d0e8ff); border-radius: 8px; border: 2px solid #007bff;">
-                                <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 10px;">
-                                    <label style="font-weight: 700; font-size: 14px; color: #0056b3; white-space: nowrap;">🔍 Evaluating signals for:</label>
-                                    <select id="account-context-select" onchange="switchAccountContext()" style="flex: 1; min-width: 200px; padding: 10px 14px; border: 2px solid #007bff; border-radius: 6px; font-size: 14px; font-weight: 600; background: white; cursor: pointer; color: #333;">
-                                        <option value="subject">Subject Account</option>
-                                    </select>
-                                    <button onclick="addConnectedAccountFromSwitcher()" style="padding: 8px 14px; background: #28a745; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap;">+ Add Connected Account</button>
+                            <!-- Hidden account context select (still needed for JS logic) -->
+                            <select id="account-context-select" onchange="switchAccountContext()" style="display: none;">
+                                <option value="subject">Subject Account</option>
+                            </select>
+                            <span id="account-context-indicator" style="display: none;"></span>
+
+                            <!-- Payment history question -->
+                            <div id="payment-history-question" style="margin-bottom: 20px; padding: 14px 18px; background: #f8f9fa; border-radius: 8px; border: 1px solid #dee2e6;">
+                                <p style="font-weight: bold; margin: 0 0 12px 0; font-size: 15px;" id="payment-history-label">Subject Account Review: Is there any payment history to consider?</p>
+                                <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                        <input type="radio" name="payment-history" value="yes" onchange="handlePaymentHistoryChange()">
+                                        <span style="font-size: 14px;">Yes</span>
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                        <input type="radio" name="payment-history" value="yes-no-adverse" onchange="handlePaymentHistoryChange()">
+                                        <span style="font-size: 14px;">Yes, but no adverse activity found</span>
+                                    </label>
+                                    <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
+                                        <input type="radio" name="payment-history" value="no" onchange="handlePaymentHistoryChange()">
+                                        <span style="font-size: 14px;">No</span>
+                                    </label>
                                 </div>
-                                <div id="connected-account-details" style="display: none; margin-top: 10px; padding: 10px 14px; background: white; border-radius: 6px; border: 1px solid #ccc;">
-                                    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
-                                        <label style="font-weight: 600; font-size: 13px; color: #333; white-space: nowrap;">C_Token:</label>
-                                        <input type="text" id="connected-account-ctoken" placeholder="Enter C_Token..." oninput="updateConnectedAccountCtoken()" style="flex: 1; min-width: 180px; padding: 8px 12px; border: 1px solid #ccc; border-radius: 5px; font-size: 13px;">
-                                        <button onclick="removeCurrentConnectedAccount()" style="padding: 6px 12px; background: #dc3545; color: white; border: none; border-radius: 5px; font-size: 12px; font-weight: 700; cursor: pointer;">✕ Remove</button>
-                                    </div>
-                                    <textarea id="connected-account-notes" placeholder="Notes for this account..." oninput="updateConnectedAccountNotes()" style="margin-top: 10px; width: 100%; height: 60px; padding: 8px 12px; border: 1px solid #ccc; border-radius: 5px; font-size: 13px; resize: vertical;"></textarea>
-                                    <button id="submit-account-review-btn" onclick="submitConnectedAccountReview()" style="margin-top: 10px; padding: 8px 16px; background: #28a745; color: white; border: none; border-radius: 5px; font-size: 13px; font-weight: 700; cursor: pointer; width: 100%;">✓ Submit Review for this Account</button>
-                                </div>
-                                <span id="account-context-indicator" style="display: block; margin-top: 8px; font-size: 12px; color: #555; font-style: italic;">Selections saved per account</span>
                             </div>
 
+                            <!-- Add Connected Account button -->
+                            <div style="margin-bottom: 20px;">
+                                <button onclick="addConnectedAccountFromSwitcher()" style="padding: 10px 16px; background: #28a745; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight: 700; cursor: pointer;">+ Add Connected Account Review</button>
+                            </div>
+
+                            <!-- Connected account details panel -->
+                            <div id="connected-account-details" style="display: none; margin-bottom: 20px; padding: 10px 14px; background: white; border-radius: 6px; border: 1px solid #ccc;">
+                                <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+                                    <label style="font-weight: 600; font-size: 13px; color: #333; white-space: nowrap;">C_Token:</label>
+                                    <input type="text" id="connected-account-ctoken" placeholder="Enter C_Token..." oninput="updateConnectedAccountCtoken()" style="flex: 1; min-width: 180px; padding: 8px 12px; border: 1px solid #ccc; border-radius: 5px; font-size: 13px;">
+                                    <button onclick="removeCurrentConnectedAccount()" style="padding: 6px 12px; background: #dc3545; color: white; border: none; border-radius: 5px; font-size: 12px; font-weight: 700; cursor: pointer;">✕ Remove</button>
+                                </div>
+                                <textarea id="connected-account-notes" placeholder="Notes for this account..." oninput="updateConnectedAccountNotes()" style="margin-top: 10px; width: 100%; height: 60px; padding: 8px 12px; border: 1px solid #ccc; border-radius: 5px; font-size: 13px; resize: vertical;"></textarea>
+                            </div>
+
+                            <div id="typology-signals-section" style="display: none;">
                             <p style="font-weight: bold; margin-bottom: 15px; font-size: 16px;">Select the relevant typology or signal category to review:</p>
                             
                             <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
@@ -1882,23 +1904,12 @@
                                 <button onclick="closeTypologySignals()" style="margin-top: 15px; background-color: #6c757d; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 14px; width: 100%;">Close Signals ✕</button>
                             </div>
                         </div>
-                        
-                        <!-- Independent selections for no signals / no payment history -->
-                        <div style="margin-top: 25px; padding: 20px; background-color: #f8f9fa; border-radius: 8px; border: 1px solid #dee2e6;">
-                            <p style="font-weight: bold; margin-bottom: 12px; font-size: 15px;">If applicable, select independently:</p>
-                            <div style="display: flex; flex-direction: column; gap: 12px;">
-                                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 10px 12px; background: white; border: 1px solid #dee2e6; border-radius: 6px;">
-                                    <input type="checkbox" id="eval-no-signals" style="width: 18px; height: 18px; cursor: pointer;">
-                                    <span style="font-size: 14px;">No signals identified</span>
-                                </label>
-                                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 10px 12px; background: white; border: 1px solid #dee2e6; border-radius: 6px;">
-                                    <input type="checkbox" id="eval-no-payment-history" style="width: 18px; height: 18px; cursor: pointer;">
-                                    <span style="font-size: 14px;">No payment history to consider</span>
-                                </label>
-                            </div>
-                            <div id="eval-independent-notes-container" style="display: none; margin-top: 15px;">
-                                <textarea id="evaluate-accounts-notes" class="notes-textarea" style="height: 100px; resize: vertical; width: 100%;" placeholder="Additional notes..."></textarea>
-                            </div>
+                        </div> <!-- End typology-signals-section -->
+
+                        <!-- Connected account bottom buttons (visible only for connected accounts) -->
+                        <div id="back-to-subject-btn" style="display: none; margin-top: 25px;">
+                            <button id="submit-account-review-btn" onclick="submitConnectedAccountReview()" style="padding: 14px 20px; background: #007bff; color: white; border: none; border-radius: 6px; font-size: 15px; font-weight: 700; cursor: pointer; width: 100%; box-shadow: 0 2px 8px rgba(0,123,255,0.3);">✓ Submit Review for this Connected Account</button>
+                            <button onclick="backToSubjectAccount()" style="margin-top: 10px; padding: 12px 20px; background: #6c757d; color: white; border: none; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; width: 100%;">← Back to Subject Account</button>
                         </div>
 
                         <button class="next-button" onclick="completeEvaluateAccounts()" style="margin-top: 20px;">Complete Evaluation →</button>
@@ -1947,6 +1958,14 @@
                     </div>
                 </div>
                 
+                <!-- Deceased SSN Summary -->
+                <div id="summary-deceased-ssn-section" style="display: none; margin-bottom: 25px;">
+                    <h3 style="font-size: 16px; color: #333; margin: 0 0 12px 0; padding-bottom: 8px; border-bottom: 2px solid #e9ecef;">Deceased SSN</h3>
+                    <div style="background: #f8f9fa; padding: 12px; border-radius: 6px;">
+                        <p id="summary-deceased-ssn" style="margin: 0; font-weight: 600; font-size: 14px;"></p>
+                    </div>
+                </div>
+
                 <!-- Source Account Summary -->
                 <div id="summary-source-section" style="margin-bottom: 25px;">
                     <h3 style="font-size: 16px; color: #333; margin: 0 0 12px 0; padding-bottom: 8px; border-bottom: 2px solid #e9ecef;">Source Account</h3>
@@ -2633,11 +2652,11 @@
                 if (document.getElementById('auth-item' + i) && document.getElementById('auth-item' + i).checked) step3Count++;
             }
             
-            // Count Step 4 signals (acct-item1 through acct-item15)
+            // Count Step 4 signals (all acct-item checkboxes)
             let step4Count = 0;
-            for (let i = 1; i <= 15; i++) {
-                if (document.getElementById('acct-item' + i) && document.getElementById('acct-item' + i).checked) step4Count++;
-            }
+            document.querySelectorAll('input[id^="acct-item"]').forEach(function(cb) {
+                if (cb.checked) step4Count++;
+            });
             
             // If nothing checked, hide advisory
             if (step3Count === 0 && step4Count === 0) {
@@ -2653,6 +2672,7 @@
                 advisory.style.backgroundColor = '#dc3545';
                 advisory.style.color = 'white';
                 advisory.innerHTML = 
+                    '<button onclick="document.getElementById(\'subject-identity-advisory\').style.display=\'none\'" style="position: absolute; top: 8px; right: 12px; background: none; border: none; color: white; font-size: 20px; cursor: pointer; line-height: 1;">&times;</button>' +
                     '<h3 style="margin: 0 0 15px 0; font-size: 20px; font-weight: bold; color: #ffdd57;">⚠️ INAUTHENTIC IDENTITY CRITERIA MET</h3>' +
                     '<p style="margin: 0 0 4px 0; font-size: 14px; line-height: 1.5;">Step 3 signals: <strong>' + step3Count + '</strong></p>' +
                     '<p style="margin: 0 0 12px 0; font-size: 14px; line-height: 1.5;">Step 4 signals: <strong>' + step4Count + '</strong></p>' +
@@ -2665,6 +2685,7 @@
                 advisory.style.backgroundColor = '#17a2b8';
                 advisory.style.color = 'white';
                 advisory.innerHTML = 
+                    '<button onclick="document.getElementById(\'subject-identity-advisory\').style.display=\'none\'" style="position: absolute; top: 8px; right: 12px; background: none; border: none; color: white; font-size: 20px; cursor: pointer; line-height: 1;">&times;</button>' +
                     '<h3 style="margin: 0 0 15px 0; font-size: 20px; font-weight: bold; color: #ffdd57;">ℹ️ CRITERIA NOT MET</h3>' +
                     '<p style="margin: 0 0 4px 0; font-size: 14px; line-height: 1.5;">Step 3 signals: <strong>' + step3Count + '</strong></p>' +
                     '<p style="margin: 0 0 12px 0; font-size: 14px; line-height: 1.5;">Step 4 signals: <strong>' + step4Count + '</strong></p>' +
@@ -3700,6 +3721,42 @@
                     ctokenInput.style.opacity = '1';
                 }
             }
+            
+            // Update payment history label based on current account
+            const paymentLabel = document.getElementById('payment-history-label');
+            if (paymentLabel) {
+                if (currentAccountContext === 'subject') {
+                    paymentLabel.textContent = 'Subject Account Review: Is there any payment history to consider?';
+                } else if (currentAccountContext === 'source') {
+                    paymentLabel.textContent = 'Source Account Review: Is there any payment history to consider?';
+                } else {
+                    const data = connectedAccountsData[currentAccountContext];
+                    const ctoken = data && data.ctoken ? data.ctoken : 'Connected Account';
+                    paymentLabel.textContent = ctoken + ' Review: Is there any payment history to consider?';
+                }
+            }
+
+            // Show/hide submit button at bottom (only for connected accounts)
+            const submitBtn = document.getElementById('submit-account-review-btn');
+            if (submitBtn) {
+                submitBtn.style.display = currentAccountContext.startsWith('connected-') ? 'block' : 'none';
+            }
+
+            // Show/hide back button (only for connected accounts)
+            const backBtn = document.getElementById('back-to-subject-btn');
+            if (backBtn) {
+                backBtn.style.display = currentAccountContext.startsWith('connected-') ? 'block' : 'none';
+            }
+
+            // Hide payment history question for connected accounts, show typology signals directly
+            const paymentQuestion = document.getElementById('payment-history-question');
+            const typologySection = document.getElementById('typology-signals-section');
+            if (currentAccountContext.startsWith('connected-')) {
+                if (paymentQuestion) paymentQuestion.style.display = 'none';
+                if (typologySection) typologySection.style.display = 'block';
+            } else {
+                if (paymentQuestion) paymentQuestion.style.display = 'block';
+            }
         }
         
         function autoSelectDefaultContext() {
@@ -3768,13 +3825,7 @@
             if (select) select.value = accountKey;
             switchAccountContext();
             
-            // Clear section 2.6 selections so they're fresh for the new connected account
-            const evalNoSignals = document.getElementById('eval-no-signals');
-            const evalNoPayment = document.getElementById('eval-no-payment-history');
-            if (evalNoSignals) evalNoSignals.checked = false;
-            if (evalNoPayment) evalNoPayment.checked = false;
-            
-            // Close the typology signals panel
+            // Close the typology signals detail panel (but keep the table visible)
             const typologyContainer = document.getElementById('typology-signals-container');
             if (typologyContainer) typologyContainer.style.display = 'none';
             
@@ -3784,6 +3835,23 @@
             
             // Update sidebar list
             updateSidebarConnectedAccounts();
+        }
+
+        function backToSubjectAccount() {
+            // Save current connected account state first
+            saveCurrentSignalState();
+            if (currentAccountContext.startsWith('connected-') && connectedAccountsData[currentAccountContext]) {
+                const ctokenInput = document.getElementById('connected-account-ctoken');
+                const notesInput = document.getElementById('connected-account-notes');
+                if (ctokenInput) connectedAccountsData[currentAccountContext].ctoken = ctokenInput.value;
+                if (notesInput) connectedAccountsData[currentAccountContext].notes = notesInput.value;
+            }
+
+            // Switch back to subject
+            currentAccountContext = 'subject';
+            const select = document.getElementById('account-context-select');
+            if (select) select.value = 'subject';
+            switchAccountContext();
         }
 
         function removeCurrentConnectedAccount() {
@@ -3934,6 +4002,17 @@
         
         // --- End Connected Accounts Functions ---
 
+        function handlePaymentHistoryChange() {
+            const selected = document.querySelector('input[name="payment-history"]:checked');
+            const typologySection = document.getElementById('typology-signals-section');
+            if (selected && selected.value === 'yes') {
+                typologySection.style.display = 'block';
+            } else {
+                typologySection.style.display = 'none';
+            }
+        }
+
+
         function completeEvaluateAccounts() {
             // Save current signal state before evaluating
             saveCurrentSignalState();
@@ -3945,9 +4024,10 @@
                 heading.classList.add('complete');
             }
             
-            // Check independent selections
-            const noSignals = document.getElementById('eval-no-signals') && document.getElementById('eval-no-signals').checked;
-            const noPaymentHistory = document.getElementById('eval-no-payment-history') && document.getElementById('eval-no-payment-history').checked;
+            // Check payment history selection
+            const paymentHistoryRadio = document.querySelector('input[name="payment-history"]:checked');
+            const noPaymentHistory = paymentHistoryRadio && (paymentHistoryRadio.value === 'no' || paymentHistoryRadio.value === 'yes-no-adverse');
+            const noSignals = false; // removed old checkbox, handled by payment history = no
             
             // Count subject account signals from saved state
             const subjectState = accountSignalStates['subject'];
@@ -3967,8 +4047,8 @@
             const connectedAccounts = Object.keys(connectedAccountsData).length > 0 ? getConnectedAccountsData() : [];
             const connectedWithSignals = connectedAccounts.filter(a => a.signalsFound);
             
-            if (typologyCount === 0 && sourceSignalCount === 0 && connectedWithSignals.length === 0 && !noSignals && !noPaymentHistory) {
-                alert('Please review the activity patterns and check any relevant items before completing this evaluation.');
+            if (typologyCount === 0 && sourceSignalCount === 0 && connectedWithSignals.length === 0 && !noPaymentHistory && !paymentHistoryRadio) {
+                alert('Please answer "Is there any payment history to consider?" before completing this evaluation.');
                 return;
             }
             
@@ -3995,16 +4075,10 @@
                 }
                 navigateToCaseSummary('fail', reasons.join('; '), 'activity');
             } else {
-                // Only independent selections (no signals / no payment history) → route to case summary
-                let reason = '';
-                if (noSignals && noPaymentHistory) {
-                    reason = 'No signals identified and no payment history to consider';
-                } else if (noSignals) {
-                    reason = 'No signals identified in account evaluation';
-                } else {
-                    reason = 'No payment history to consider';
-                }
-                navigateToCaseSummary('pass', reason, 'activity');
+                // No payment history or no adverse activity → route to case summary as pass
+                const paymentValForRoute = paymentHistoryRadio ? paymentHistoryRadio.value : 'no';
+                const passReason = paymentValForRoute === 'yes-no-adverse' ? 'Payment history reviewed, no adverse activity found' : 'No payment history to consider';
+                navigateToCaseSummary('pass', passReason, 'activity');
             }
         }
         
@@ -4312,6 +4386,8 @@
                 // Show/hide Ctoken input and buttons based on selection
                 if (sourceAccountLocated.value === 'yes') {
                     ctokenInput.style.display = 'block';
+                    const sourceCtokenField = document.getElementById('source-ctoken');
+                    if (sourceCtokenField) { sourceCtokenField.disabled = false; sourceCtokenField.style.opacity = '1'; }
                     yesButton.style.display = 'block';
                     noButton.style.display = 'none';
                     // Re-enable source C_Token in sidebar
@@ -5479,23 +5555,37 @@
                     subjectBasis += '. ' + selfieNotes.value.trim();
                 }
             } else if (subjectStatus === 'inauthentic') {
-                subjectLabel = 'Inauthentic';
-                let signals = [];
+                let step3Signals = [];
+                let step4Signals = [];
                 for (let i = 1; i <= 7; i++) {
                     const cb = document.getElementById('auth-item' + i);
                     if (cb && cb.checked) {
                         const label = document.querySelector('label[for="auth-item' + i + '"]');
-                        if (label) signals.push(label.textContent.trim());
+                        if (label) step3Signals.push(label.textContent.trim());
                     }
                 }
-                for (let i = 1; i <= 15; i++) {
-                    const cb = document.getElementById('acct-item' + i);
-                    if (cb && cb.checked) {
-                        const label = document.querySelector('label[for="acct-item' + i + '"]');
-                        if (label) signals.push(label.textContent.trim());
+                document.querySelectorAll('input[id^="acct-item"]').forEach(function(cb) {
+                    if (cb.checked) {
+                        const label = document.querySelector('label[for="' + cb.id + '"]');
+                        if (label) step4Signals.push(label.textContent.trim());
+                    }
+                });
+                // Apply threshold: (Step 3 >= 1 AND Step 4 >= 1) OR Step 4 >= 3
+                const subjectThresholdMet = (step3Signals.length >= 1 && step4Signals.length >= 1) || step4Signals.length >= 3;
+                if (subjectThresholdMet) {
+                    subjectLabel = 'Inauthentic';
+                } else {
+                    subjectLabel = 'Authentic';
+                }
+                let signals = step3Signals.concat(step4Signals);
+                if (subjectThresholdMet) {
+                    subjectBasis = signals.length > 0 ? signals.join(', ') : 'inauthentic identity criteria';
+                } else {
+                    subjectBasis = 'IDV, aliases and location review';
+                    if (signals.length > 0) {
+                        subjectBasis += '. Signals noted but inauthentic criteria not met: ' + signals.join(', ');
                     }
                 }
-                subjectBasis = signals.length > 0 ? signals.join(', ') : 'inauthentic identity criteria';
                 const acctNotes = document.getElementById('account-info-notes');
                 if (acctNotes && acctNotes.value.trim()) {
                     subjectBasis += '. ' + acctNotes.value.trim();
@@ -5509,13 +5599,13 @@
             notes.push('');
             
             // --- DECEASED SSN (2.4) ---
-            const ssnDeceasedRadio = document.querySelector('input[name="ssn-deceased-check"]:checked');
-            if (ssnDeceasedRadio && ssnDeceasedRadio.value === 'yes') {
+            const ssnDeceasedCb = document.getElementById('ssn-deceased-yes');
+            if (ssnDeceasedCb && ssnDeceasedCb.checked) {
                 const deceasedResultsRadio = document.querySelector('input[name="deceased-indicator"]:checked');
                 if (deceasedResultsRadio && deceasedResultsRadio.value === 'no') {
-                    notes.push('Deceased SSN: No results found via TLO or obituary open source search.');
+                    notes.push('Deceased SSN: No results found via TLO/open source search');
                 } else if (deceasedResultsRadio && deceasedResultsRadio.value === 'yes') {
-                    notes.push('Deceased SSN: Indicators found.');
+                    notes.push('Deceased SSN: Results found via TLO/Open source search');
                 }
                 const deceasedNotes = document.getElementById('deceased-notes');
                 if (deceasedNotes && deceasedNotes.value.trim()) {
@@ -5550,19 +5640,28 @@
                     }
                     const sourceNoSignals = document.getElementById('source-acct-no-signals');
                     
-                    // Determine source authenticity
+                    // Determine source authenticity using criteria: (Step 1 >= 1 AND Step 2 >= 1) OR Step 2 >= 3
                     let sourceLabel = 'Authentic';
-                    if (sourceAuthSignals.length > 0 || sourceAcctSignals.length > 0) {
+                    const sourceStep1Count = sourceAuthSignals.length;
+                    const sourceStep2Count = sourceAcctSignals.length;
+                    if ((sourceStep1Count >= 1 && sourceStep2Count >= 1) || sourceStep2Count >= 3) {
                         sourceLabel = 'Inauthentic';
                     }
                     
-                    notes.push('Source Account (' + sourceCtoken + ') is ' + sourceLabel + ' based on:');
-                    
-                    if (sourceAuthSignals.length > 0 || sourceAcctSignals.length > 0) {
+                    if (sourceLabel === 'Inauthentic') {
+                        notes.push('Source Account (' + sourceCtoken + ') is Inauthentic based on:');
+                        const allSignals = sourceAuthSignals.concat(sourceAcctSignals);
+                        allSignals.forEach(s => notes.push('  • ' + s));
+                    } else if (sourceAuthSignals.length > 0 || sourceAcctSignals.length > 0) {
+                        notes.push('Source Account (' + sourceCtoken + ') is Authentic based on IDV, aliases and location review');
+                        notes.push('  Signals noted but inauthentic criteria not met:');
                         const allSignals = sourceAuthSignals.concat(sourceAcctSignals);
                         allSignals.forEach(s => notes.push('  • ' + s));
                     } else if (sourceNoSignals && sourceNoSignals.checked) {
+                        notes.push('Source Account (' + sourceCtoken + ') is Authentic based on IDV, aliases and location review');
                         notes.push('  • No signals of inconsistent/mismatched account information identified.');
+                    } else {
+                        notes.push('Source Account (' + sourceCtoken + ') is Authentic based on IDV, aliases and location review');
                     }
                     
                     const sourceIdNotes = document.getElementById('source-identity-overall-notes');
@@ -5628,8 +5727,8 @@
             // --- TYPOLOGY / ACTIVITY REVIEW (2.6) ---
             // Use saved signal states for subject account
             const subjectSavedState = accountSignalStates['subject'];
-            const evalNoSignals = document.getElementById('eval-no-signals');
-            const evalNoPayment = document.getElementById('eval-no-payment-history');
+            const paymentHistoryRadio = document.querySelector('input[name="payment-history"]:checked');
+            const noPaymentHistory = paymentHistoryRadio && (paymentHistoryRadio.value === 'no' || paymentHistoryRadio.value === 'yes-no-adverse');
             const subjectCtokenForActivity = document.getElementById('subject-ctoken') || document.getElementById('c-token');
             const subjectCtokenVal = subjectCtokenForActivity ? subjectCtokenForActivity.value.trim() : '';
             
@@ -5650,13 +5749,14 @@
                     notes.push(subjectSavedState.notes);
                 }
                 notes.push('');
-            } else if ((evalNoSignals && evalNoSignals.checked) || (evalNoPayment && evalNoPayment.checked)) {
-                notes.push('Evaluated signals for (' + subjectCtokenVal + '):');
-                if (evalNoSignals && evalNoSignals.checked) notes.push('  • No signals identified');
-                if (evalNoPayment && evalNoPayment.checked) notes.push('  • No payment history to consider');
-                const independentNotes = document.getElementById('evaluate-accounts-notes');
-                if (independentNotes && independentNotes.value.trim()) {
-                    notes.push(independentNotes.value.trim());
+            } else if (noPaymentHistory) {
+                const paymentVal = paymentHistoryRadio ? paymentHistoryRadio.value : 'no';
+                if (paymentVal === 'yes-no-adverse') {
+                    notes.push('Evaluated signals for (' + subjectCtokenVal + '):');
+                    notes.push('  • Payment history reviewed, no adverse activity found');
+                } else {
+                    notes.push('Evaluated signals for (' + subjectCtokenVal + '):');
+                    notes.push('  • No payment history to consider');
                 }
                 notes.push('');
             }
@@ -5683,26 +5783,30 @@
                 }
             }
             
-            // --- CONNECTED ACCOUNTS (2.6) — only show if there is selected information ---
+            // --- CONNECTED ACCOUNTS (2.6) ---
             if (Object.keys(connectedAccountsData).length > 0) {
                 const connectedData = getConnectedAccountsData();
-                const connectedWithInfo = connectedData.filter(account => 
-                    (account.signals && account.signals.length > 0) || account.notes
-                );
-                if (connectedWithInfo.length > 0) {
-                    connectedWithInfo.forEach((account) => {
-                        if (account.ctoken) {
-                            notes.push('Evaluated signals for (' + account.ctoken + '):');
-                            if (account.signals && account.signals.length > 0) {
-                                account.signals.forEach(s => notes.push('  • ' + s));
-                            }
+                if (connectedData.length > 0) {
+                    const accountsWithSignals = connectedData.filter(a => a.signalsFound);
+                    if (accountsWithSignals.length === 0) {
+                        notes.push('Connected Accounts: No adverse activity found associated with connected accounts.');
+                        notes.push('');
+                    } else {
+                        accountsWithSignals.forEach((account) => {
+                            const ctokenLabel = account.ctoken || 'Connected Account #' + account.id;
+                            notes.push('Evaluated signals for (' + ctokenLabel + '):');
+                            account.signals.forEach(s => notes.push('  • ' + s));
                             if (account.notes) {
                                 notes.push(account.notes);
                             }
                             notes.push('');
-                        }
-                    });
+                        });
+                    }
                 }
+            } else {
+                // No connected accounts were added — still note no adverse activity
+                notes.push('Connected Accounts: No adverse activity found associated with connected accounts.');
+                notes.push('');
             }
             
             // --- ADDITIONAL NOTES (from any remaining textareas not already captured) ---
@@ -5727,26 +5831,63 @@
         function populateCaseSummary(outcome) {
             // Subject Status
             const dropdown = document.getElementById('subject-status-dropdown');
-            const statusMap = {
-                'authentic': 'Authentic',
-                'id-concerns': 'Inauthentic',
-                'selfie-concerns': 'Inauthentic',
-                'inauthentic': 'Inauthentic'
-            };
-            const statusColorMap = {
-                'authentic': '#28a745',
-                'id-concerns': '#dc3545',
-                'selfie-concerns': '#dc3545',
-                'inauthentic': '#dc3545'
-            };
             const subjectStatusEl = document.getElementById('summary-subject-status');
-            subjectStatusEl.textContent = statusMap[dropdown.value] || 'Not selected';
-            subjectStatusEl.style.color = statusColorMap[dropdown.value] || '#333';
+            
+            if (dropdown.value === 'inauthentic') {
+                // Apply threshold logic: (Step 3 >= 1 AND Step 4 >= 1) OR Step 4 >= 3
+                let subjectStep3Count = 0;
+                document.querySelectorAll('input[id^="auth-item"]').forEach(function(cb) {
+                    if (cb.checked) subjectStep3Count++;
+                });
+                let subjectStep4Count = 0;
+                document.querySelectorAll('input[id^="acct-item"]').forEach(function(cb) {
+                    if (cb.checked) subjectStep4Count++;
+                });
+                const subjectCriteriaMet = (subjectStep3Count >= 1 && subjectStep4Count >= 1) || subjectStep4Count >= 3;
+                if (subjectCriteriaMet) {
+                    subjectStatusEl.textContent = 'Inauthentic';
+                    subjectStatusEl.style.color = '#dc3545';
+                } else {
+                    subjectStatusEl.textContent = 'Authentic';
+                    subjectStatusEl.style.color = '#28a745';
+                }
+            } else if (dropdown.value === 'id-concerns') {
+                subjectStatusEl.textContent = 'Inauthentic';
+                subjectStatusEl.style.color = '#dc3545';
+            } else if (dropdown.value === 'selfie-concerns') {
+                subjectStatusEl.textContent = 'Inauthentic';
+                subjectStatusEl.style.color = '#dc3545';
+            } else if (dropdown.value === 'authentic') {
+                subjectStatusEl.textContent = 'Authentic';
+                subjectStatusEl.style.color = '#28a745';
+            } else {
+                subjectStatusEl.textContent = 'Not selected';
+                subjectStatusEl.style.color = '#333';
+            }
             
             // Subject C_Token
             const subjectCtoken = document.getElementById('subject-ctoken') || document.getElementById('c-token');
             document.getElementById('summary-subject-ctoken').textContent = (subjectCtoken && subjectCtoken.value) ? subjectCtoken.value : 'Not provided';
             
+            // Deceased SSN
+            const deceasedSSNSection = document.getElementById('summary-deceased-ssn-section');
+            const deceasedSSNText = document.getElementById('summary-deceased-ssn');
+            const ssnDeceasedCheckbox = document.getElementById('ssn-deceased-yes');
+            const deceasedIndicator = document.querySelector('input[name="deceased-indicator"]:checked');
+            
+            if (ssnDeceasedCheckbox && ssnDeceasedCheckbox.checked && deceasedIndicator) {
+                deceasedSSNSection.style.display = '';
+                if (deceasedIndicator.value === 'yes') {
+                    deceasedSSNText.textContent = 'Deceased SSN: Results found via TLO/Open source search';
+                    deceasedSSNText.style.color = '#dc3545';
+                } else {
+                    deceasedSSNText.textContent = 'Deceased SSN: No results found via TLO/open source search';
+                    deceasedSSNText.style.color = '#28a745';
+                }
+            } else {
+                deceasedSSNSection.style.display = 'none';
+            }
+
             // Source Account
             const sourceLocated = document.querySelector('input[name="source-account-located"]:checked');
             const summarySourceSection = document.getElementById('summary-source-section');
@@ -5765,19 +5906,20 @@
                 const sourceCtoken = document.getElementById('source-ctoken');
                 document.getElementById('summary-source-ctoken').textContent = (sourceCtoken && sourceCtoken.value) ? sourceCtoken.value : 'Not provided';
                 
-                // Determine source account authenticity status
+                // Determine source account authenticity status using criteria logic
                 const sourceAuthSignals = document.querySelectorAll('input[id^="source-auth-item"]:checked').length;
-                const sourceAcctSignals = document.querySelectorAll('input[id^="source-acct-item"]:checked').length;
+                const sourceAcctSignals = document.querySelectorAll('input[id^="source-acct-item"]:not(#source-acct-no-signals):checked').length;
                 const sourceNoSignals = document.getElementById('source-acct-no-signals');
                 
-                if (sourceAuthSignals > 0 || sourceAcctSignals > 0) {
+                // Criteria: (Step 1 >= 1 AND Step 2 >= 1) OR Step 2 >= 3
+                const sourceCriteriaMet = (sourceAuthSignals >= 1 && sourceAcctSignals >= 1) || sourceAcctSignals >= 3;
+                
+                if (sourceCriteriaMet) {
                     document.getElementById('summary-source-status').textContent = 'Inauthentic';
                     document.getElementById('summary-source-status').style.color = '#dc3545';
-                } else if (sourceNoSignals && sourceNoSignals.checked) {
+                } else {
                     document.getElementById('summary-source-status').textContent = 'Authentic';
                     document.getElementById('summary-source-status').style.color = '#28a745';
-                } else {
-                    document.getElementById('summary-source-status').textContent = 'Not evaluated';
                 }
             } else {
                 document.getElementById('summary-source-ctoken').textContent = 'Not determined';
@@ -5788,18 +5930,21 @@
             const activitySection = document.getElementById('summary-activity-section');
             const subjectStateForSummary = accountSignalStates['subject'];
             const subjectSignalCount = subjectStateForSummary ? Object.values(subjectStateForSummary.checkboxStates || {}).filter(v => v).length : 0;
-            const noSignals = document.getElementById('eval-no-signals');
-            const noPaymentHistory = document.getElementById('eval-no-payment-history');
+            const paymentHistoryForSummary = document.querySelector('input[name="payment-history"]:checked');
+            const noPaymentHistoryForSummary = paymentHistoryForSummary && paymentHistoryForSummary.value === 'no';
             
             if (subjectSignalCount > 0) {
                 activitySection.style.display = '';
                 document.getElementById('summary-typology-findings').textContent = `${subjectSignalCount} signal(s) identified`;
-            } else if ((noSignals && noSignals.checked) || (noPaymentHistory && noPaymentHistory.checked)) {
+            } else if (noPaymentHistoryForSummary) {
                 activitySection.style.display = '';
-                const reasons = [];
-                if (noSignals.checked) reasons.push('No signals identified');
-                if (noPaymentHistory.checked) reasons.push('No payment history to consider');
-                document.getElementById('summary-typology-findings').textContent = reasons.join('; ');
+                const paymentRadioForSummary = document.querySelector('input[name="payment-history"]:checked');
+                const paymentValForSummary = paymentRadioForSummary ? paymentRadioForSummary.value : 'no';
+                if (paymentValForSummary === 'yes-no-adverse') {
+                    document.getElementById('summary-typology-findings').textContent = 'Payment history reviewed, no adverse activity found';
+                } else {
+                    document.getElementById('summary-typology-findings').textContent = 'No payment history to consider';
+                }
             } else {
                 activitySection.style.display = 'none';
             }
@@ -5835,20 +5980,25 @@
             
             // Connected Accounts Summary
             const connectedSummarySection = document.getElementById('summary-connected-accounts-section');
+            connectedSummarySection.style.display = '';
+            const listEl = document.getElementById('summary-connected-accounts-list');
+            listEl.innerHTML = '';
             if (Object.keys(connectedAccountsData).length > 0) {
                 const connectedData = getConnectedAccountsData();
-                if (connectedData.length > 0) {
-                    connectedSummarySection.style.display = '';
-                    const listEl = document.getElementById('summary-connected-accounts-list');
-                    listEl.innerHTML = '';
-                    connectedData.forEach((account, index) => {
+                const accountsWithSignals = connectedData.filter(a => a.signalsFound);
+                if (accountsWithSignals.length === 0) {
+                    const card = document.createElement('div');
+                    card.style.cssText = 'background: #f8f9fa; padding: 12px; border-radius: 6px; border-left: 4px solid #28a745;';
+                    card.innerHTML = '<p style="margin: 0; font-size: 14px; color: #28a745; font-weight: 600;">✓ No adverse activity found associated with connected accounts</p>';
+                    listEl.appendChild(card);
+                } else {
+                    accountsWithSignals.forEach((account, index) => {
                         const card = document.createElement('div');
-                        card.style.cssText = 'background: #f8f9fa; padding: 12px; border-radius: 6px; margin-bottom: 8px; border-left: 4px solid ' + (account.signalsFound ? '#dc3545' : '#28a745') + ';';
+                        card.style.cssText = 'background: #f8f9fa; padding: 12px; border-radius: 6px; margin-bottom: 8px; border-left: 4px solid #dc3545;';
                         let cardHtml = '<div style="display: flex; justify-content: space-between; align-items: center;">';
-                        cardHtml += '<span style="font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 0.5px;">Account #' + (index + 1) + '</span>';
-                        cardHtml += '<span style="font-size: 12px; font-weight: 600; color: ' + (account.signalsFound ? '#dc3545' : '#28a745') + ';">' + (account.signalsFound ? '⚠ Signals Found' : '✓ No Signals') + '</span>';
+                        cardHtml += '<span style="font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 0.5px;">' + (account.ctoken || 'Account #' + (index + 1)) + '</span>';
+                        cardHtml += '<span style="font-size: 12px; font-weight: 600; color: #dc3545;">⚠ Signals Found</span>';
                         cardHtml += '</div>';
-                        cardHtml += '<p style="margin: 6px 0 0 0; font-weight: 600; font-size: 14px; font-family: monospace;">' + (account.ctoken || 'No C_Token provided') + '</p>';
                         if (account.signals && account.signals.length > 0) {
                             cardHtml += '<p style="margin: 6px 0 0 0; font-size: 12px; color: #dc3545;"><strong>Signals:</strong> ' + account.signals.join(', ') + '</p>';
                         }
@@ -5858,11 +6008,13 @@
                         card.innerHTML = cardHtml;
                         listEl.appendChild(card);
                     });
-                } else {
-                    connectedSummarySection.style.display = 'none';
                 }
             } else {
-                connectedSummarySection.style.display = 'none';
+                // No connected accounts added — show no adverse activity message
+                const card = document.createElement('div');
+                card.style.cssText = 'background: #f8f9fa; padding: 12px; border-radius: 6px; border-left: 4px solid #28a745;';
+                card.innerHTML = '<p style="margin: 0; font-size: 14px; color: #28a745; font-weight: 600;">✓ No adverse activity found associated with connected accounts</p>';
+                listEl.appendChild(card);
             }
             
             // Auto-generate case notes from selected signals and reviewer notes
@@ -5969,13 +6121,14 @@
                 contextIndicator.style.color = '#555';
                 contextIndicator.style.fontWeight = 'normal';
             }
+            updateSidebarConnectedAccounts();
 
             // Hide all dynamically shown sections
             const sectionsToHide = [
                 'ssn-deceased-section', 'deceased-questions', 'deceased-results-found', 'deceased-no-results',
                 'source-account-question', 'source-ctoken-input', 'source-account-located-continue', 'no-source-account-continue',
                 'continue-to-evaluate-accounts', 'authentic-notes-section',
-                'eval-independent-notes-container', 'failModal',
+                'typology-signals-section', 'failModal',
                 // Major dynamically shown sections
                 'source-account', 'source-compromised-access', 'evaluate-accounts',
                 'source-compromised-details', 'source-compromised-no-signals-message',
@@ -6100,17 +6253,7 @@
             }
         }
         
-        // Show/hide notes box for 2.6 independent selections
-        function toggleEvalIndependentNotes() {
-            const noSignals = document.getElementById('eval-no-signals');
-            const noPayment = document.getElementById('eval-no-payment-history');
-            const notesContainer = document.getElementById('eval-independent-notes-container');
-            if (notesContainer) {
-                notesContainer.style.display = (noSignals && noSignals.checked) || (noPayment && noPayment.checked) ? 'block' : 'none';
-            }
-        }
-        document.getElementById('eval-no-signals').addEventListener('change', toggleEvalIndependentNotes);
-        document.getElementById('eval-no-payment-history').addEventListener('change', toggleEvalIndependentNotes);
+        // Payment history change is handled inline via onchange="handlePaymentHistoryChange()"
 
         // Initialize section status on page load
         updateSectionStatus();
