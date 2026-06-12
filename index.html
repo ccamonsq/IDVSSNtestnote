@@ -149,10 +149,6 @@
             border-color: #58a6ff;
         }
         
-        body.dark-mode #source-no-submission-details {
-            background-color: #21262d;
-            border-left-color: #8b949e;
-        }
         
         body.dark-mode .modal-button {
             background-color: #238636;
@@ -1348,6 +1344,7 @@
     <!-- Source Account Review Section -->
     <div id="source-account" style="display: none; margin-top: 20px;">
         <div class="container">
+            <button onclick="navigateToSection('subject')" style="padding: 6px 12px; background: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; margin-bottom: 15px;">← Back to Subject Review</button>
             <h1>2.5 Source Account</h1>
             <p style="margin-bottom: 30px;">Review the source account involved in the transaction.</p>
             
@@ -1364,28 +1361,6 @@
                         <div class="prompt-section">
                             <p style="font-weight: bold; margin-bottom: 15px; font-size: 16px;"><span style="color: #d63384; text-decoration: underline; text-underline-offset: 3px;">Step 1</span>: IDV review</p>
                             <div style="margin-left: 20px;">
-                                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
-                                    <input type="radio" name="source-id-selfie-status" value="no-submission" style="margin-right: 8px;" onchange="handleSourceIDSelfieStatusChange()">
-                                    No ID and/or selfie
-                                </label>
-                                
-                                <!-- Sub-questions for "No ID and/or selfie" -->
-                                <div id="source-no-submission-details" style="display: none; margin-left: 30px; margin-bottom: 15px; padding: 10px; background-color: #f8f9fa; border-left: 3px solid #6c757d; border-radius: 4px;">
-                                    <p style="font-weight: 600; margin-bottom: 8px; font-size: 13px;">Which is missing?</p>
-                                    <label style="display: block; margin-bottom: 6px; cursor: pointer; font-size: 13px;">
-                                        <input type="checkbox" id="source-no-id" style="margin-right: 8px;">
-                                        No ID
-                                    </label>
-                                    <label style="display: block; margin-bottom: 6px; cursor: pointer; font-size: 13px;">
-                                        <input type="checkbox" id="source-no-selfie" style="margin-right: 8px;">
-                                        No selfie
-                                    </label>
-                                    <label style="display: block; cursor: pointer; font-size: 13px;">
-                                        <input type="checkbox" id="source-no-both" style="margin-right: 8px;">
-                                        Both
-                                    </label>
-                                </div>
-                                
                                 <label style="display: block; margin-bottom: 10px; cursor: pointer;">
                                     <input type="radio" name="source-id-selfie-status" value="authentic" style="margin-right: 8px;" onchange="handleSourceIDSelfieStatusChange()">
                                     IDV/ Government ID/ Selfie appear authentic
@@ -1777,6 +1752,7 @@
 
                     <!-- Section 2.6: Evaluate Subject and Source Accounts for Activity Supporting Upholding a Denylist -->
                     <div id="evaluate-accounts" style="display: none; margin-top: 40px;">
+                        <button onclick="navigateToSection('source')" style="padding: 6px 12px; background: #6c757d; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px; margin-bottom: 15px;">← Back to Source Review</button>
                         <h1 class="incomplete section-header-collapsible" id="evaluate-accounts-heading" style="cursor: pointer;" onclick="toggleSectionCollapse('evaluate-accounts-content', this)">2.6 Evaluate Subject and Source Accounts for Activity Supporting Upholding a Denylist</h1>
                         
                         <div class="section-content-collapsible" id="evaluate-accounts-content">
@@ -2348,23 +2324,29 @@
 
             switch(section) {
                 case 'subject':
-                    const subjectEl = document.getElementById('subject-account');
-                    if (subjectEl) {
-                        // If collapsed, expand it
-                        if (subjectEl.style.display === 'none') {
-                            subjectEl.style.display = 'block';
+                    const subjectSection = document.getElementById('subject-account-section');
+                    const subjectContainer = subjectSection ? subjectSection.querySelector('.container') : null;
+                    if (subjectContainer) {
+                        // Expand the container if collapsed
+                        if (subjectContainer.style.display === 'none') {
+                            subjectContainer.style.display = 'block';
                             const badge = document.getElementById('subject-collapsed-badge');
                             if (badge) badge.textContent = '✓ 2.2 Evaluate Subject Identity — Completed (click to collapse)';
                         }
-                        subjectEl.scrollIntoView({ behavior: 'smooth' });
+                        subjectSection.scrollIntoView({ behavior: 'smooth' });
                     }
                     break;
                 case 'source':
                     const sourceEl = document.getElementById('source-account');
                     if (sourceEl) {
-                        // Show the section if it's hidden
-                        if (sourceEl.style.display === 'none') {
-                            sourceEl.style.display = 'block';
+                        // Show the section
+                        sourceEl.style.display = 'block';
+                        // Collapse the subject container so user sees source clearly
+                        const subjectContainerForSource = document.getElementById('subject-account');
+                        if (subjectContainerForSource) {
+                            subjectContainerForSource.style.display = 'none';
+                            const badge = document.getElementById('subject-collapsed-badge');
+                            if (badge) badge.textContent = '✓ 2.2 Evaluate Subject Identity — Completed (click to expand)';
                         }
                         sourceEl.scrollIntoView({ behavior: 'smooth' });
                     }
@@ -2708,16 +2690,29 @@
             selfieSection.style.display = 'none';
             accountInfoSection.style.display = 'none';
             
-            // Ensure 2.6 stays hidden while on 2.2
+            // Hide downstream sections when changing subject status (user is re-doing the flow)
             document.getElementById('evaluate-accounts').style.display = 'none';
+            const sourceAccountEl = document.getElementById('source-account');
+            if (sourceAccountEl) sourceAccountEl.style.display = 'none';
+            const sourceCompromisedEl = document.getElementById('source-compromised-access');
+            if (sourceCompromisedEl) sourceCompromisedEl.style.display = 'none';
             
             // Show the relevant section based on selection
             if (selectedValue === 'id-concerns') {
                 idVerificationSection.style.display = 'block';
+                // Ensure the checklist signals are visible inside the section
+                const idDetails = document.getElementById('id-verification-details');
+                if (idDetails) idDetails.style.display = 'block';
             } else if (selectedValue === 'selfie-concerns') {
                 selfieSection.style.display = 'block';
+                // Ensure the checklist signals are visible inside the section
+                const selfieDetails = document.getElementById('selfie-verification-details');
+                if (selfieDetails) selfieDetails.style.display = 'block';
             } else if (selectedValue === 'inauthentic') {
                 accountInfoSection.style.display = 'block';
+                // Ensure the checklist signals are visible inside the section
+                const verificationDetails = document.getElementById('account-verification-details');
+                if (verificationDetails) verificationDetails.style.display = 'block';
             }
             
             // Only show SSN reminder, notes, and Source Account Identification when Subject is Authentic
@@ -2948,27 +2943,14 @@
         function handleSourceIDSelfieStatusChange() {
             const selectedStatus = document.querySelector('input[name="source-id-selfie-status"]:checked');
             const step1Section = document.getElementById('source-id-selfie-step1');
-            const noSubmissionDetails = document.getElementById('source-no-submission-details');
             
             if (selectedStatus) {
-                if (selectedStatus.value === 'no-submission') {
-                    // Show sub-question for what's missing
-                    noSubmissionDetails.style.display = 'block';
-                    step1Section.style.display = 'none';
-                    
-                    // Clear Step 1 checkboxes
-                    document.querySelectorAll('#source-id-selfie-step1 input[type="checkbox"]').forEach(cb => {
-                        cb.checked = false;
-                        cb.closest('.checklist-item').classList.remove('checked');
-                    });
-                } else if (selectedStatus.value === 'inconsistencies') {
+                if (selectedStatus.value === 'inconsistencies') {
                     // Show Step 1 (IDV document signals)
-                    noSubmissionDetails.style.display = 'none';
                     step1Section.style.display = 'block';
                     updateSourceIdentityAdvisory();
                 } else if (selectedStatus.value === 'authentic') {
                     // Hide Step 1, Step 2 is always visible
-                    noSubmissionDetails.style.display = 'none';
                     step1Section.style.display = 'none';
                     
                     // Clear Step 1 checkboxes
@@ -2978,18 +2960,9 @@
                     });
                     updateSourceIdentityAdvisory();
                 }
-                
-                // Clear sub-question checkboxes when switching away from no-submission
-                if (selectedStatus.value !== 'no-submission') {
-                    document.getElementById('source-no-id').checked = false;
-                    document.getElementById('source-no-selfie').checked = false;
-                    document.getElementById('source-no-both').checked = false;
-                }
             } else {
                 // No selection - hide everything
-                noSubmissionDetails.style.display = 'none';
-                detailsSection.style.display = 'none';
-                authenticNotesSection.style.display = 'none';
+                step1Section.style.display = 'none';
             }
         }
         
@@ -5508,6 +5481,18 @@
         }
         
         function generateCaseNotes() {
+            // Shortened labels for case summary display
+            const summaryLabelMap = {
+                'Full physical address is NOT visible and legible OR is PO BOX, General Delivery, or Generic address (Driver\'s License/State ID only)': 'Full physical address is NOT visible and legible OR is PO BOX, General Delivery, or Generic address',
+                'Full Bar Code on the back of ID is NOT visible (Driver\'s License/State ID only)': 'Full Bar Code on the back of ID is NOT visible',
+                '2D barcode is NOT clear and legible (Driver\'s License/State ID only)': '2D barcode is NOT clear and legible',
+                'Necessary PII is NOT identifiable (even considering obstructions)': 'Necessary PII is NOT identifiable',
+                'NOT a true selfie (not a photo they took of themselves)': 'NOT a true selfie'
+            };
+            function shortenLabel(label) {
+                return summaryLabelMap[label] || label;
+            }
+
             let notes = [];
             const dropdown = document.getElementById('subject-status-dropdown');
             const subjectStatus = dropdown ? dropdown.value : '';
@@ -5525,13 +5510,13 @@
             let subjectBasis = '';
             
             if (subjectStatus === 'id-concerns') {
-                subjectLabel = 'Inauthentic';
+                subjectLabel = 'unable to proceed';
                 let signals = [];
                 for (let i = 1; i <= 20; i++) {
                     const cb = document.getElementById('item' + i);
                     if (cb && cb.checked) {
                         const label = document.querySelector('label[for="item' + i + '"]');
-                        if (label) signals.push(label.textContent.trim());
+                        if (label) signals.push(shortenLabel(label.textContent.trim()));
                     }
                 }
                 subjectBasis = signals.length > 0 ? signals.join(', ') : 'ID document concerns';
@@ -5540,13 +5525,13 @@
                     subjectBasis += '. ' + idNotes.value.trim();
                 }
             } else if (subjectStatus === 'selfie-concerns') {
-                subjectLabel = 'Inauthentic';
+                subjectLabel = 'unable to proceed';
                 let signals = [];
                 for (let i = 2; i <= 11; i++) {
                     const cb = document.getElementById('selfie-item' + i);
                     if (cb && cb.checked) {
                         const label = document.querySelector('label[for="selfie-item' + i + '"]');
-                        if (label) signals.push(label.textContent.trim());
+                        if (label) signals.push(shortenLabel(label.textContent.trim()));
                     }
                 }
                 subjectBasis = signals.length > 0 ? signals.join(', ') : 'selfie concerns';
@@ -5561,13 +5546,13 @@
                     const cb = document.getElementById('auth-item' + i);
                     if (cb && cb.checked) {
                         const label = document.querySelector('label[for="auth-item' + i + '"]');
-                        if (label) step3Signals.push(label.textContent.trim());
+                        if (label) step3Signals.push(shortenLabel(label.textContent.trim()));
                     }
                 }
                 document.querySelectorAll('input[id^="acct-item"]').forEach(function(cb) {
                     if (cb.checked) {
                         const label = document.querySelector('label[for="' + cb.id + '"]');
-                        if (label) step4Signals.push(label.textContent.trim());
+                        if (label) step4Signals.push(shortenLabel(label.textContent.trim()));
                     }
                 });
                 // Apply threshold: (Step 3 >= 1 AND Step 4 >= 1) OR Step 4 >= 3
@@ -5595,7 +5580,11 @@
                 subjectBasis = 'IDV, aliases and location review';
             }
             
-            notes.push('Subject Account ' + subjectCtoken + ' is ' + subjectLabel + ' based on ' + (subjectBasis || 'evaluation criteria'));
+            if (subjectLabel === 'unable to proceed') {
+                notes.push('Subject Account ' + subjectCtoken + ' is unable to proceed based on ' + (subjectBasis || 'evaluation criteria'));
+            } else {
+                notes.push('Subject Account ' + subjectCtoken + ' is ' + subjectLabel + ' based on ' + (subjectBasis || 'evaluation criteria'));
+            }
             notes.push('');
             
             // --- DECEASED SSN (2.4) ---
@@ -5627,7 +5616,7 @@
                         const cb = document.getElementById('source-auth-item' + i);
                         if (cb && cb.checked) {
                             const label = document.querySelector('label[for="source-auth-item' + i + '"]');
-                            if (label) sourceAuthSignals.push(label.textContent.trim());
+                            if (label) sourceAuthSignals.push(shortenLabel(label.textContent.trim()));
                         }
                     }
                     let sourceAcctSignals = [];
@@ -5635,7 +5624,7 @@
                         const cb = document.getElementById('source-acct-item' + i);
                         if (cb && cb.checked) {
                             const label = document.querySelector('label[for="source-acct-item' + i + '"]');
-                            if (label) sourceAcctSignals.push(label.textContent.trim());
+                            if (label) sourceAcctSignals.push(shortenLabel(label.textContent.trim()));
                         }
                     }
                     const sourceNoSignals = document.getElementById('source-acct-no-signals');
@@ -5724,7 +5713,12 @@
                 }
             }
             
-            // --- TYPOLOGY / ACTIVITY REVIEW (2.6) ---
+            // --- TYPOLOGY / ACTIVITY REVIEW (2.6) --- Skip for ID/Selfie concern failures
+            if (subjectStatus === 'id-concerns' || subjectStatus === 'selfie-concerns') {
+                // No activity or connected account review for ID/Selfie failures
+                notes.push('After completing a holistic review, the decision is to ' + (isPass ? 'Pass' : 'Fail') + ' the case.');
+                return notes.join('\n');
+            }
             // Use saved signal states for subject account
             const subjectSavedState = accountSignalStates['subject'];
             const paymentHistoryRadio = document.querySelector('input[name="payment-history"]:checked');
@@ -5737,7 +5731,7 @@
                 Object.entries(subjectSavedState.checkboxStates).forEach(([cbId, checked]) => {
                     if (checked) {
                         const labelEl = document.querySelector(`label[for="${cbId}"]`);
-                        subjectSignalLabels.push(labelEl ? labelEl.textContent.trim() : cbId);
+                        subjectSignalLabels.push(shortenLabel(labelEl ? labelEl.textContent.trim() : cbId));
                     }
                 });
             }
@@ -5768,7 +5762,7 @@
                 Object.entries(sourceSavedState.checkboxStates).forEach(([cbId, checked]) => {
                     if (checked) {
                         const labelEl = document.querySelector(`label[for="${cbId}"]`);
-                        sourceSignalLabels.push(labelEl ? labelEl.textContent.trim() : cbId);
+                        sourceSignalLabels.push(shortenLabel(labelEl ? labelEl.textContent.trim() : cbId));
                     }
                 });
                 if (sourceSignalLabels.length > 0) {
@@ -5784,29 +5778,35 @@
             }
             
             // --- CONNECTED ACCOUNTS (2.6) ---
-            if (Object.keys(connectedAccountsData).length > 0) {
-                const connectedData = getConnectedAccountsData();
-                if (connectedData.length > 0) {
-                    const accountsWithSignals = connectedData.filter(a => a.signalsFound);
-                    if (accountsWithSignals.length === 0) {
-                        notes.push('Connected Accounts: No adverse activity found associated with connected accounts.');
-                        notes.push('');
-                    } else {
-                        accountsWithSignals.forEach((account) => {
-                            const ctokenLabel = account.ctoken || 'Connected Account #' + account.id;
-                            notes.push('Evaluated signals for (' + ctokenLabel + '):');
-                            account.signals.forEach(s => notes.push('  • ' + s));
-                            if (account.notes) {
-                                notes.push(account.notes);
-                            }
+            // Determine if both subject and source are authentic (skip connected accounts note if so)
+            const noteSourceStatus = document.getElementById('summary-source-status') ? document.getElementById('summary-source-status').textContent : '';
+            const notesBothAuthentic = subjectStatus === 'authentic' && (noteSourceStatus === 'Authentic' || noteSourceStatus === 'N/A');
+            
+            if (!notesBothAuthentic) {
+                if (Object.keys(connectedAccountsData).length > 0) {
+                    const connectedData = getConnectedAccountsData();
+                    if (connectedData.length > 0) {
+                        const accountsWithSignals = connectedData.filter(a => a.signalsFound);
+                        if (accountsWithSignals.length === 0) {
+                            notes.push('Connected Accounts: No adverse activity found associated with connected accounts.');
                             notes.push('');
-                        });
+                        } else {
+                            accountsWithSignals.forEach((account) => {
+                                const ctokenLabel = account.ctoken || 'Connected Account #' + account.id;
+                                notes.push('Evaluated signals for (' + ctokenLabel + '):');
+                                account.signals.forEach(s => notes.push('  • ' + s));
+                                if (account.notes) {
+                                    notes.push(account.notes);
+                                }
+                                notes.push('');
+                            });
+                        }
                     }
+                } else {
+                    // No connected accounts were added — still note no adverse activity
+                    notes.push('Connected Accounts: No adverse activity found associated with connected accounts.');
+                    notes.push('');
                 }
-            } else {
-                // No connected accounts were added — still note no adverse activity
-                notes.push('Connected Accounts: No adverse activity found associated with connected accounts.');
-                notes.push('');
             }
             
             // --- ADDITIONAL NOTES (from any remaining textareas not already captured) ---
@@ -5852,10 +5852,14 @@
                     subjectStatusEl.style.color = '#28a745';
                 }
             } else if (dropdown.value === 'id-concerns') {
-                subjectStatusEl.textContent = 'Inauthentic';
+                const subjectCtokenVal = (document.getElementById('subject-ctoken') || document.getElementById('c-token'));
+                const ctokenText = (subjectCtokenVal && subjectCtokenVal.value) ? subjectCtokenVal.value : 'Subject Account';
+                subjectStatusEl.textContent = ctokenText + ' is unable to proceed based on ID concerns';
                 subjectStatusEl.style.color = '#dc3545';
             } else if (dropdown.value === 'selfie-concerns') {
-                subjectStatusEl.textContent = 'Inauthentic';
+                const subjectCtokenVal2 = (document.getElementById('subject-ctoken') || document.getElementById('c-token'));
+                const ctokenText2 = (subjectCtokenVal2 && subjectCtokenVal2.value) ? subjectCtokenVal2.value : 'Subject Account';
+                subjectStatusEl.textContent = ctokenText2 + ' is unable to proceed based on Selfie concerns';
                 subjectStatusEl.style.color = '#dc3545';
             } else if (dropdown.value === 'authentic') {
                 subjectStatusEl.textContent = 'Authentic';
@@ -5927,7 +5931,11 @@
             }
             
             // 2.6 Activity - use saved signal states for subject account
+            // Hide activity section for ID/Selfie concern failures (no activity review done)
             const activitySection = document.getElementById('summary-activity-section');
+            if (dropdown.value === 'id-concerns' || dropdown.value === 'selfie-concerns') {
+                activitySection.style.display = 'none';
+            } else {
             const subjectStateForSummary = accountSignalStates['subject'];
             const subjectSignalCount = subjectStateForSummary ? Object.values(subjectStateForSummary.checkboxStates || {}).filter(v => v).length : 0;
             const paymentHistoryForSummary = document.querySelector('input[name="payment-history"]:checked');
@@ -5948,9 +5956,13 @@
             } else {
                 activitySection.style.display = 'none';
             }
+            }
             
-            // Source Account Signals Summary
+            // Source Account Signals Summary - hide for ID/Selfie concern failures
             const sourceSignalsSection = document.getElementById('summary-source-signals-section');
+            if (dropdown.value === 'id-concerns' || dropdown.value === 'selfie-concerns') {
+                if (sourceSignalsSection) sourceSignalsSection.style.display = 'none';
+            } else {
             const sourceSavedStateForSummary = accountSignalStates['source'];
             if (sourceSavedStateForSummary && sourceSavedStateForSummary.checkboxStates) {
                 const sourceSignals = [];
@@ -5977,9 +5989,15 @@
             } else {
                 if (sourceSignalsSection) sourceSignalsSection.style.display = 'none';
             }
+            } // end else (not id-concerns/selfie-concerns) for source signals
             
-            // Connected Accounts Summary
+            // Connected Accounts Summary - hide for ID/Selfie concern failures or when both subject and source are authentic
             const connectedSummarySection = document.getElementById('summary-connected-accounts-section');
+            const sourceStatusText = document.getElementById('summary-source-status') ? document.getElementById('summary-source-status').textContent : '';
+            const bothAuthentic = dropdown.value === 'authentic' && (sourceStatusText === 'Authentic' || sourceStatusText === 'N/A');
+            if (dropdown.value === 'id-concerns' || dropdown.value === 'selfie-concerns' || bothAuthentic) {
+                connectedSummarySection.style.display = 'none';
+            } else {
             connectedSummarySection.style.display = '';
             const listEl = document.getElementById('summary-connected-accounts-list');
             listEl.innerHTML = '';
@@ -6016,6 +6034,7 @@
                 card.innerHTML = '<p style="margin: 0; font-size: 14px; color: #28a745; font-weight: 600;">✓ No adverse activity found associated with connected accounts</p>';
                 listEl.appendChild(card);
             }
+            } // end else (not id-concerns/selfie-concerns)
             
             // Auto-generate case notes from selected signals and reviewer notes
             const generatedNotes = generateCaseNotes();
@@ -6061,8 +6080,15 @@
         function clearFormForNewCase() {
             if (!confirm('Start a new case? This will clear all current form data.')) return;
             
-            // Reset all checkboxes
-            document.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+            // Reset all checkboxes and remove checked styling
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+                cb.checked = false;
+                const parent = cb.closest('.checklist-item');
+                if (parent) {
+                    parent.classList.remove('checked');
+                    parent.classList.remove('pass-checked');
+                }
+            });
             
             // Reset all radio buttons
             document.querySelectorAll('input[type="radio"]').forEach(rb => rb.checked = false);
@@ -6155,7 +6181,7 @@
             });
 
             // Hide conditional elements (but preserve main structural sections)
-            const preserveIds = ['step1-content', 'step2-content', 'step3-4-content', 'general-selfie-content', 'case-summary-section', 'subject-account-section'];
+            const preserveIds = ['step1-content', 'step2-content', 'step3-4-content', 'general-selfie-content', 'case-summary-section', 'subject-account-section', 'account-verification-details', 'id-verification-details', 'selfie-verification-details'];
             document.querySelectorAll('[id$="-section"], [id$="-advisory"], [id$="-warning"], [id$="-details"], [id$="-results"]').forEach(el => {
                 if (preserveIds.includes(el.id)) return;
                 el.style.display = 'none';
