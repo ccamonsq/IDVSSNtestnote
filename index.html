@@ -658,6 +658,7 @@
         @media print {
             .sidebar { display: none; }
             .main-content { margin-left: 0; }
+            #case-summary-section { margin-left: auto !important; }
         }
         
         /* Responsive Design for Different Screen Sizes */
@@ -669,6 +670,9 @@
             .main-content {
                 margin-left: 200px;
                 padding: 15px;
+            }
+            #case-summary-section {
+                margin-left: 220px !important;
             }
             #side-by-side-wrapper {
                 width: calc(100vw - 220px) !important;
@@ -705,6 +709,9 @@
                 margin-left: 60px;
                 padding: 10px;
             }
+            #case-summary-section {
+                margin-left: 80px !important;
+            }
             #side-by-side-wrapper {
                 width: calc(100vw - 80px) !important;
                 margin-left: 60px !important;
@@ -721,6 +728,9 @@
                 margin-left: 0;
                 padding: 10px;
                 width: 100%;
+            }
+            #case-summary-section {
+                margin-left: auto !important;
             }
             #side-by-side-wrapper {
                 width: 100% !important;
@@ -848,21 +858,35 @@
         
         <!-- ID Doc Fail Warning (persistent side note) -->
         <!-- Subject Identity Advisory (Steps 3-4) -->
-        <div id="subject-identity-advisory" style="display: none; position: fixed; right: 20px; top: 100px; width: 300px; padding: 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 999; font-size: 14px; line-height: 1.5;">
+        <div id="subject-identity-advisory" style="display: none; position: fixed; top: 10px; left: 50%; transform: translateX(-50%); z-index: 9999; padding: 14px 24px; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.4); font-size: 14px; line-height: 1.5; max-width: 700px; width: 90%;">
         </div>
 
-        <div id="id-doc-fail-warning" style="display: none; position: fixed; right: 20px; top: 100px; width: 300px; padding: 20px; background-color: #dc3545; color: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 999;">
-            <h3 style="margin: 0 0 10px 0; font-size: 18px; color: white;">⚠️ CASE FAIL</h3>
-            <p style="margin: 0 0 12px 0; font-size: 14px; line-height: 1.5;">One or more ID Document Requirements issues have been identified. This case should result in a FAIL.</p>
-            <button onclick="navigateToCaseSummary('fail', 'ID Document Requirements issues identified', 'subject')" style="background-color: white; color: #dc3545; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 13px; width: 100%;">Go to Case Summary →</button>
-            <button onclick="document.getElementById('id-doc-fail-warning').style.display='none'" style="background-color: transparent; color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.5); padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 12px; width: 100%; margin-top: 8px;">Continue Anyway →</button>
+        <div id="id-doc-fail-warning" style="display: none; position: fixed; top: 10px; left: 50%; transform: translateX(-50%); z-index: 9999; padding: 14px 24px; background-color: #dc3545; color: white; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.4); max-width: 700px; width: 90%;">
+            <button onclick="document.getElementById('id-doc-fail-warning').style.display='none'" style="position: absolute; top: 8px; right: 12px; background: none; border: none; color: white; font-size: 20px; cursor: pointer; line-height: 1;">&times;</button>
+            <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 12px;">
+                <div style="flex: 1; min-width: 200px;">
+                    <h3 style="margin: 0 0 4px 0; font-size: 16px; font-weight: bold; color: #ffdd57;">⚠️ CASE FAIL</h3>
+                    <p style="margin: 0; font-size: 13px; line-height: 1.4;">ID Document Requirements issues identified. This case should result in a FAIL.</p>
+                </div>
+                <div style="display: flex; gap: 8px; flex-shrink: 0;">
+                    <button onclick="navigateToCaseSummary('fail', 'ID Document Requirements issues identified', 'subject')" style="background-color: white; color: #dc3545; border: none; padding: 8px 14px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 13px; white-space: nowrap;">Go to Case Summary →</button>
+                    <button onclick="document.getElementById('id-doc-fail-warning').style.display='none'" style="background-color: transparent; color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.5); padding: 8px 14px; border-radius: 5px; cursor: pointer; font-size: 12px; white-space: nowrap;">Continue Anyway →</button>
+                </div>
+            </div>
         </div>
 
-        <div id="selfie-fail-warning" style="display: none; position: fixed; right: 20px; top: 100px; width: 300px; padding: 20px; background-color: #dc3545; color: white; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 999;">
-            <h3 style="margin: 0 0 10px 0; font-size: 18px; color: white;">⚠️ CASE FAIL</h3>
-            <p style="margin: 0 0 12px 0; font-size: 14px; line-height: 1.5;">One or more General Selfie Requirements issues have been identified. This case should result in a FAIL.</p>
-            <button onclick="navigateToCaseSummary('fail', 'General Selfie Requirements issues identified', 'subject')" style="background-color: white; color: #dc3545; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 13px; width: 100%;">Go to Case Summary →</button>
-            <button onclick="continueAnywayFromSelfie()" style="background-color: transparent; color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.5); padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 12px; width: 100%; margin-top: 8px;">Continue Anyway →</button>
+        <div id="selfie-fail-warning" style="display: none; position: fixed; top: 10px; left: 50%; transform: translateX(-50%); z-index: 9999; padding: 14px 24px; background-color: #dc3545; color: white; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.4); max-width: 700px; width: 90%;">
+            <button onclick="document.getElementById('selfie-fail-warning').style.display='none'" style="position: absolute; top: 8px; right: 12px; background: none; border: none; color: white; font-size: 20px; cursor: pointer; line-height: 1;">&times;</button>
+            <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 12px;">
+                <div style="flex: 1; min-width: 200px;">
+                    <h3 style="margin: 0 0 4px 0; font-size: 16px; font-weight: bold; color: #ffdd57;">⚠️ CASE FAIL</h3>
+                    <p style="margin: 0; font-size: 13px; line-height: 1.4;">General Selfie Requirements issues identified. This case should result in a FAIL.</p>
+                </div>
+                <div style="display: flex; gap: 8px; flex-shrink: 0;">
+                    <button onclick="navigateToCaseSummary('fail', 'General Selfie Requirements issues identified', 'subject')" style="background-color: white; color: #dc3545; border: none; padding: 8px 14px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 13px; white-space: nowrap;">Go to Case Summary →</button>
+                    <button onclick="continueAnywayFromSelfie()" style="background-color: transparent; color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.5); padding: 8px 14px; border-radius: 5px; cursor: pointer; font-size: 12px; white-space: nowrap;">Continue Anyway →</button>
+                </div>
+            </div>
         </div>
         
         <div id="id-verification" style="display: none;">
@@ -1359,18 +1383,29 @@
                         
                         <div class="section-content-collapsible" id="source-account-identity-content">
                         <div class="prompt-section">
-                            <p style="font-weight: bold; margin-bottom: 15px; font-size: 16px;"><span style="color: #d63384; text-decoration: underline; text-underline-offset: 3px;">Step 1</span>: IDV review</p>
+                            <p style="font-weight: bold; margin-bottom: 15px; font-size: 16px;"><span style="color: #d63384; text-decoration: underline; text-underline-offset: 3px;">Step 1</span>: IDV review <span style="font-weight: normal; font-size: 13px; color: #666;">(select all that apply)</span></p>
                             <div style="margin-left: 20px;">
                                 <label style="display: block; margin-bottom: 10px; cursor: pointer;">
-                                    <input type="radio" name="source-id-selfie-status" value="authentic" style="margin-right: 8px;" onchange="handleSourceIDSelfieStatusChange()">
-                                    IDV/ Government ID/ Selfie appear authentic
+                                    <input type="checkbox" id="source-idv-no-id" style="margin-right: 8px;" onchange="handleSourceIDSelfieStatusChange()">
+                                    No ID
                                 </label>
-                                
                                 <label style="display: block; margin-bottom: 10px; cursor: pointer;">
-                                    <input type="radio" name="source-id-selfie-status" value="inconsistencies" style="margin-right: 8px;" onchange="handleSourceIDSelfieStatusChange()">
+                                    <input type="checkbox" id="source-idv-no-selfie" style="margin-right: 8px;" onchange="handleSourceIDSelfieStatusChange()">
+                                    No selfie
+                                </label>
+                                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                                    <input type="checkbox" id="source-idv-authentic" style="margin-right: 8px;" onchange="handleSourceIDSelfieStatusChange()">
+                                    IDV appears consistent
+                                </label>
+                                <label style="display: block; margin-bottom: 10px; cursor: pointer;">
+                                    <input type="checkbox" id="source-idv-inconsistencies" style="margin-right: 8px;" onchange="handleSourceIDSelfieStatusChange()">
                                     There are IDV inconsistencies
                                 </label>
                             </div>
+
+                        <!-- Dynamic Advisory Notification (fixed floating banner) -->
+                        <div id="source-identity-advisory" style="display: none; position: fixed; top: 10px; left: 50%; transform: translateX(-50%); z-index: 9999; padding: 14px 24px; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.4); font-size: 14px; line-height: 1.5; max-width: 700px; width: 90%;">
+                        </div>
 
                         <!-- Step 1: Only show when "Inconsistencies" is selected -->
                         <div id="source-id-selfie-step1" style="display: none; margin-top: 20px; padding-top: 20px; border-top: 2px solid #d0e8ff;">
@@ -1529,9 +1564,7 @@
                             <textarea id="source-identity-overall-notes" class="notes-textarea" style="height: 150px; resize: vertical; width: 100%;" placeholder="Enter any additional observations about source account identity and account information signals..."></textarea>
                         </div>
                         
-                        <!-- Dynamic Advisory Notification -->
-                        <div id="source-identity-advisory" style="display: none; position: fixed; right: 20px; top: 100px; width: 300px; padding: 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 999; font-size: 14px; line-height: 1.5;">
-                        </div>
+
                         
                         <button class="next-button" onclick="checkSourceAccountIdentity()" style="margin-top: 20px;">Next Step →</button>
                         
@@ -1662,11 +1695,18 @@
                         </div>
                         
                         <!-- Compromised Access Advisory -->
-                        <div id="compromised-access-advisory" style="display: none; position: fixed; right: 20px; top: 100px; width: 300px; padding: 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 999; font-size: 14px; line-height: 1.5; background-color: #dc3545; color: white;">
-                            <h3 style="margin: 0 0 10px 0; font-size: 18px; color: white;">⚠️ CASE FAIL</h3>
-                            <p style="margin: 0 0 12px 0; font-size: 14px; line-height: 1.5;">No signals of compromised access identified. Source and Subject have been identified as Authentic. This case should result in a <strong>FAIL</strong>.</p>
-                            <button onclick="navigateToCaseSummary('fail', 'No compromised access identified — Source and Subject are Authentic', 'access')" style="background-color: white; color: #dc3545; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 13px; width: 100%;">Go to Case Summary →</button>
-                            <button onclick="document.getElementById('compromised-access-advisory').style.display='none'" style="background-color: transparent; color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.5); padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 12px; width: 100%; margin-top: 8px;">Continue Anyway →</button>
+                        <div id="compromised-access-advisory" style="display: none; position: fixed; top: 10px; left: 50%; transform: translateX(-50%); z-index: 9999; padding: 14px 24px; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.4); font-size: 14px; line-height: 1.5; background-color: #dc3545; color: white; max-width: 700px; width: 90%;">
+                            <button onclick="document.getElementById('compromised-access-advisory').style.display='none'" style="position: absolute; top: 8px; right: 12px; background: none; border: none; color: white; font-size: 20px; cursor: pointer; line-height: 1;">&times;</button>
+                            <div style="display: flex; align-items: center; flex-wrap: wrap; gap: 12px;">
+                                <div style="flex: 1; min-width: 200px;">
+                                    <h3 style="margin: 0 0 4px 0; font-size: 16px; font-weight: bold; color: #ffdd57;">⚠️ CASE FAIL</h3>
+                                    <p style="margin: 0; font-size: 13px; line-height: 1.4;">No compromised access signals. Source and Subject are Authentic — FAIL.</p>
+                                </div>
+                                <div style="display: flex; gap: 8px; flex-shrink: 0;">
+                                    <button onclick="navigateToCaseSummary('fail', 'No compromised access identified — Source and Subject are Authentic', 'access')" style="background-color: white; color: #dc3545; border: none; padding: 8px 14px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 13px; white-space: nowrap;">Go to Case Summary →</button>
+                                    <button onclick="document.getElementById('compromised-access-advisory').style.display='none'" style="background-color: transparent; color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.5); padding: 8px 14px; border-radius: 5px; cursor: pointer; font-size: 12px; white-space: nowrap;">Continue Anyway →</button>
+                                </div>
+                            </div>
                         </div>
                         
                     </div>
@@ -1784,8 +1824,15 @@
                             </div>
 
                             <!-- Add Connected Account button -->
-                            <div style="margin-bottom: 20px;">
+                            <div style="margin-bottom: 20px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
                                 <button onclick="addConnectedAccountFromSwitcher()" style="padding: 10px 16px; background: #28a745; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight: 700; cursor: pointer;">+ Add Connected Account Review</button>
+                                <button id="no-connected-accounts-btn" onclick="toggleNoConnectedAccounts()" style="padding: 10px 16px; background: #6c757d; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight: 700; cursor: pointer;">No connected accounts to consider</button>
+                            </div>
+
+                            <!-- Connected accounts general notes (no full review needed) -->
+                            <div id="connected-accounts-general-notes-section" style="margin-bottom: 20px;">
+                                <label style="font-weight: 600; font-size: 13px; color: #555; display: block; margin-bottom: 6px;">Connected Account Notes <span style="font-weight: 400; color: #888;">(optional — quick notes without full review)</span></label>
+                                <textarea id="connected-accounts-general-notes" placeholder="e.g., C_abc123 — same device, no suspicious activity. C_xyz789 — shared email, appears legitimate..." style="width: 100%; height: 70px; padding: 10px 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; resize: vertical; font-family: Arial, sans-serif;"></textarea>
                             </div>
 
                             <!-- Connected account details panel -->
@@ -1885,10 +1932,10 @@
                         <!-- Connected account bottom buttons (visible only for connected accounts) -->
                         <div id="back-to-subject-btn" style="display: none; margin-top: 25px;">
                             <button id="submit-account-review-btn" onclick="submitConnectedAccountReview()" style="padding: 14px 20px; background: #007bff; color: white; border: none; border-radius: 6px; font-size: 15px; font-weight: 700; cursor: pointer; width: 100%; box-shadow: 0 2px 8px rgba(0,123,255,0.3);">✓ Submit Review for this Connected Account</button>
-                            <button onclick="backToSubjectAccount()" style="margin-top: 10px; padding: 12px 20px; background: #6c757d; color: white; border: none; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; width: 100%;">← Back to Subject Account</button>
+                            <button onclick="navigateToCaseSummary('pass')" style="margin-top: 10px; padding: 14px 20px; background: #28a745; color: white; border: none; border-radius: 6px; font-size: 15px; font-weight: 700; cursor: pointer; width: 100%; box-shadow: 0 2px 8px rgba(40,167,69,0.3);">Continue to Case Summary →</button>
                         </div>
 
-                        <button class="next-button" onclick="completeEvaluateAccounts()" style="margin-top: 20px;">Complete Evaluation →</button>
+                        <button id="complete-evaluation-btn" class="next-button" onclick="completeEvaluateAccounts()" style="margin-top: 20px;">Complete Evaluation →</button>
                         </div>
                         <!-- End of collapsible content -->
                     </div>
@@ -1896,7 +1943,7 @@
     </div> <!-- Close main-content -->
 
     <!-- Case Summary Section -->
-    <div id="case-summary-section" style="display: none; max-width: 900px; margin: 40px auto; padding: 0 20px;">
+    <div id="case-summary-section" style="display: none; max-width: 900px; margin: 40px auto; margin-left: 290px; padding: 0 20px;">
         <div style="background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); overflow: hidden;">
             
             <!-- Header -->
@@ -1907,12 +1954,15 @@
             
             <!-- Outcome Banner -->
             <div id="case-summary-outcome" style="padding: 20px 30px; border-bottom: 1px solid #e9ecef;">
-                <div style="display: flex; align-items: center; gap: 12px;">
-                    <span id="case-summary-icon" style="font-size: 28px;"></span>
-                    <div>
-                        <h2 id="case-summary-result" style="margin: 0; font-size: 20px;"></h2>
-                        <p id="case-summary-reason" style="margin: 4px 0 0 0; font-size: 14px; color: #666;"></p>
+                <div style="display: flex; align-items: center; gap: 12px; justify-content: space-between;">
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <span id="case-summary-icon" style="font-size: 28px;"></span>
+                        <div>
+                            <h2 id="case-summary-result" style="margin: 0; font-size: 20px;"></h2>
+                            <p id="case-summary-reason" style="margin: 4px 0 0 0; font-size: 14px; color: #666;"></p>
+                        </div>
                     </div>
+                    <button id="toggle-outcome-btn" onclick="toggleCaseOutcome()" style="padding: 8px 16px; border: 2px solid #666; background: transparent; color: #666; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap;">✎ Change to FAIL</button>
                 </div>
             </div>
             
@@ -1955,6 +2005,10 @@
                             <p id="summary-source-status" style="margin: 4px 0 0 0; font-weight: 600; font-size: 14px;"></p>
                         </div>
                     </div>
+                    <div id="summary-source-idv-findings" style="display: none; margin-top: 10px; background: #f8f9fa; padding: 12px; border-radius: 6px;">
+                        <span style="font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 0.5px;">IDV Review Findings</span>
+                        <p id="summary-source-idv-text" style="margin: 4px 0 0 0; font-size: 13px; font-weight: 600;"></p>
+                    </div>
                 </div>
                 
                 <!-- 2.6 Account Activity Summary -->
@@ -1962,6 +2016,7 @@
                     <h3 style="font-size: 16px; color: #333; margin: 0 0 12px 0; padding-bottom: 8px; border-bottom: 2px solid #e9ecef;">2.6 Account Activity</h3>
                     <div style="background: #f8f9fa; padding: 12px; border-radius: 6px;">
                         <p id="summary-typology-findings" style="margin: 0; font-weight: 600; font-size: 14px;"></p>
+                        <p id="summary-assessment-notes" style="margin: 8px 0 0 0; font-size: 13px; color: #555; white-space: pre-wrap; display: none;"></p>
                     </div>
                 </div>
                 
@@ -2653,26 +2708,34 @@
                 advisory.style.display = 'block';
                 advisory.style.backgroundColor = '#dc3545';
                 advisory.style.color = 'white';
+                advisory.style.position = 'fixed';
                 advisory.innerHTML = 
                     '<button onclick="document.getElementById(\'subject-identity-advisory\').style.display=\'none\'" style="position: absolute; top: 8px; right: 12px; background: none; border: none; color: white; font-size: 20px; cursor: pointer; line-height: 1;">&times;</button>' +
-                    '<h3 style="margin: 0 0 15px 0; font-size: 20px; font-weight: bold; color: #ffdd57;">⚠️ INAUTHENTIC IDENTITY CRITERIA MET</h3>' +
-                    '<p style="margin: 0 0 4px 0; font-size: 14px; line-height: 1.5;">Step 3 signals: <strong>' + step3Count + '</strong></p>' +
-                    '<p style="margin: 0 0 12px 0; font-size: 14px; line-height: 1.5;">Step 4 signals: <strong>' + step4Count + '</strong></p>' +
-                    '<p style="margin: 0 0 15px 0; font-size: 14px; line-height: 1.5;">Continue to <strong>Case Summary</strong>. This case should result in a FAIL.</p>' +
-                    '<button onclick="navigateToCaseSummary(\'fail\', \'Inauthentic identity criteria met (Step 3: ' + step3Count + ', Step 4: ' + step4Count + ')\', \'subject\')" style="background-color: white; color: #dc3545; border: none; padding: 10px 16px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 14px; width: 100%;">Go to Case Summary →</button>' +
-                    '<button onclick="continueAnywayFromStep34()" style="background-color: transparent; color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.5); padding: 8px 16px; border-radius: 5px; cursor: pointer; font-size: 13px; width: 100%; margin-top: 8px;">Continue Anyway →</button>';
+                    '<div style="display: flex; align-items: center; flex-wrap: wrap; gap: 12px;">' +
+                    '<div style="flex: 1; min-width: 200px;">' +
+                    '<h3 style="margin: 0 0 4px 0; font-size: 16px; font-weight: bold; color: #ffdd57;">⚠️ INAUTHENTIC IDENTITY CRITERIA MET</h3>' +
+                    '<p style="margin: 0; font-size: 13px; line-height: 1.4;">Step 3: <strong>' + step3Count + '</strong> · Step 4: <strong>' + step4Count + '</strong> — This case should result in a FAIL.</p>' +
+                    '</div>' +
+                    '<div style="display: flex; gap: 8px; flex-shrink: 0;">' +
+                    '<button onclick="navigateToCaseSummary(\'fail\', \'Inauthentic identity criteria met (Step 3: ' + step3Count + ', Step 4: ' + step4Count + ')\', \'subject\')" style="background-color: white; color: #dc3545; border: none; padding: 8px 14px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 13px; white-space: nowrap;">Go to Case Summary →</button>' +
+                    '<button onclick="continueAnywayFromStep34()" style="background-color: transparent; color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.5); padding: 8px 14px; border-radius: 5px; cursor: pointer; font-size: 12px; white-space: nowrap;">Continue Anyway →</button>' +
+                    '</div></div>';
             } else {
                 // Signals present but criteria not met
                 advisory.style.display = 'block';
                 advisory.style.backgroundColor = '#17a2b8';
                 advisory.style.color = 'white';
+                advisory.style.position = 'fixed';
                 advisory.innerHTML = 
                     '<button onclick="document.getElementById(\'subject-identity-advisory\').style.display=\'none\'" style="position: absolute; top: 8px; right: 12px; background: none; border: none; color: white; font-size: 20px; cursor: pointer; line-height: 1;">&times;</button>' +
-                    '<h3 style="margin: 0 0 15px 0; font-size: 20px; font-weight: bold; color: #ffdd57;">ℹ️ CRITERIA NOT MET</h3>' +
-                    '<p style="margin: 0 0 4px 0; font-size: 14px; line-height: 1.5;">Step 3 signals: <strong>' + step3Count + '</strong></p>' +
-                    '<p style="margin: 0 0 12px 0; font-size: 14px; line-height: 1.5;">Step 4 signals: <strong>' + step4Count + '</strong></p>' +
-                    '<p style="margin: 0 0 15px 0; font-size: 14px; line-height: 1.5;">Signals identified but inauthentic identity criteria not yet met.</p>' +
-                    '<button onclick="continueAnywayFromStep34()" style="background-color: transparent; color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.5); padding: 8px 16px; border-radius: 5px; cursor: pointer; font-size: 13px; width: 100%; margin-top: 8px;">Continue →</button>';
+                    '<div style="display: flex; align-items: center; flex-wrap: wrap; gap: 12px;">' +
+                    '<div style="flex: 1; min-width: 200px;">' +
+                    '<h3 style="margin: 0 0 4px 0; font-size: 16px; font-weight: bold; color: #ffdd57;">ℹ️ CRITERIA NOT MET</h3>' +
+                    '<p style="margin: 0; font-size: 13px; line-height: 1.4;">Step 3: <strong>' + step3Count + '</strong> · Step 4: <strong>' + step4Count + '</strong> — Criteria not yet met.</p>' +
+                    '</div>' +
+                    '<div style="display: flex; gap: 8px; flex-shrink: 0;">' +
+                    '<button onclick="continueAnywayFromStep34()" style="background-color: transparent; color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.5); padding: 8px 14px; border-radius: 5px; cursor: pointer; font-size: 12px; white-space: nowrap;">Continue →</button>' +
+                    '</div></div>';
             }
         }
 
@@ -2727,7 +2790,7 @@
                 authenticNotes.style.display = 'none';
                 ssnSection.style.display = 'none';
                 sourceQuestion.style.display = 'none';
-                continueToEvaluate.style.display = 'block';
+                continueToEvaluate.style.display = 'none';
             } else if (selectedValue) {
                 // ID or selfie concerns - go directly to case summary (fail)
                 authenticNotes.style.display = 'none';
@@ -2941,28 +3004,21 @@
         }
         
         function handleSourceIDSelfieStatusChange() {
-            const selectedStatus = document.querySelector('input[name="source-id-selfie-status"]:checked');
+            const inconsistenciesChecked = document.getElementById('source-idv-inconsistencies').checked;
             const step1Section = document.getElementById('source-id-selfie-step1');
             
-            if (selectedStatus) {
-                if (selectedStatus.value === 'inconsistencies') {
-                    // Show Step 1 (IDV document signals)
-                    step1Section.style.display = 'block';
-                    updateSourceIdentityAdvisory();
-                } else if (selectedStatus.value === 'authentic') {
-                    // Hide Step 1, Step 2 is always visible
-                    step1Section.style.display = 'none';
-                    
-                    // Clear Step 1 checkboxes
-                    document.querySelectorAll('#source-id-selfie-step1 input[type="checkbox"]').forEach(cb => {
-                        cb.checked = false;
-                        cb.closest('.checklist-item').classList.remove('checked');
-                    });
-                    updateSourceIdentityAdvisory();
-                }
+            if (inconsistenciesChecked) {
+                // Show Step 1 signals (IDV document signals)
+                step1Section.style.display = 'block';
+                updateSourceIdentityAdvisory();
             } else {
-                // No selection - hide everything
+                // Hide Step 1 signals and clear checkboxes
                 step1Section.style.display = 'none';
+                document.querySelectorAll('#source-id-selfie-step1 input[type="checkbox"]').forEach(cb => {
+                    cb.checked = false;
+                    cb.closest('.checklist-item').classList.remove('checked');
+                });
+                updateSourceIdentityAdvisory();
             }
         }
         
@@ -3088,10 +3144,18 @@
                 advisory.style.display = 'block';
                 advisory.style.backgroundColor = '#dc3545';
                 advisory.style.color = 'white';
-                advisory.innerHTML = '<h3 style="margin: 0 0 10px 0; font-size: 18px; color: white;">⚠️ CASE FAIL</h3>' +
-                    '<p style="margin: 0 0 12px 0; font-size: 14px; line-height: 1.5;">Compromised access is unclear or there is no indication that the customer\'s device was lost or stolen during/around the same time frame. This case should result in a <strong>FAIL</strong>.</p>' +
-                    '<button onclick="navigateToCaseSummary(\'fail\', \'Compromised access unclear — No indication device was lost/stolen during relevant time frame\', \'access\')" style="background-color: white; color: #dc3545; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 13px; width: 100%;">Go to Case Summary →</button>' +
-                    '<button onclick="document.getElementById(\'compromised-access-advisory\').style.display=\'none\'" style="background-color: transparent; color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.5); padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 12px; width: 100%; margin-top: 8px;">Continue Anyway →</button>';
+                advisory.style.position = 'fixed';
+                advisory.innerHTML = 
+                    '<button onclick="document.getElementById(\'compromised-access-advisory\').style.display=\'none\'" style="position: absolute; top: 8px; right: 12px; background: none; border: none; color: white; font-size: 20px; cursor: pointer; line-height: 1;">&times;</button>' +
+                    '<div style="display: flex; align-items: center; flex-wrap: wrap; gap: 12px;">' +
+                    '<div style="flex: 1; min-width: 200px;">' +
+                    '<h3 style="margin: 0 0 4px 0; font-size: 16px; font-weight: bold; color: #ffdd57;">⚠️ CASE FAIL</h3>' +
+                    '<p style="margin: 0; font-size: 13px; line-height: 1.4;">Compromised access unclear — No indication device was lost/stolen during relevant time frame. FAIL.</p>' +
+                    '</div>' +
+                    '<div style="display: flex; gap: 8px; flex-shrink: 0;">' +
+                    '<button onclick="navigateToCaseSummary(\'fail\', \'Compromised access unclear — No indication device was lost/stolen during relevant time frame\', \'access\')" style="background-color: white; color: #dc3545; border: none; padding: 8px 14px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 13px; white-space: nowrap;">Go to Case Summary →</button>' +
+                    '<button onclick="document.getElementById(\'compromised-access-advisory\').style.display=\'none\'" style="background-color: transparent; color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.5); padding: 8px 14px; border-radius: 5px; cursor: pointer; font-size: 12px; white-space: nowrap;">Continue Anyway →</button>' +
+                    '</div></div>';
             } else {
                 noSignalsCheckbox.closest('.checklist-item').classList.remove('pass-checked');
                 advisory.style.display = 'none';
@@ -3121,12 +3185,19 @@
                     advisory.style.display = 'block';
                     advisory.style.backgroundColor = '#28a745';
                     advisory.style.color = 'white';
-                    advisory.innerHTML = '<h3 style="margin: 0 0 10px 0; font-size: 18px; color: white;">✓ COMPROMISED ACCESS SUSPECTED</h3>' +
-                        '<p style="margin: 0 0 12px 0; font-size: 14px; line-height: 1.5;">Signals of compromised access identified. Source account was compromised during/around the time of denylist activity.</p>' +
-                        '<p style="margin: 0 0 12px 0; font-size: 14px; line-height: 1.5;">Continue to <strong>2.6 Evaluate Subject and Source Accounts for Activity Supporting Upholding a Denylist</strong>.</p>' +
-                        '<button onclick="navigateFromCompromisedToEvaluateAccounts()" style="background-color: white; color: #28a745; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 13px; width: 100%;">Continue to 2.6 Evaluate Accounts →</button>' +
-                        '<button onclick="navigateToCaseSummary(\'pass\', \'Compromised access suspected — Source account was compromised\', \'access\')" style="background-color: white; color: #28a745; border: none; padding: 6px 16px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 12px; width: 100%; margin-top: 8px;">Go to Case Summary →</button>' +
-                        '<button onclick="document.getElementById(\'compromised-access-advisory\').style.display=\'none\'" style="background-color: transparent; color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.5); padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 12px; width: 100%; margin-top: 8px;">Continue Anyway →</button>';
+                    advisory.style.position = 'fixed';
+                    advisory.innerHTML = 
+                        '<button onclick="document.getElementById(\'compromised-access-advisory\').style.display=\'none\'" style="position: absolute; top: 8px; right: 12px; background: none; border: none; color: white; font-size: 20px; cursor: pointer; line-height: 1;">&times;</button>' +
+                        '<div style="display: flex; align-items: center; flex-wrap: wrap; gap: 12px;">' +
+                        '<div style="flex: 1; min-width: 200px;">' +
+                        '<h3 style="margin: 0 0 4px 0; font-size: 16px; font-weight: bold; color: white;">✓ COMPROMISED ACCESS SUSPECTED</h3>' +
+                        '<p style="margin: 0; font-size: 13px; line-height: 1.4;">Source account compromised during/around denylist activity. Continue to 2.6 Evaluate Accounts.</p>' +
+                        '</div>' +
+                        '<div style="display: flex; gap: 8px; flex-shrink: 0; flex-wrap: wrap;">' +
+                        '<button onclick="navigateFromCompromisedToEvaluateAccounts()" style="background-color: white; color: #28a745; border: none; padding: 8px 14px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 13px; white-space: nowrap;">Evaluate Accounts →</button>' +
+                        '<button onclick="navigateToCaseSummary(\'pass\', \'Compromised access suspected — Source account was compromised\', \'access\')" style="background-color: white; color: #28a745; border: none; padding: 8px 14px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 12px; white-space: nowrap;">Case Summary →</button>' +
+                        '<button onclick="document.getElementById(\'compromised-access-advisory\').style.display=\'none\'" style="background-color: transparent; color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.5); padding: 8px 14px; border-radius: 5px; cursor: pointer; font-size: 12px; white-space: nowrap;">Dismiss</button>' +
+                        '</div></div>';
                 }
             } else {
                 // Remove green highlighting
@@ -3721,6 +3792,12 @@
                 backBtn.style.display = currentAccountContext.startsWith('connected-') ? 'block' : 'none';
             }
 
+            // Show/hide Complete Evaluation button (only for subject context)
+            const completeBtn = document.getElementById('complete-evaluation-btn');
+            if (completeBtn) {
+                completeBtn.style.display = currentAccountContext === 'subject' ? 'block' : 'none';
+            }
+
             // Hide payment history question for connected accounts, show typology signals directly
             const paymentQuestion = document.getElementById('payment-history-question');
             const typologySection = document.getElementById('typology-signals-section');
@@ -3782,6 +3859,21 @@
         
         // Connected accounts data store: { 'connected-1': { ctoken: '', notes: '' }, ... }
         let connectedAccountsData = {};
+        let noConnectedAccountsSelected = false;
+
+        function toggleNoConnectedAccounts() {
+            noConnectedAccountsSelected = !noConnectedAccountsSelected;
+            const btn = document.getElementById('no-connected-accounts-btn');
+            if (noConnectedAccountsSelected) {
+                btn.style.background = '#17a2b8';
+                btn.style.boxShadow = '0 0 0 3px rgba(23, 162, 184, 0.3)';
+                btn.textContent = '✓ No connected accounts to consider';
+            } else {
+                btn.style.background = '#6c757d';
+                btn.style.boxShadow = 'none';
+                btn.textContent = 'No connected accounts to consider';
+            }
+        }
 
         function addConnectedAccountFromSwitcher() {
             connectedAccountCount++;
@@ -4497,6 +4589,41 @@
             
             const sourceSection = document.getElementById('source-account');
             
+            // Re-show inner elements that may have been hidden by navigateToEvaluateAccounts()
+            const sourceIdentity = document.getElementById('source-account-identity');
+            if (sourceIdentity) sourceIdentity.style.display = '';
+            const sourceCtokenDisplay = document.getElementById('source-ctoken-display');
+            if (sourceCtokenDisplay) sourceCtokenDisplay.style.display = '';
+            const sourceHeader = sourceSection.querySelector('h1');
+            if (sourceHeader) sourceHeader.style.display = '';
+            const sourceDesc = sourceSection.querySelector('p');
+            if (sourceDesc) sourceDesc.style.display = '';
+            // Reset maxHeight on collapsible content (may be 0 from previous collapse)
+            const sourceIdentityContent = document.getElementById('source-account-identity-content');
+            if (sourceIdentityContent) {
+                sourceIdentityContent.style.maxHeight = 'none';
+                sourceIdentityContent.style.display = 'block';
+                sourceIdentityContent.style.opacity = '1';
+                sourceIdentityContent.classList.remove('collapsed');
+            }
+            // Also reset the heading's collapsed state
+            const sourceIdentityHeading = document.getElementById('source-account-identity-heading');
+            if (sourceIdentityHeading) {
+                sourceIdentityHeading.classList.remove('collapsed');
+            }
+            // Reset 2.5.2 section as well
+            const sourceCompromisedContent = document.getElementById('source-compromised-access-content');
+            if (sourceCompromisedContent) {
+                sourceCompromisedContent.style.maxHeight = 'none';
+                sourceCompromisedContent.style.display = 'block';
+                sourceCompromisedContent.style.opacity = '1';
+                sourceCompromisedContent.classList.remove('collapsed');
+            }
+            const sourceCompromisedHeading = document.getElementById('source-compromised-access-heading');
+            if (sourceCompromisedHeading) {
+                sourceCompromisedHeading.classList.remove('collapsed');
+            }
+            
             // Show source account section below
             sourceSection.style.display = 'block';
             
@@ -4577,32 +4704,54 @@
             if ((step1Count >= 1 && step2Count >= 1) || step2Count >= 3) {
                 // Criteria met → Evaluate Subject and Source Accounts
                 advisory.style.display = 'block';
-                advisory.style.backgroundColor = '#dc3545';
+                advisory.style.backgroundColor = '#e67e22';
                 advisory.style.color = 'white';
-                advisory.innerHTML = '<h3 style="margin: 0 0 10px 0; font-size: 18px; color: white;">⚠️ DENYLIST CRITERIA MET</h3>' +
-                    '<p style="margin: 0 0 8px 0; font-size: 14px; line-height: 1.5;">Step 1 signals: <strong>' + step1Count + '</strong><br>Step 2 signals: <strong>' + step2Count + '</strong></p>' +
-                    '<p style="margin: 0 0 12px 0; font-size: 14px; line-height: 1.5;">Continue to <strong>Evaluate Subject and Source Accounts for Activity Supporting Upholding a Denylist</strong>.</p>' +
-                    '<button onclick="navigateToEvaluateAccountsFromAdvisory()" style="background-color: white; color: #dc3545; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 13px; width: 100%;">Continue to Evaluate Accounts →</button>' +
-                    '<button onclick="document.getElementById(\'source-identity-advisory\').style.display=\'none\'" style="background-color: transparent; color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.5); padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 12px; width: 100%; margin-top: 8px;">Dismiss</button>';
+                advisory.style.position = 'fixed';
+                advisory.innerHTML = 
+                    '<button onclick="document.getElementById(\'source-identity-advisory\').style.display=\'none\'" style="position: absolute; top: 8px; right: 12px; background: none; border: none; color: white; font-size: 20px; cursor: pointer; line-height: 1;">&times;</button>' +
+                    '<div style="display: flex; align-items: center; flex-wrap: wrap; gap: 12px;">' +
+                    '<div style="flex: 1; min-width: 200px;">' +
+                    '<h3 style="margin: 0 0 4px 0; font-size: 16px; font-weight: bold; color: white;">⚠️ CRITERIA MET — Source Inauthentic Threshold Met</h3>' +
+                    '<p style="margin: 0; font-size: 13px; line-height: 1.4;">Step 1: <strong>' + step1Count + '</strong> · Step 2: <strong>' + step2Count + '</strong> — Continue to Evaluate Accounts.</p>' +
+                    '</div>' +
+                    '<div style="display: flex; gap: 8px; flex-shrink: 0;">' +
+                    '<button onclick="navigateToEvaluateAccountsFromAdvisory()" style="background-color: white; color: #e67e22; border: none; padding: 8px 14px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 13px; white-space: nowrap;">Evaluate Accounts →</button>' +
+                    '<button onclick="document.getElementById(\'source-identity-advisory\').style.display=\'none\'" style="background-color: transparent; color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.5); padding: 8px 14px; border-radius: 5px; cursor: pointer; font-size: 12px; white-space: nowrap;">Dismiss</button>' +
+                    '</div></div>';
             } else if (step1Count === 0 && step2Count === 0) {
                 // No signals → Compromised Access
                 advisory.style.display = 'block';
                 advisory.style.backgroundColor = '#28a745';
                 advisory.style.color = 'white';
-                advisory.innerHTML = '<h3 style="margin: 0 0 10px 0; font-size: 18px; color: white;">✓ NO SIGNALS</h3>' +
-                    '<p style="margin: 0 0 12px 0; font-size: 14px; line-height: 1.5;">No signals selected. Continue to <strong>Compromised Access</strong> evaluation.</p>' +
-                    '<button onclick="navigateToCompromisedAccess()" style="background-color: white; color: #28a745; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 13px; width: 100%;">Continue to Compromised Access →</button>' +
-                    '<button onclick="document.getElementById(\'source-identity-advisory\').style.display=\'none\'" style="background-color: transparent; color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.5); padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 12px; width: 100%; margin-top: 8px;">Continue Anyway →</button>';
+                advisory.style.position = 'fixed';
+                advisory.innerHTML = 
+                    '<button onclick="document.getElementById(\'source-identity-advisory\').style.display=\'none\'" style="position: absolute; top: 8px; right: 12px; background: none; border: none; color: white; font-size: 20px; cursor: pointer; line-height: 1;">&times;</button>' +
+                    '<div style="display: flex; align-items: center; flex-wrap: wrap; gap: 12px;">' +
+                    '<div style="flex: 1; min-width: 200px;">' +
+                    '<h3 style="margin: 0 0 4px 0; font-size: 16px; font-weight: bold; color: white;">✓ NO SIGNALS</h3>' +
+                    '<p style="margin: 0; font-size: 13px; line-height: 1.4;">No signals selected. Continue to Compromised Access evaluation.</p>' +
+                    '</div>' +
+                    '<div style="display: flex; gap: 8px; flex-shrink: 0;">' +
+                    '<button onclick="navigateToCompromisedAccess()" style="background-color: white; color: #28a745; border: none; padding: 8px 14px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 13px; white-space: nowrap;">Compromised Access →</button>' +
+                    '<button onclick="document.getElementById(\'source-identity-advisory\').style.display=\'none\'" style="background-color: transparent; color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.5); padding: 8px 14px; border-radius: 5px; cursor: pointer; font-size: 12px; white-space: nowrap;">Continue Anyway →</button>' +
+                    '</div></div>';
             } else {
                 // Some signals but criteria not met → Compromised Access
                 advisory.style.display = 'block';
                 advisory.style.backgroundColor = '#17a2b8';
                 advisory.style.color = 'white';
-                advisory.innerHTML = '<h3 style="margin: 0 0 10px 0; font-size: 18px; color: white;">ℹ️ CRITERIA NOT MET</h3>' +
-                    '<p style="margin: 0 0 8px 0; font-size: 14px; line-height: 1.5;">Step 1 signals: <strong>' + step1Count + '</strong><br>Step 2 signals: <strong>' + step2Count + '</strong></p>' +
-                    '<p style="margin: 0 0 12px 0; font-size: 14px; line-height: 1.5;">Denylist criteria not met. Continue to <strong>Compromised Access</strong> evaluation.</p>' +
-                    '<button onclick="navigateToCompromisedAccess()" style="background-color: white; color: #17a2b8; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 13px; width: 100%;">Continue to Compromised Access →</button>' +
-                    '<button onclick="document.getElementById(\'source-identity-advisory\').style.display=\'none\'" style="background-color: transparent; color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.5); padding: 6px 16px; border-radius: 5px; cursor: pointer; font-size: 12px; width: 100%; margin-top: 8px;">Continue Anyway →</button>';
+                advisory.style.position = 'fixed';
+                advisory.innerHTML = 
+                    '<button onclick="document.getElementById(\'source-identity-advisory\').style.display=\'none\'" style="position: absolute; top: 8px; right: 12px; background: none; border: none; color: white; font-size: 20px; cursor: pointer; line-height: 1;">&times;</button>' +
+                    '<div style="display: flex; align-items: center; flex-wrap: wrap; gap: 12px;">' +
+                    '<div style="flex: 1; min-width: 200px;">' +
+                    '<h3 style="margin: 0 0 4px 0; font-size: 16px; font-weight: bold; color: #ffdd57;">ℹ️ CRITERIA NOT MET</h3>' +
+                    '<p style="margin: 0; font-size: 13px; line-height: 1.4;">Step 1: <strong>' + step1Count + '</strong> · Step 2: <strong>' + step2Count + '</strong> — Criteria not met. Continue to Compromised Access.</p>' +
+                    '</div>' +
+                    '<div style="display: flex; gap: 8px; flex-shrink: 0;">' +
+                    '<button onclick="navigateToCompromisedAccess()" style="background-color: white; color: #17a2b8; border: none; padding: 8px 14px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 13px; white-space: nowrap;">Compromised Access →</button>' +
+                    '<button onclick="document.getElementById(\'source-identity-advisory\').style.display=\'none\'" style="background-color: transparent; color: rgba(255,255,255,0.8); border: 1px solid rgba(255,255,255,0.5); padding: 8px 14px; border-radius: 5px; cursor: pointer; font-size: 12px; white-space: nowrap;">Continue Anyway →</button>' +
+                    '</div></div>';
             }
         }
         
@@ -5394,6 +5543,54 @@
             }
         }
         
+        let currentCaseOutcome = 'pass'; // Track current outcome for toggle
+        
+        function toggleCaseOutcome() {
+            const newOutcome = currentCaseOutcome === 'pass' ? 'FAIL' : 'PASS';
+            const confirmed = confirm(`Are you sure you want to change this case to ${newOutcome}?`);
+            if (!confirmed) return;
+            
+            const header = document.getElementById('case-summary-header');
+            const title = document.getElementById('case-summary-title');
+            const subtitle = document.getElementById('case-summary-subtitle');
+            const icon = document.getElementById('case-summary-icon');
+            const result = document.getElementById('case-summary-result');
+            const toggleBtn = document.getElementById('toggle-outcome-btn');
+            
+            if (currentCaseOutcome === 'pass') {
+                // Switch to FAIL
+                currentCaseOutcome = 'fail';
+                header.style.backgroundColor = '#dc3545';
+                title.textContent = '⚠️ Case Summary — FAIL';
+                subtitle.textContent = 'This case has been determined to result in a FAIL.';
+                icon.textContent = '⚠️';
+                result.textContent = 'CASE FAIL';
+                result.style.color = '#dc3545';
+                toggleBtn.textContent = '✎ Change to PASS';
+                toggleBtn.style.borderColor = '#28a745';
+                toggleBtn.style.color = '#28a745';
+            } else {
+                // Switch to PASS
+                currentCaseOutcome = 'pass';
+                header.style.backgroundColor = '#28a745';
+                title.textContent = '✓ Case Summary — PASS';
+                subtitle.textContent = 'This case has been determined to result in a PASS.';
+                icon.textContent = '✓';
+                result.textContent = 'CASE PASS';
+                result.style.color = '#28a745';
+                toggleBtn.textContent = '✎ Change to FAIL';
+                toggleBtn.style.borderColor = '#dc3545';
+                toggleBtn.style.color = '#dc3545';
+            }
+            
+            // Regenerate case notes with new outcome
+            const generatedNotes = generateCaseNotes();
+            const caseNotesTextarea = document.getElementById('case-summary-notes');
+            if (caseNotesTextarea) {
+                caseNotesTextarea.value = generatedNotes;
+            }
+        }
+        
         function navigateToCaseSummary(outcome, reason, fromSection) {
             // outcome: 'fail' or 'pass'
             // reason: string explaining why
@@ -5433,7 +5630,9 @@
             const result = document.getElementById('case-summary-result');
             const reasonEl = document.getElementById('case-summary-reason');
             
-            // Set outcome styling
+            // Set outcome styling and track current state
+            currentCaseOutcome = outcome;
+            const toggleBtn = document.getElementById('toggle-outcome-btn');
             if (outcome === 'fail') {
                 header.style.backgroundColor = '#dc3545';
                 title.textContent = '⚠️ Case Summary — FAIL';
@@ -5441,6 +5640,7 @@
                 icon.textContent = '⚠️';
                 result.textContent = 'CASE FAIL';
                 result.style.color = '#dc3545';
+                if (toggleBtn) { toggleBtn.textContent = '✎ Change to PASS'; toggleBtn.style.borderColor = '#28a745'; toggleBtn.style.color = '#28a745'; }
             } else {
                 header.style.backgroundColor = '#28a745';
                 title.textContent = '✓ Case Summary — PASS';
@@ -5448,6 +5648,7 @@
                 icon.textContent = '✓';
                 result.textContent = 'CASE PASS';
                 result.style.color = '#28a745';
+                if (toggleBtn) { toggleBtn.textContent = '✎ Change to FAIL'; toggleBtn.style.borderColor = '#dc3545'; toggleBtn.style.color = '#dc3545'; }
             }
             
             reasonEl.textContent = reason || '';
@@ -5611,6 +5812,15 @@
                     // 2.5.1 Source Identity
                     const sourceCtokenEl = document.getElementById('source-ctoken');
                     const sourceCtoken = sourceCtokenEl ? sourceCtokenEl.value.trim() : '[C_Token]';
+                    
+                    // IDV Review Findings
+                    const sourceIdvFindings = [];
+                    if (document.getElementById('source-idv-no-id') && document.getElementById('source-idv-no-id').checked) sourceIdvFindings.push('No ID');
+                    if (document.getElementById('source-idv-no-selfie') && document.getElementById('source-idv-no-selfie').checked) sourceIdvFindings.push('No selfie');
+                    if (document.getElementById('source-idv-authentic') && document.getElementById('source-idv-authentic').checked) sourceIdvFindings.push('IDV appears consistent');
+                    if (document.getElementById('source-idv-inconsistencies') && document.getElementById('source-idv-inconsistencies').checked) sourceIdvFindings.push('IDV inconsistencies');
+                    const sourceIdvSummary = sourceIdvFindings.length > 0 ? sourceIdvFindings.join(', ') : 'IDV, aliases and location review';
+                    
                     let sourceAuthSignals = [];
                     for (let i = 1; i <= 7; i++) {
                         const cb = document.getElementById('source-auth-item' + i);
@@ -5638,19 +5848,19 @@
                     }
                     
                     if (sourceLabel === 'Inauthentic') {
-                        notes.push('Source Account (' + sourceCtoken + ') is Inauthentic based on:');
+                        notes.push('Source Account (' + sourceCtoken + ') is Inauthentic based on ' + sourceIdvSummary + ':');
                         const allSignals = sourceAuthSignals.concat(sourceAcctSignals);
                         allSignals.forEach(s => notes.push('  • ' + s));
                     } else if (sourceAuthSignals.length > 0 || sourceAcctSignals.length > 0) {
-                        notes.push('Source Account (' + sourceCtoken + ') is Authentic based on IDV, aliases and location review');
+                        notes.push('Source Account (' + sourceCtoken + ') is Authentic based on ' + sourceIdvSummary);
                         notes.push('  Signals noted but inauthentic criteria not met:');
                         const allSignals = sourceAuthSignals.concat(sourceAcctSignals);
                         allSignals.forEach(s => notes.push('  • ' + s));
                     } else if (sourceNoSignals && sourceNoSignals.checked) {
-                        notes.push('Source Account (' + sourceCtoken + ') is Authentic based on IDV, aliases and location review');
+                        notes.push('Source Account (' + sourceCtoken + ') is Authentic based on ' + sourceIdvSummary);
                         notes.push('  • No signals of inconsistent/mismatched account information identified.');
                     } else {
-                        notes.push('Source Account (' + sourceCtoken + ') is Authentic based on IDV, aliases and location review');
+                        notes.push('Source Account (' + sourceCtoken + ') is Authentic based on ' + sourceIdvSummary);
                     }
                     
                     const sourceIdNotes = document.getElementById('source-identity-overall-notes');
@@ -5752,6 +5962,9 @@
                     notes.push('Evaluated signals for (' + subjectCtokenVal + '):');
                     notes.push('  • No payment history to consider');
                 }
+                if (subjectSavedState && subjectSavedState.notes) {
+                    notes.push(subjectSavedState.notes);
+                }
                 notes.push('');
             }
             
@@ -5774,20 +5987,40 @@
                         notes.push(sourceSavedState.notes);
                     }
                     notes.push('');
+                } else if (sourceSavedState.notes) {
+                    const sourceCtokenEl = document.getElementById('source-ctoken');
+                    const sourceCtoken = sourceCtokenEl ? sourceCtokenEl.value.trim() : '';
+                    notes.push('Source Account Activity (' + sourceCtoken + '):');
+                    notes.push(sourceSavedState.notes);
+                    notes.push('');
                 }
             }
             
             // --- CONNECTED ACCOUNTS (2.6) ---
-            // Determine if both subject and source are authentic (skip connected accounts note if so)
-            const noteSourceStatus = document.getElementById('summary-source-status') ? document.getElementById('summary-source-status').textContent : '';
-            const notesBothAuthentic = subjectStatus === 'authentic' && (noteSourceStatus === 'Authentic' || noteSourceStatus === 'N/A');
+            // Only skip connected accounts note for straight fail cases (id-concerns, selfie-concerns, inauthentic threshold met without continuing)
+            const noteSourceLocated = document.querySelector('input[name="source-account-located"]:checked');
+            const notesSsnDeceased = document.getElementById('ssn-deceased-yes') && document.getElementById('ssn-deceased-yes').checked;
+            const notesSourceCtokenEl = document.getElementById('source-ctoken');
+            const notesSourceWasReviewed = noteSourceLocated || (notesSourceCtokenEl && notesSourceCtokenEl.value.trim());
+            const notesInauthenticThresholdMet = subjectStatus === 'inauthentic' && !notesSourceWasReviewed && !notesSsnDeceased;
             
-            if (!notesBothAuthentic) {
-                if (Object.keys(connectedAccountsData).length > 0) {
+            const notesSourceStatusEl = document.getElementById('summary-source-status');
+            const notesSourceStatusText = notesSourceStatusEl ? notesSourceStatusEl.textContent : '';
+            const notesBothAuthentic = subjectStatus === 'authentic' && (notesSourceStatusText === 'Authentic' || notesSourceStatusText === 'N/A') && !notesSsnDeceased;
+            const notesGeneralConnNotesEl = document.getElementById('connected-accounts-general-notes');
+            const notesHasConnectedNotes = notesGeneralConnNotesEl && notesGeneralConnNotesEl.value.trim();
+            
+            if (subjectStatus !== 'id-concerns' && subjectStatus !== 'selfie-concerns' && !notesInauthenticThresholdMet && !(notesBothAuthentic && !notesHasConnectedNotes)) {
+                if (noConnectedAccountsSelected) {
+                    // User explicitly marked "No connected accounts to consider"
+                    notes.push('Connected Accounts: No connected accounts to consider.');
+                    notes.push('');
+                } else if (Object.keys(connectedAccountsData).length > 0) {
                     const connectedData = getConnectedAccountsData();
                     if (connectedData.length > 0) {
                         const accountsWithSignals = connectedData.filter(a => a.signalsFound);
-                        if (accountsWithSignals.length === 0) {
+                        const accountsWithoutSignals = connectedData.filter(a => !a.signalsFound);
+                        if (accountsWithSignals.length === 0 && accountsWithoutSignals.every(a => !a.notes && !(accountSignalStates['connected-' + a.id] && accountSignalStates['connected-' + a.id].notes))) {
                             notes.push('Connected Accounts: No adverse activity found associated with connected accounts.');
                             notes.push('');
                         } else {
@@ -5798,13 +6031,36 @@
                                 if (account.notes) {
                                     notes.push(account.notes);
                                 }
+                                const connAssessment = accountSignalStates['connected-' + account.id];
+                                if (connAssessment && connAssessment.notes) {
+                                    notes.push(connAssessment.notes);
+                                }
                                 notes.push('');
+                            });
+                            // Also include connected accounts with notes but no signals
+                            accountsWithoutSignals.forEach((account) => {
+                                const hasNotes = account.notes;
+                                const connAssessment = accountSignalStates['connected-' + account.id];
+                                const hasAssessmentNotes = connAssessment && connAssessment.notes;
+                                if (hasNotes || hasAssessmentNotes) {
+                                    const ctokenLabel = account.ctoken || 'Connected Account #' + account.id;
+                                    notes.push('Connected Account (' + ctokenLabel + '):');
+                                    notes.push('  • No adverse activity signals identified');
+                                    if (hasNotes) notes.push(account.notes);
+                                    if (hasAssessmentNotes) notes.push(connAssessment.notes);
+                                    notes.push('');
+                                }
                             });
                         }
                     }
                 } else {
-                    // No connected accounts were added — still note no adverse activity
-                    notes.push('Connected Accounts: No adverse activity found associated with connected accounts.');
+                    // No connected accounts added and button not selected — reviewed, no adverse activity
+                    notes.push('Connected Accounts: No adverse activity found on any true connected accounts.');
+                    notes.push('');
+                }
+                // Append general connected account notes if present
+                if (notesHasConnectedNotes) {
+                    notes.push('Connected Account Notes: ' + notesGeneralConnNotesEl.value.trim());
                     notes.push('');
                 }
             }
@@ -5897,16 +6153,27 @@
             const summarySourceSection = document.getElementById('summary-source-section');
             const ssnDeceasedRadio2 = document.querySelector('input[name="ssn-deceased-check"]:checked');
             
-            if (ssnDeceasedRadio2 && ssnDeceasedRadio2.value === 'yes') {
+            // Check if source account was reviewed (either via radio or direct navigation for inauthentic path)
+            const sourceCtokenEl = document.getElementById('source-ctoken');
+            const sourceWasReviewed = sourceLocated || (sourceCtokenEl && sourceCtokenEl.value.trim());
+            const ssnDeceasedChecked = document.getElementById('ssn-deceased-yes') && document.getElementById('ssn-deceased-yes').checked;
+            
+            if (ssnDeceasedChecked) {
                 // SSN is deceased - only subject account, no source account
                 summarySourceSection.style.display = 'none';
-            } else if (dropdown.value !== 'authentic') {
-                // Non-authentic path - no source account evaluation
+            } else if (dropdown.value !== 'authentic' && dropdown.value !== 'inauthentic') {
+                // Non-authentic path (id-concerns, selfie-concerns) - no source account evaluation
+                summarySourceSection.style.display = 'none';
+            } else if (dropdown.value === 'inauthentic' && !sourceWasReviewed) {
+                // Inauthentic and threshold was met (no source review done)
                 summarySourceSection.style.display = 'none';
             } else if (sourceLocated && sourceLocated.value === 'no') {
+                summarySourceSection.style.display = '';
                 document.getElementById('summary-source-ctoken').textContent = 'Not located';
                 document.getElementById('summary-source-status').textContent = 'N/A';
-            } else if (sourceLocated && sourceLocated.value === 'yes') {
+            } else if ((sourceLocated && sourceLocated.value === 'yes') || (!sourceLocated && sourceCtokenEl && sourceCtokenEl.value.trim())) {
+                summarySourceSection.style.display = '';
+                // Source was reviewed — either via radio "yes" or direct navigation (inauthentic path skips radio)
                 const sourceCtoken = document.getElementById('source-ctoken');
                 document.getElementById('summary-source-ctoken').textContent = (sourceCtoken && sourceCtoken.value) ? sourceCtoken.value : 'Not provided';
                 
@@ -5926,8 +6193,33 @@
                     document.getElementById('summary-source-status').style.color = '#28a745';
                 }
             } else {
+                summarySourceSection.style.display = '';
                 document.getElementById('summary-source-ctoken').textContent = 'Not determined';
                 document.getElementById('summary-source-status').textContent = 'N/A';
+            }
+            
+            // Populate Source IDV Review Findings
+            const sourceIdvFindingsSection = document.getElementById('summary-source-idv-findings');
+            const sourceIdvText = document.getElementById('summary-source-idv-text');
+            if (sourceIdvFindingsSection && sourceIdvText) {
+                const idvFindings = [];
+                if (document.getElementById('source-idv-no-id') && document.getElementById('source-idv-no-id').checked) idvFindings.push('No ID');
+                if (document.getElementById('source-idv-no-selfie') && document.getElementById('source-idv-no-selfie').checked) idvFindings.push('No selfie');
+                if (document.getElementById('source-idv-authentic') && document.getElementById('source-idv-authentic').checked) idvFindings.push('IDV appears consistent');
+                if (document.getElementById('source-idv-inconsistencies') && document.getElementById('source-idv-inconsistencies').checked) idvFindings.push('IDV inconsistencies');
+                
+                if (idvFindings.length > 0) {
+                    sourceIdvFindingsSection.style.display = '';
+                    sourceIdvText.textContent = idvFindings.join(', ');
+                    // Color based on findings
+                    if (idvFindings.includes('IDV inconsistencies') || idvFindings.includes('No ID') || idvFindings.includes('No selfie')) {
+                        sourceIdvText.style.color = '#dc3545';
+                    } else {
+                        sourceIdvText.style.color = '#28a745';
+                    }
+                } else {
+                    sourceIdvFindingsSection.style.display = 'none';
+                }
             }
             
             // 2.6 Activity - use saved signal states for subject account
@@ -5953,8 +6245,19 @@
                 } else {
                     document.getElementById('summary-typology-findings').textContent = 'No payment history to consider';
                 }
+            } else if (subjectStateForSummary && subjectStateForSummary.notes) {
+                activitySection.style.display = '';
+                document.getElementById('summary-typology-findings').textContent = 'No activity signals identified';
             } else {
                 activitySection.style.display = 'none';
+            }
+            // Show assessment notes if present
+            const summaryAssessmentNotes = document.getElementById('summary-assessment-notes');
+            if (subjectStateForSummary && subjectStateForSummary.notes) {
+                summaryAssessmentNotes.textContent = subjectStateForSummary.notes;
+                summaryAssessmentNotes.style.display = '';
+            } else {
+                summaryAssessmentNotes.style.display = 'none';
             }
             }
             
@@ -5994,17 +6297,32 @@
             // Connected Accounts Summary - hide for ID/Selfie concern failures or when both subject and source are authentic
             const connectedSummarySection = document.getElementById('summary-connected-accounts-section');
             const sourceStatusText = document.getElementById('summary-source-status') ? document.getElementById('summary-source-status').textContent : '';
-            const bothAuthentic = dropdown.value === 'authentic' && (sourceStatusText === 'Authentic' || sourceStatusText === 'N/A');
-            if (dropdown.value === 'id-concerns' || dropdown.value === 'selfie-concerns' || bothAuthentic) {
+            const summarySsnDeceased = document.getElementById('ssn-deceased-yes') && document.getElementById('ssn-deceased-yes').checked;
+            const bothAuthentic = dropdown.value === 'authentic' && (sourceStatusText === 'Authentic' || sourceStatusText === 'N/A') && !summarySsnDeceased;
+            const connSourceCtokenEl = document.getElementById('source-ctoken');
+            const connSourceWasReviewed = sourceLocated || (connSourceCtokenEl && connSourceCtokenEl.value.trim());
+            const inauthenticThresholdMet = dropdown.value === 'inauthentic' && !connSourceWasReviewed && !summarySsnDeceased;
+            const generalConnNotesEl = document.getElementById('connected-accounts-general-notes');
+            const hasConnectedNotes = generalConnNotesEl && generalConnNotesEl.value.trim();
+            if (dropdown.value === 'id-concerns' || dropdown.value === 'selfie-concerns' || inauthenticThresholdMet || (bothAuthentic && !hasConnectedNotes)) {
                 connectedSummarySection.style.display = 'none';
             } else {
             connectedSummarySection.style.display = '';
             const listEl = document.getElementById('summary-connected-accounts-list');
             listEl.innerHTML = '';
-            if (Object.keys(connectedAccountsData).length > 0) {
+            if (noConnectedAccountsSelected) {
+                // User explicitly marked "No connected accounts to consider"
+                const card = document.createElement('div');
+                card.style.cssText = 'background: #f8f9fa; padding: 12px; border-radius: 6px; border-left: 4px solid #6c757d;';
+                card.innerHTML = '<p style="margin: 0; font-size: 14px; color: #6c757d; font-weight: 600;">— No connected accounts to consider</p>';
+                listEl.appendChild(card);
+            } else if (Object.keys(connectedAccountsData).length > 0) {
                 const connectedData = getConnectedAccountsData();
                 const accountsWithSignals = connectedData.filter(a => a.signalsFound);
-                if (accountsWithSignals.length === 0) {
+                const accountsWithoutSignals = connectedData.filter(a => !a.signalsFound);
+                const accountsWithNotes = accountsWithoutSignals.filter(a => a.notes || (accountSignalStates['connected-' + a.id] && accountSignalStates['connected-' + a.id].notes));
+                
+                if (accountsWithSignals.length === 0 && accountsWithNotes.length === 0) {
                     const card = document.createElement('div');
                     card.style.cssText = 'background: #f8f9fa; padding: 12px; border-radius: 6px; border-left: 4px solid #28a745;';
                     card.innerHTML = '<p style="margin: 0; font-size: 14px; color: #28a745; font-weight: 600;">✓ No adverse activity found associated with connected accounts</p>';
@@ -6023,16 +6341,47 @@
                         if (account.notes) {
                             cardHtml += '<p style="margin: 6px 0 0 0; font-size: 13px; color: #555;">' + account.notes + '</p>';
                         }
+                        const connAssessmentDisplay = accountSignalStates['connected-' + account.id];
+                        if (connAssessmentDisplay && connAssessmentDisplay.notes) {
+                            cardHtml += '<p style="margin: 6px 0 0 0; font-size: 13px; color: #555; font-style: italic;">' + connAssessmentDisplay.notes + '</p>';
+                        }
+                        card.innerHTML = cardHtml;
+                        listEl.appendChild(card);
+                    });
+                    // Also show connected accounts with notes but no signals
+                    accountsWithNotes.forEach((account, index) => {
+                        const card = document.createElement('div');
+                        card.style.cssText = 'background: #f8f9fa; padding: 12px; border-radius: 6px; margin-bottom: 8px; border-left: 4px solid #17a2b8;';
+                        let cardHtml = '<div style="display: flex; justify-content: space-between; align-items: center;">';
+                        cardHtml += '<span style="font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 0.5px;">' + (account.ctoken || 'Account #' + (index + 1)) + '</span>';
+                        cardHtml += '<span style="font-size: 12px; font-weight: 600; color: #17a2b8;">Notes</span>';
+                        cardHtml += '</div>';
+                        cardHtml += '<p style="margin: 6px 0 0 0; font-size: 12px; color: #28a745;">No adverse activity signals identified</p>';
+                        if (account.notes) {
+                            cardHtml += '<p style="margin: 6px 0 0 0; font-size: 13px; color: #555;">' + account.notes + '</p>';
+                        }
+                        const connAssessmentDisplay2 = accountSignalStates['connected-' + account.id];
+                        if (connAssessmentDisplay2 && connAssessmentDisplay2.notes) {
+                            cardHtml += '<p style="margin: 6px 0 0 0; font-size: 13px; color: #555; font-style: italic;">' + connAssessmentDisplay2.notes + '</p>';
+                        }
                         card.innerHTML = cardHtml;
                         listEl.appendChild(card);
                     });
                 }
             } else {
-                // No connected accounts added — show no adverse activity message
+                // No connected accounts added and button not selected — reviewed, no adverse activity
                 const card = document.createElement('div');
                 card.style.cssText = 'background: #f8f9fa; padding: 12px; border-radius: 6px; border-left: 4px solid #28a745;';
-                card.innerHTML = '<p style="margin: 0; font-size: 14px; color: #28a745; font-weight: 600;">✓ No adverse activity found associated with connected accounts</p>';
+                card.innerHTML = '<p style="margin: 0; font-size: 14px; color: #28a745; font-weight: 600;">✓ No adverse activity found on any true connected accounts</p>';
                 listEl.appendChild(card);
+            }
+            // Append general connected account notes if present
+            const generalConnNotes = document.getElementById('connected-accounts-general-notes');
+            if (generalConnNotes && generalConnNotes.value.trim()) {
+                const notesCard = document.createElement('div');
+                notesCard.style.cssText = 'background: #f8f9fa; padding: 12px; border-radius: 6px; border-left: 4px solid #17a2b8; margin-top: 8px;';
+                notesCard.innerHTML = '<p style="margin: 0 0 4px 0; font-size: 12px; color: #17a2b8; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Notes</p><p style="margin: 0; font-size: 13px; color: #555; white-space: pre-wrap;">' + generalConnNotes.value.trim() + '</p>';
+                listEl.appendChild(notesCard);
             }
             } // end else (not id-concerns/selfie-concerns)
             
@@ -6129,6 +6478,15 @@
             // Reset connected accounts
             connectedAccountCount = 0;
             connectedAccountsData = {};
+            noConnectedAccountsSelected = false;
+            const noConnBtn = document.getElementById('no-connected-accounts-btn');
+            if (noConnBtn) {
+                noConnBtn.style.background = '#6c757d';
+                noConnBtn.style.boxShadow = 'none';
+                noConnBtn.textContent = 'No connected accounts to consider';
+            }
+            const generalConnNotes = document.getElementById('connected-accounts-general-notes');
+            if (generalConnNotes) generalConnNotes.value = '';
             const connectedSummary = document.getElementById('summary-connected-accounts-section');
             if (connectedSummary) connectedSummary.style.display = 'none';
             const sourceSignalsSummary = document.getElementById('summary-source-signals-section');
@@ -6165,9 +6523,25 @@
                 if (el) el.style.display = 'none';
             });
             
+            // Reset source account inner elements that navigateToEvaluateAccounts() may have hidden
+            const sourceAccountEl2 = document.getElementById('source-account');
+            if (sourceAccountEl2) {
+                const sourceIdentity = document.getElementById('source-account-identity');
+                if (sourceIdentity) sourceIdentity.style.display = '';
+                const sourceCtokenDisp = document.getElementById('source-ctoken-display');
+                if (sourceCtokenDisp) sourceCtokenDisp.style.display = '';
+                const sourceH1 = sourceAccountEl2.querySelector('h1');
+                if (sourceH1) sourceH1.style.display = '';
+                const sourceP = sourceAccountEl2.querySelector('p');
+                if (sourceP) sourceP.style.display = '';
+            }
+            
             // Re-expand all collapsible content sections (reset collapsed state)
             document.querySelectorAll('.collapsible-content, .section-content-collapsible').forEach(el => {
                 el.style.display = 'block';
+                el.style.maxHeight = 'none';
+                el.style.opacity = '1';
+                el.classList.remove('collapsed');
             });
             
             // Reset collapsible headers (remove collapsed class/state)
@@ -6284,5 +6658,15 @@
         // Initialize section status on page load
         updateSectionStatus();
     </script>
+
+    <!-- Bug Report Button -->
+    <a href="https://github.com/ccamonsq/subject-account-evaluation-checklist/issues/new?title=Bug%20Report&body=%23%23%20Description%0ADescribe%20the%20issue%20you%20found.%0A%0A%23%23%20Steps%20to%20Reproduce%0A1.%20%0A2.%20%0A3.%20%0A%0A%23%23%20Expected%20Behavior%0AWhat%20should%20have%20happened%3F%0A%0A%23%23%20Actual%20Behavior%0AWhat%20actually%20happened%3F%0A%0A%23%23%20Screenshots%0AAttach%20any%20screenshots%20if%20helpful." 
+       target="_blank"
+       id="bug-report-btn"
+       style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; background: #6c757d; color: white; border: none; border-radius: 50px; padding: 10px 16px; font-size: 13px; text-decoration: none; box-shadow: 0 2px 8px rgba(0,0,0,0.3); cursor: pointer; display: flex; align-items: center; gap: 6px; transition: background 0.2s;"
+       onmouseover="this.style.background='#5a6268'"
+       onmouseout="this.style.background='#6c757d'">
+        🐛 Report Bug
+    </a>
 </body>
 </html>
