@@ -826,6 +826,17 @@
                 </div>
             </div>
         </div>
+
+        <!-- Bug Report Button -->
+        <div style="padding: 10px 15px; border-top: 1px solid #333; margin-top: 10px;">
+            <a href="https://github.com/ccamonsq/subject-account-evaluation-checklist/issues/new?title=Bug%20Report&body=%23%23%20Description%0ADescribe%20the%20issue%20you%20found.%0A%0A%23%23%20Steps%20to%20Reproduce%0A1.%20%0A2.%20%0A3.%20%0A%0A%23%23%20Expected%20Behavior%0AWhat%20should%20have%20happened%3F%0A%0A%23%23%20Actual%20Behavior%0AWhat%20actually%20happened%3F%0A%0A%23%23%20Screenshots%0AAttach%20any%20screenshots%20if%20helpful." 
+               target="_blank"
+               style="display: flex; align-items: center; justify-content: center; gap: 6px; padding: 8px 12px; background: #3a3a55; color: #b8c0cc; border: 1px solid #444; border-radius: 5px; font-size: 12px; text-decoration: none; cursor: pointer; transition: background 0.2s;"
+               onmouseover="this.style.background='#4a4a65'"
+               onmouseout="this.style.background='#3a3a55'">
+                🐛 Report Bug
+            </a>
+        </div>
     </div>
     
     <div class="main-content" id="subject-account-section">
@@ -1265,7 +1276,7 @@
         <!-- 2.4 SSN Deceased Reminder (outside container so collapse doesn't hide it) -->
         <!-- Notes textbox for Authentic path -->
         <div id="authentic-notes-section" style="display: none; margin-top: 20px;">
-            <label class="notes-label">Additional Notes (Subject is Authentic):</label>
+            <label class="notes-label" id="authentic-notes-label">Additional Notes:</label>
             <textarea id="authentic-notes" class="notes-textarea" style="height: 100px; resize: vertical;" placeholder="Optional: Add any notes about the subject's identity verification..."></textarea>
         </div>
 
@@ -1823,16 +1834,16 @@
                                 </div>
                             </div>
 
+                            <!-- Activity Review Notes (single field for subject + connected account notations) -->
+                            <div id="activity-review-notes-section" style="margin-bottom: 20px;">
+                                <label style="font-weight: 600; font-size: 13px; color: #555; display: block; margin-bottom: 6px;">Activity Review Notes <span style="font-weight: 400; color: #888;">(optional)</span></label>
+                                <textarea id="subject-activity-notes" placeholder="Additional notes on subject or connected account activity..." style="width: 100%; height: 70px; padding: 10px 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; resize: vertical; font-family: Arial, sans-serif;"></textarea>
+                            </div>
+
                             <!-- Add Connected Account button -->
                             <div style="margin-bottom: 20px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
                                 <button onclick="addConnectedAccountFromSwitcher()" style="padding: 10px 16px; background: #28a745; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight: 700; cursor: pointer;">+ Add Connected Account Review</button>
                                 <button id="no-connected-accounts-btn" onclick="toggleNoConnectedAccounts()" style="padding: 10px 16px; background: #6c757d; color: white; border: none; border-radius: 6px; font-size: 13px; font-weight: 700; cursor: pointer;">No connected accounts to consider</button>
-                            </div>
-
-                            <!-- Connected accounts general notes (no full review needed) -->
-                            <div id="connected-accounts-general-notes-section" style="margin-bottom: 20px;">
-                                <label style="font-weight: 600; font-size: 13px; color: #555; display: block; margin-bottom: 6px;">Connected Account Notes <span style="font-weight: 400; color: #888;">(optional — quick notes without full review)</span></label>
-                                <textarea id="connected-accounts-general-notes" placeholder="e.g., C_abc123 — same device, no suspicious activity. C_xyz789 — shared email, appears legitimate..." style="width: 100%; height: 70px; padding: 10px 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 13px; resize: vertical; font-family: Arial, sans-serif;"></textarea>
                             </div>
 
                             <!-- Connected account details panel -->
@@ -1862,6 +1873,13 @@
                                         <td style="padding: 12px; border: 1px solid #d0e8ff;">Signals for CSAM and OCSE</td>
                                         <td style="padding: 12px; border: 1px solid #d0e8ff; text-align: center;">
                                             <button class="modal-button" onclick="openTypologySignals('2.6.2')" style="padding: 8px 16px; font-size: 14px;">View Signals</button>
+                                        </td>
+                                    </tr>
+                                    <tr style="border-bottom: 1px solid #d0e8ff;">
+                                        <td style="padding: 12px; border: 1px solid #d0e8ff; font-weight: 500;">2.6.3</td>
+                                        <td style="padding: 12px; border: 1px solid #d0e8ff;">Signals for Human Trafficking</td>
+                                        <td style="padding: 12px; border: 1px solid #d0e8ff; text-align: center;">
+                                            <button class="modal-button" onclick="openTypologySignals('2.6.3')" style="padding: 8px 16px; font-size: 14px;">View Signals</button>
                                         </td>
                                     </tr>
                                     <tr style="border-bottom: 1px solid #d0e8ff;">
@@ -1932,7 +1950,7 @@
                         <!-- Connected account bottom buttons (visible only for connected accounts) -->
                         <div id="back-to-subject-btn" style="display: none; margin-top: 25px;">
                             <button id="submit-account-review-btn" onclick="submitConnectedAccountReview()" style="padding: 14px 20px; background: #007bff; color: white; border: none; border-radius: 6px; font-size: 15px; font-weight: 700; cursor: pointer; width: 100%; box-shadow: 0 2px 8px rgba(0,123,255,0.3);">✓ Submit Review for this Connected Account</button>
-                            <button onclick="navigateToCaseSummary('pass')" style="margin-top: 10px; padding: 14px 20px; background: #28a745; color: white; border: none; border-radius: 6px; font-size: 15px; font-weight: 700; cursor: pointer; width: 100%; box-shadow: 0 2px 8px rgba(40,167,69,0.3);">Continue to Case Summary →</button>
+                            <button onclick="completeEvaluateAccounts()" style="margin-top: 10px; padding: 14px 20px; background: #28a745; color: white; border: none; border-radius: 6px; font-size: 15px; font-weight: 700; cursor: pointer; width: 100%; box-shadow: 0 2px 8px rgba(40,167,69,0.3);">Continue to Case Summary →</button>
                         </div>
 
                         <button id="complete-evaluation-btn" class="next-button" onclick="completeEvaluateAccounts()" style="margin-top: 20px;">Complete Evaluation →</button>
@@ -1977,10 +1995,21 @@
                             <span style="font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 0.5px;">C_Token</span>
                             <p id="summary-subject-ctoken" style="margin: 4px 0 0 0; font-weight: 600; font-size: 14px; font-family: monospace;"></p>
                         </div>
-                        <div style="background: #f8f9fa; padding: 12px; border-radius: 6px;">
+                        <div style="background: #f8f9fa; padding: 12px; border-radius: 6px; position: relative;">
                             <span style="font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 0.5px;">Status</span>
-                            <p id="summary-subject-status" style="margin: 4px 0 0 0; font-weight: 600; font-size: 14px;"></p>
+                            <p id="summary-subject-status" style="margin: 4px 0 0 0; font-weight: 600; font-size: 14px; display: inline;"></p>
+                            <button id="edit-subject-status-btn" onclick="toggleSubjectStatus()" style="background: none; border: none; cursor: pointer; font-size: 14px; padding: 2px 6px; margin-left: 6px; opacity: 0.6; vertical-align: middle;" title="Toggle Authentic/Inauthentic" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'">✎</button>
                         </div>
+                    </div>
+                    <!-- Subject Identity Signals -->
+                    <div id="summary-subject-signals" style="display: none; margin-top: 10px; background: #f8f9fa; padding: 12px; border-radius: 6px; border-left: 4px solid #e67e22;">
+                        <span style="font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 0.5px;">Identity Signals</span>
+                        <p id="summary-subject-signals-text" style="margin: 4px 0 0 0; font-size: 13px; font-weight: 600;"></p>
+                    </div>
+                    <!-- Subject Additional Notes -->
+                    <div id="summary-subject-notes" style="display: none; margin-top: 10px; background: #f0f8ff; padding: 12px; border-radius: 6px; border-left: 4px solid #17a2b8;">
+                        <span style="font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 0.5px;">Additional Notes</span>
+                        <p id="summary-subject-notes-text" style="margin: 4px 0 0 0; font-size: 13px;"></p>
                     </div>
                 </div>
                 
@@ -2000,9 +2029,10 @@
                             <span style="font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 0.5px;">C_Token</span>
                             <p id="summary-source-ctoken" style="margin: 4px 0 0 0; font-weight: 600; font-size: 14px; font-family: monospace;"></p>
                         </div>
-                        <div style="background: #f8f9fa; padding: 12px; border-radius: 6px;">
+                        <div style="background: #f8f9fa; padding: 12px; border-radius: 6px; position: relative;">
                             <span style="font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 0.5px;">Status</span>
-                            <p id="summary-source-status" style="margin: 4px 0 0 0; font-weight: 600; font-size: 14px;"></p>
+                            <p id="summary-source-status" style="margin: 4px 0 0 0; font-weight: 600; font-size: 14px; display: inline;"></p>
+                            <button id="edit-source-status-btn" onclick="toggleSourceStatus()" style="background: none; border: none; cursor: pointer; font-size: 14px; padding: 2px 6px; margin-left: 6px; opacity: 0.6; vertical-align: middle;" title="Toggle Authentic/Inauthentic" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.6'">✎</button>
                         </div>
                     </div>
                     <div id="summary-source-idv-findings" style="display: none; margin-top: 10px; background: #f8f9fa; padding: 12px; border-radius: 6px;">
@@ -2016,6 +2046,7 @@
                     <h3 style="font-size: 16px; color: #333; margin: 0 0 12px 0; padding-bottom: 8px; border-bottom: 2px solid #e9ecef;">2.6 Account Activity</h3>
                     <div style="background: #f8f9fa; padding: 12px; border-radius: 6px;">
                         <p id="summary-typology-findings" style="margin: 0; font-weight: 600; font-size: 14px;"></p>
+                        <ul id="summary-typology-signals-list" style="margin: 8px 0 0 0; padding-left: 20px; list-style: disc; display: none;"></ul>
                         <p id="summary-assessment-notes" style="margin: 8px 0 0 0; font-size: 13px; color: #555; white-space: pre-wrap; display: none;"></p>
                     </div>
                 </div>
@@ -2341,6 +2372,28 @@
                 return { outcome: 'fail', reason: 'Identity concerns identified on Subject Account' };
             }
             
+            // Check for activity signals on any account (subject, source, connected)
+            const subjectState = accountSignalStates['subject'];
+            let subjectSignalCount = 0;
+            if (subjectState && subjectState.checkboxStates) {
+                subjectSignalCount = Object.values(subjectState.checkboxStates).filter(v => v).length;
+            }
+            const sourceState = accountSignalStates['source'];
+            let sourceSignalCount = 0;
+            if (sourceState && sourceState.checkboxStates) {
+                sourceSignalCount = Object.values(sourceState.checkboxStates).filter(v => v).length;
+            }
+            const connectedAccounts = Object.keys(connectedAccountsData).length > 0 ? getConnectedAccountsData() : [];
+            const connectedWithSignals = connectedAccounts.filter(a => a.signalsFound);
+            
+            if (subjectSignalCount > 0 || sourceSignalCount > 0 || connectedWithSignals.length > 0) {
+                let reasons = [];
+                if (subjectSignalCount > 0) reasons.push(`${subjectSignalCount} denylist activity signal(s) on subject`);
+                if (sourceSignalCount > 0) reasons.push(`${sourceSignalCount} denylist activity signal(s) on source`);
+                if (connectedWithSignals.length > 0) reasons.push(`${connectedWithSignals.length} connected account(s) with denylist activity signals`);
+                return { outcome: 'fail', reason: reasons.join('; ') };
+            }
+            
             // If subject is authentic, check source account
             if (subjectStatus === 'authentic') {
                 const sourceLocated = document.querySelector('input[name="source-account-located"]:checked');
@@ -2355,6 +2408,17 @@
                         return { outcome: 'fail', reason: 'No compromised access identified — Source and Subject are Authentic' };
                     }
                 }
+                
+                // Check if activity section was completed with no signals
+                const paymentHistoryRadio = document.querySelector('input[name="payment-history"]:checked');
+                if (paymentHistoryRadio) {
+                    if (paymentHistoryRadio.value === 'yes-no-adverse') {
+                        return { outcome: 'pass', reason: 'Payment history reviewed, no adverse activity found' };
+                    } else if (paymentHistoryRadio.value === 'no') {
+                        return { outcome: 'pass', reason: 'No payment history to consider' };
+                    }
+                }
+                
                 // Default for authentic subject with incomplete source evaluation
                 return { outcome: 'fail', reason: 'Review in progress' };
             }
@@ -2787,7 +2851,7 @@
                 sourceQuestion.style.display = 'block';
                 continueToEvaluate.style.display = 'none';
             } else if (selectedValue === 'inauthentic') {
-                authenticNotes.style.display = 'none';
+                authenticNotes.style.display = 'block';
                 ssnSection.style.display = 'none';
                 sourceQuestion.style.display = 'none';
                 continueToEvaluate.style.display = 'none';
@@ -3385,72 +3449,238 @@
             const signalData = {
                 '2.6.2': {
                     title: '2.6.2 Signals for CSAM and OCSE',
-                    signals: [
-                        'Evidence of child sexual abuse material (CSAM) in transaction descriptions or communications',
-                        'References to minors in inappropriate contexts',
-                        'Known CSAM-related keywords or coded language',
-                        'Transactions with known CSAM distributors or networks',
-                        'Online child sexual exploitation (OCSE) indicators',
-                        'Age-inappropriate content or solicitation patterns'
+                    categories: [
+                        {
+                            name: 'Child Exploitation',
+                            signals: [
+                                'Sexually explicit subject lines or emojis for transactions between an adult account and a minor account'
+                            ]
+                        },
+                        {
+                            name: 'Pimp/Manager Relationship',
+                            signals: [
+                                'Payment source information differs from account controller (ex. male name on payment cards and female name on account information)',
+                                'Account owned by a male is exclusively sending round/flat amounts to the same group of recipient accounts owned by females',
+                                'A male account owner could be primarily receiving from several sender accounts owned by females',
+                                'Web presence indicates potential for trafficking concerns',
+                                'Female account owners with escort WP receiving payments from male customers (johns), and subsequently transferring same/similar amounts to a repeat recipient, male account owner (pimp/handler)'
+                            ]
+                        }
+                    ]
+                },
+                '2.6.3': {
+                    title: '2.6.3 Signals for Human Trafficking',
+                    categories: [
+                        {
+                            name: 'Customer Profile',
+                            signals: [
+                                'Third-Party Communication: Individuals who are not allowed to speak for themselves, and someone else communicates on their behalf',
+                                'Cashtag: Name does not match the account owner\'s IDV name (i.e. account owner is Jane Doe, using the cashtag $SeductiveSally420)'
+                            ]
+                        },
+                        {
+                            name: 'Unusual Transactional Patterns',
+                            signals: [
+                                'Multiple Transactions: High frequency of deposits or withdrawals, especially if they are in round amounts or conducted methodically to avoid detection',
+                                'Inconsistent Transactions: Transactions that are inconsistent with the customer\'s expected financial behavior or profile',
+                                'High Cash Activity: Unusually high levels of cash deposits or withdrawals, which may indicate an attempt to avoid traceable financial channels',
+                                'ATMs: High volume of ATM withdrawals from various locations',
+                                'Card Purchases: Cash App card purchases at international hotels and spas may indicate potential human trafficking concerns',
+                                'Short-Time Frame: Repeat transactions in multiple cities along a known trafficking route within a short period'
+                            ]
+                        },
+                        {
+                            name: 'Payment Memo Analysis',
+                            signals: [
+                                'Communications: Transactions accompanied by cryptic or coded language in memos or descriptions, suggesting illicit intent'
+                            ]
+                        },
+                        {
+                            name: 'Geographic Indicators',
+                            signals: [
+                                'Cross-Border Payments: Large sums being transferred internationally, particularly to high-risk or known trafficking regions',
+                                'Frequent Small Transfers: Numerous small transactions to international addresses, which can be an attempt to avoid detection',
+                                'Transfers to High-Risk Jurisdictions: Transactions involving countries such as China, Thailand, and the Philippines which are considered high-risk for human trafficking because they are destinations for migrants from less economically developed neighboring countries'
+                            ]
+                        },
+                        {
+                            name: 'Third-Party Control',
+                            signals: [
+                                'Multiple Accounts: Multiple accounts controlled by the same person, with funds being moved between them frequently',
+                                'Single Controller: Signs that one person is controlling multiple accounts across various banks or financial institutions'
+                            ]
+                        }
                     ]
                 },
                 '2.6.4': {
                     title: '2.6.4 Signals for Terrorist Financing',
-                    signals: [
-                        'Transactions to/from high-risk jurisdictions for terrorism',
-                        'Connections to known terrorist organizations or individuals',
-                        'Unusual patterns consistent with terrorist financing typologies',
-                        'References to extremist ideology or organizations',
-                        'Structuring or layering to obscure terrorist financing',
-                        'Donations or payments to sanctioned entities'
+                    categories: [
+                        {
+                            name: 'Unusual Transactional Patterns',
+                            signals: [
+                                'High Frequency of Small Transactions: Frequent small transactions that do not align with the customer\'s typical behavior',
+                                'Large Withdrawals/Deposits: Sudden and unexplained increases in the volume or frequency of transactions, particularly involving large cash withdrawals or deposits',
+                                'Unexplained Funding: Deposits followed by immediate withdrawals or rapid movement of funds, often without any clear or legitimate purpose',
+                                'Use of Cash: Preference for cash transactions over more traceable methods',
+                                'Donations Linked to High-Risk Areas: Transfers to or from charitable organizations with ties to regions known for terrorist activity',
+                                'Unusual Donation Patterns: Large donations that are inconsistent with donor profiles or that appear to lack a clear philanthropic purpose',
+                                'High Volumes: Large or frequent cryptocurrency transactions, given their potential for anonymity',
+                                'Anonymizing Services: Use of mixing services, tumblers, or privacy-focused cryptocurrencies'
+                            ]
+                        },
+                        {
+                            name: 'Payment Memo Analysis',
+                            signals: [
+                                'Communications: Transactions accompanied by cryptic or coded language in memos or descriptions'
+                            ]
+                        },
+                        {
+                            name: 'Geographic Indicators',
+                            signals: [
+                                'Frequent Cross-Border Transactions: Regular international transfers, especially to conflict zones or regions affected by terrorism',
+                                'Transfers to High-Risk Jurisdictions: Transactions involving countries or regions known for terrorist activity or weak counter-terrorism financing (CFT) controls'
+                            ]
+                        },
+                        {
+                            name: 'Behavioral Red Flags',
+                            signals: [
+                                'Unusual Lack of Information: Accounts or transactions lacking detailed information or justifications, especially for high-value transfers',
+                                'Multiple Accounts: Use of several accounts with repeated transfers between them to obscure the origin or destination of funds',
+                                'Change in Account Types: Switching between different types of accounts or financial instruments'
+                            ]
+                        },
+                        {
+                            name: 'Customer Profile',
+                            signals: [
+                                'Mismatched Information: Discrepancies between the customer\'s stated profile and their transaction patterns or financial activities',
+                                'High-Risk Occupation/Background: Occupations or backgrounds associated with high-risk sectors or regions',
+                                'Profile Updates: Regular changes in personal information, such as addresses or contact details, particularly when paired with suspicious financial activity'
+                            ]
+                        }
                     ]
                 },
                 '2.6.5': {
                     title: '2.6.5 Signals for Arms Dealing',
-                    signals: [
-                        'References to weapons, firearms, or ammunition in transactions',
-                        'Connections to known arms dealers or illegal weapons markets',
-                        'Transactions involving weapon-related keywords or codes',
-                        'Cross-border payments consistent with arms trafficking',
-                        'Unusual cash-intensive transactions for high-value items',
-                        'Links to dark web marketplaces for weapons'
+                    categories: [
+                        {
+                            name: 'Unusual Transactional Patterns',
+                            signals: [
+                                'High volume or high-value transactions that are inconsistent with the customer\'s normal behavior or profile',
+                                'Large purchases of weapons or ammunition',
+                                'Multiple transactions in a short period across different accounts',
+                                'Consecutive transactions, clustering of transactions based on specific times and dates, and transactions in round-dollar amounts'
+                            ]
+                        },
+                        {
+                            name: 'Payment Memo Analysis',
+                            signals: [
+                                'Use of specific keywords, emojis, or codes in payment memos that might relate to firearms or ammunition'
+                            ]
+                        },
+                        {
+                            name: 'Multiplicity of Accounts',
+                            signals: [
+                                'Several linked or unlinked accounts showing similar patterns or addresses',
+                                'Accounts with inconsistent details, suggesting attempts to evade detection'
+                            ]
+                        },
+                        {
+                            name: 'Web Presence and/or Negative News',
+                            signals: [
+                                'Adverse media coverage or online presence indicating involvement in arms trafficking',
+                                'Links to websites or social media profiles promoting or selling firearms'
+                            ]
+                        },
+                        {
+                            name: 'Geographic Indicators',
+                            signals: [
+                                'Transactions involving countries or regions known for significant arms trafficking'
+                            ]
+                        },
+                        {
+                            name: 'Connection to Illicit Activities',
+                            signals: [
+                                'Transactions connected to known arms dealers or organizations involved in illicit activities',
+                                'History of accounts related to terrorism, drug trafficking, or organized crime'
+                            ]
+                        },
+                        {
+                            name: 'Behavioral Red Flags',
+                            signals: [
+                                'Sudden change in transaction habits without a clear explanation',
+                                'Large-scale movement of funds from one account to another, potentially indicating money laundering'
+                            ]
+                        }
                     ]
                 },
                 '2.6.6': {
                     title: '2.6.6 Tier 1 Negative News Signals',
+                    note: '(Tier 1)',
                     signals: [
-                        'Subject or source account linked to negative media coverage',
-                        'Criminal charges or convictions related to financial crimes',
-                        'Regulatory enforcement actions or sanctions',
-                        'Association with known fraudsters or criminal enterprises',
-                        'Politically exposed person (PEP) with adverse media',
-                        'Involvement in high-profile fraud or money laundering cases'
+                        'Money Laundering',
+                        'Terrorist Financing',
+                        'Drug Trafficking',
+                        'Arms Trafficking (AKA: Gunrunning)',
+                        'Financial Crimes',
+                        'Counterfeiting',
+                        'Aircraft Hijacking',
+                        'Bribery',
+                        'Organized Crime',
+                        'Human Trafficking',
+                        'Corruption',
+                        'Crimes Against Humanity',
+                        'Crimes Against Children (Including CSAM)',
+                        'Sex Offender',
+                        'WMD (Weapons of Mass Destruction)',
+                        'Pharma Trafficking (Pharmaceutical Products Trafficking)',
+                        'War Crimes'
                     ]
                 },
                 '2.6.8': {
                     title: '2.6.8 Low to Medium-Risk Typologies',
                     signals: [
-                        'Peer-to-peer (P2P) transaction patterns with multiple parties',
-                        'Rapid movement of funds through multiple accounts',
-                        'Transactions just below reporting thresholds',
-                        'Use of multiple payment methods or accounts',
-                        'Business account used for personal transactions',
-                        'Inconsistent transaction patterns with stated business purpose',
-                        'Frequent small transactions that aggregate to large amounts',
-                        'Geographic anomalies in transaction patterns'
+                        'Adult Services',
+                        'Blessing Circle',
+                        'Drugs (Pharma, Drugs, Marijuana)',
+                        'Fraud',
+                        'Gambling',
+                        'Incarcerated MSB',
+                        'Money Laundering',
+                        'Sanctions',
+                        'TOSV',
+                        'Unusual Movement'
                     ]
                 },
                 '2.6.9': {
                     title: '2.6.9 Customer Facilitating Scams',
-                    signals: [
-                        'Account receiving funds from multiple victims',
-                        'Rapid withdrawal or transfer of received funds',
-                        'Transaction descriptions indicating romance scams, investment scams, or other fraud',
-                        'Multiple disputes or chargebacks from different parties',
-                        'Use of account as a "money mule" for scam proceeds',
-                        'Communications indicating deceptive practices',
-                        'Patterns consistent with advance fee fraud or phishing schemes',
-                        'Account holder claims to be victim but shows facilitator patterns'
+                    categories: [
+                        {
+                            name: 'As Recipient',
+                            signals: [
+                                'Payments initiated by the customer are intended to bait other customers into making a payment',
+                                'Payment amount is not proportional or realistic for the product described in payment notes',
+                                'Customer receives payments for varying goods/services that are unrelated to each other (e.g., "puppy", "tickets", "iPhone 16") typically at a higher velocity',
+                                'Multiple senders request funds for their payments to the customer and/or file disputes and/or chargebacks on their payment(s)',
+                                'Customer is posing as an official company/brand/personality via display name, $Cashtag, and/or display photo',
+                                'Recipient has prior #AR_SCAMS_CLEAR hashtags in the Comments section of Regulator',
+                                'The customer has transacted via P2P with other customers connected by SSN, device or payment source and share similar behaviors/attributes',
+                                'Customer uses their account primarily to receive payments, which are often risk-blocked, from distinct senders',
+                                'The customer\'s sending and receiving GPV are identical',
+                                'The customer is using a peculiar display picture (e.g., flowers, doll faces, cat/dog, nature, circle picture, etc.)',
+                                'Customer has a history of P2P payments to random recipients and using endearing initiator notes, or suggests they are paying for a good/service on behalf of the recipient'
+                            ]
+                        },
+                        {
+                            name: 'As Sender',
+                            signals: [
+                                'Senders of risk-blocked or revoked payments are redirecting funds to other recipients which have scam or fraudulent concerns',
+                                'Recipients of redirected funds',
+                                'Sender has a history of sending payments to known scalable fraud pattern accounts',
+                                'Sender\'s account has a failed high dollar exceeded limit payment around the time of the blocked transaction which suggests that the payment attempt is the result of a clearance fee scam',
+                                'Sender has a customer support case or dispute claim which provides additional details confirming that the payment was part of scam or fraudulent activity',
+                                'Sender withdraws Bitcoin after a P2P payment is blocked'
+                            ]
+                        }
                     ]
                 },
                 '2.6.10': {
@@ -3801,11 +4031,14 @@
             // Hide payment history question for connected accounts, show typology signals directly
             const paymentQuestion = document.getElementById('payment-history-question');
             const typologySection = document.getElementById('typology-signals-section');
+            const activityReviewNotesSection = document.getElementById('activity-review-notes-section');
             if (currentAccountContext.startsWith('connected-')) {
                 if (paymentQuestion) paymentQuestion.style.display = 'none';
+                if (activityReviewNotesSection) activityReviewNotesSection.style.display = 'none';
                 if (typologySection) typologySection.style.display = 'block';
             } else {
                 if (paymentQuestion) paymentQuestion.style.display = 'block';
+                if (activityReviewNotesSection) activityReviewNotesSection.style.display = 'block';
             }
         }
         
@@ -4022,6 +4255,33 @@
             }
         }
         
+        // Global helper: strip parenthetical example text from signal labels
+        const summaryLabelMap = {
+            // ID signals
+            'Full physical address is NOT visible and legible OR is PO BOX, General Delivery, or Generic address (Driver\'s License/State ID only)': 'Full physical address is NOT visible and legible OR is PO BOX, General Delivery, or Generic address',
+            'Full Bar Code on the back of ID is NOT visible (Driver\'s License/State ID only)': 'Full Bar Code on the back of ID is NOT visible',
+            '2D barcode is NOT clear and legible (Driver\'s License/State ID only)': '2D barcode is NOT clear and legible',
+            'Necessary PII is NOT identifiable (even considering obstructions)': 'Necessary PII is NOT identifiable',
+            // Selfie signals
+            'NOT a true selfie (not a photo they took of themselves)': 'NOT a true selfie',
+            // Account review signals
+            'Government ID document and/or Selfie are a picture of picture (not including screenshots)': 'Government ID document and/or Selfie are a picture of picture',
+            'Selfie appears photoshopped, digitally generated, or customer is intentionally obscuring identity (mask, wig, etc.)': 'Selfie appears photoshopped, digitally generated, or customer is intentionally obscuring identity',
+            'Email address is gibberish (nonsensical characters)': 'Email address is gibberish',
+            'Email indicates scalable tracking (e.g., btc00xx, btc01xx, btc02xx)': 'Email indicates scalable tracking',
+            'Use of disposable or atypical email domains (e.g., @iillii, @getnada)': 'Use of disposable or atypical email domains',
+            '$Cashtag or display name is unusual - Name mismatched (not including nicknames/business names)': '$Cashtag or display name is unusual - Name mismatched',
+            'Customer\'s display name is in ALL CAPS (only use if email OR $Cashtag/display name signals are also present)': 'Customer\'s display name is in ALL CAPS and email OR $Cashtag/display name signals are also present',
+            'Non-US time zones (e.g., Asia/Dubai, America/Montevideo)': 'Non-US time zones',
+            'Nondescript time zones (e.g., "Central" vs. "US/Chicago")': 'Nondescript time zones'
+        };
+        function shortenLabel(label) {
+            if (summaryLabelMap[label]) return summaryLabelMap[label];
+            // Strip parentheticals containing examples/clarifications
+            let shortened = label.replace(/\s*\((?:e\.g\.?[^)]*|[^)]*etc\.[^)]*|not including[^)]*|does not include[^)]*|nonsensical[^)]*|not a photo[^)]*|mask,\s*wig[^)]*)\)/gi, '');
+            return shortened.trim();
+        }
+
         function getConnectedAccountsData() {
             // Save current signal state before collecting
             saveCurrentSignalState();
@@ -4046,7 +4306,7 @@
                         if (checked) {
                             const labelEl = document.querySelector(`label[for="${cbId}"]`);
                             if (labelEl) {
-                                signals.push(labelEl.textContent.trim());
+                                signals.push(shortenLabel(labelEl.textContent.trim()));
                             } else {
                                 signals.push(cbId);
                             }
@@ -5077,6 +5337,10 @@
             // Navigate to section 2.6
             document.getElementById('source-account').style.display = 'none';
             document.getElementById('evaluate-accounts').style.display = 'block';
+            const sec26Content1 = document.getElementById('evaluate-accounts-content');
+            const sec26Header1 = document.getElementById('evaluate-accounts-heading');
+            if (sec26Content1) { sec26Content1.classList.remove('collapsed'); sec26Content1.style.maxHeight = 'none'; sec26Content1.style.opacity = '1'; sec26Content1.style.overflow = 'visible'; }
+            if (sec26Header1) sec26Header1.classList.remove('collapsed');
             autoSelectDefaultContext();
             document.getElementById('evaluate-accounts').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
@@ -5161,7 +5425,26 @@
                 heading.classList.add('complete');
             }
             
-            alert('Source Account review completed!');
+            // Mark Source Account Review as complete in sidebar
+            const progressSource = document.getElementById('progress-source-review');
+            if (progressSource) {
+                const icon = progressSource.querySelector('.status-icon');
+                if (icon) { icon.textContent = '✓'; icon.style.color = '#2ecc71'; }
+                progressSource.classList.add('complete');
+            }
+            
+            // Navigate to section 2.6
+            const evaluateSection = document.getElementById('evaluate-accounts');
+            const sec26Content = document.getElementById('evaluate-accounts-content');
+            const sec26Header = document.getElementById('evaluate-accounts-heading');
+            if (evaluateSection) {
+                evaluateSection.style.display = 'block';
+                if (sec26Content) { sec26Content.classList.remove('collapsed'); sec26Content.style.maxHeight = 'none'; sec26Content.style.opacity = '1'; sec26Content.style.overflow = 'visible'; }
+                if (sec26Header) sec26Header.classList.remove('collapsed');
+                autoSelectDefaultContext();
+                evaluateSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            updateSidebarActive('evaluate-accounts');
         }
         
         function continueToSourceAccount() {
@@ -5279,6 +5562,10 @@
                 // Q.1 Yes: High confidence device was compromised → Go to section 2.6
                 document.getElementById('source-account').style.display = 'none';
                 document.getElementById('evaluate-accounts').style.display = 'block';
+                const sec26Content2 = document.getElementById('evaluate-accounts-content');
+                const sec26Header2 = document.getElementById('evaluate-accounts-heading');
+                if (sec26Content2) { sec26Content2.classList.remove('collapsed'); sec26Content2.style.maxHeight = 'none'; sec26Content2.style.opacity = '1'; sec26Content2.style.overflow = 'visible'; }
+                if (sec26Header2) sec26Header2.classList.remove('collapsed');
                 autoSelectDefaultContext();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             } else {
@@ -5300,6 +5587,10 @@
                 // Q.2 Yes: High confidence access was compromised → Go to section 2.6
                 document.getElementById('source-account').style.display = 'none';
                 document.getElementById('evaluate-accounts').style.display = 'block';
+                const sec26Content3 = document.getElementById('evaluate-accounts-content');
+                const sec26Header3 = document.getElementById('evaluate-accounts-heading');
+                if (sec26Content3) { sec26Content3.classList.remove('collapsed'); sec26Content3.style.maxHeight = 'none'; sec26Content3.style.opacity = '1'; sec26Content3.style.overflow = 'visible'; }
+                if (sec26Header3) sec26Header3.classList.remove('collapsed');
                 autoSelectDefaultContext();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             } else {
@@ -5545,6 +5836,50 @@
         
         let currentCaseOutcome = 'pass'; // Track current outcome for toggle
         
+        function toggleSourceStatus() {
+            const statusEl = document.getElementById('summary-source-status');
+            const currentStatus = statusEl.textContent.trim();
+            let newStatus, newColor;
+            if (currentStatus === 'Authentic') {
+                newStatus = 'Inauthentic';
+                newColor = '#dc3545';
+            } else if (currentStatus === 'Inauthentic') {
+                newStatus = 'Authentic';
+                newColor = '#28a745';
+            } else {
+                newStatus = 'Authentic';
+                newColor = '#28a745';
+            }
+            const confirmed = confirm(`Change source status to ${newStatus}?`);
+            if (!confirmed) return;
+            statusEl.textContent = newStatus;
+            statusEl.style.color = newColor;
+            generateCaseNotes();
+        }
+
+        function toggleSubjectStatus() {
+            const statusEl = document.getElementById('summary-subject-status');
+            const currentStatus = statusEl.textContent.trim();
+            let newStatus, newColor;
+            if (currentStatus === 'Authentic') {
+                newStatus = 'Inauthentic';
+                newColor = '#dc3545';
+            } else if (currentStatus === 'Inauthentic') {
+                newStatus = 'Authentic';
+                newColor = '#28a745';
+            } else {
+                // For other statuses (ID/selfie concerns), toggle to Authentic
+                newStatus = 'Authentic';
+                newColor = '#28a745';
+            }
+            const confirmed = confirm(`Change subject status to ${newStatus}?`);
+            if (!confirmed) return;
+            statusEl.textContent = newStatus;
+            statusEl.style.color = newColor;
+            // Regenerate case notes with updated status
+            generateCaseNotes();
+        }
+
         function toggleCaseOutcome() {
             const newOutcome = currentCaseOutcome === 'pass' ? 'FAIL' : 'PASS';
             const confirmed = confirm(`Are you sure you want to change this case to ${newOutcome}?`);
@@ -5682,18 +6017,6 @@
         }
         
         function generateCaseNotes() {
-            // Shortened labels for case summary display
-            const summaryLabelMap = {
-                'Full physical address is NOT visible and legible OR is PO BOX, General Delivery, or Generic address (Driver\'s License/State ID only)': 'Full physical address is NOT visible and legible OR is PO BOX, General Delivery, or Generic address',
-                'Full Bar Code on the back of ID is NOT visible (Driver\'s License/State ID only)': 'Full Bar Code on the back of ID is NOT visible',
-                '2D barcode is NOT clear and legible (Driver\'s License/State ID only)': '2D barcode is NOT clear and legible',
-                'Necessary PII is NOT identifiable (even considering obstructions)': 'Necessary PII is NOT identifiable',
-                'NOT a true selfie (not a photo they took of themselves)': 'NOT a true selfie'
-            };
-            function shortenLabel(label) {
-                return summaryLabelMap[label] || label;
-            }
-
             let notes = [];
             const dropdown = document.getElementById('subject-status-dropdown');
             const subjectStatus = dropdown ? dropdown.value : '';
@@ -5709,6 +6032,9 @@
             const subjectCtoken = subjectCtokenEl ? subjectCtokenEl.value.trim() : '[C_Token]';
             let subjectLabel = 'Authentic';
             let subjectBasis = '';
+            let subjectBasisBullets = [];
+            let subjectBasisNotes = '';
+            let subjectBasisBulletsPrefix = '';
             
             if (subjectStatus === 'id-concerns') {
                 subjectLabel = 'unable to proceed';
@@ -5720,10 +6046,11 @@
                         if (label) signals.push(shortenLabel(label.textContent.trim()));
                     }
                 }
-                subjectBasis = signals.length > 0 ? signals.join(', ') : 'ID document concerns';
+                subjectBasis = signals.length > 0 ? '__BULLETS__' : 'ID document concerns';
+                subjectBasisBullets = signals;
                 const idNotes = document.getElementById('id-notes');
                 if (idNotes && idNotes.value.trim()) {
-                    subjectBasis += '. ' + idNotes.value.trim();
+                    subjectBasisNotes = idNotes.value.trim();
                 }
             } else if (subjectStatus === 'selfie-concerns') {
                 subjectLabel = 'unable to proceed';
@@ -5735,10 +6062,11 @@
                         if (label) signals.push(shortenLabel(label.textContent.trim()));
                     }
                 }
-                subjectBasis = signals.length > 0 ? signals.join(', ') : 'selfie concerns';
+                subjectBasis = signals.length > 0 ? '__BULLETS__' : 'selfie concerns';
+                subjectBasisBullets = signals;
                 const selfieNotes = document.getElementById('selfie-notes');
                 if (selfieNotes && selfieNotes.value.trim()) {
-                    subjectBasis += '. ' + selfieNotes.value.trim();
+                    subjectBasisNotes = selfieNotes.value.trim();
                 }
             } else if (subjectStatus === 'inauthentic') {
                 let step3Signals = [];
@@ -5765,26 +6093,57 @@
                 }
                 let signals = step3Signals.concat(step4Signals);
                 if (subjectThresholdMet) {
-                    subjectBasis = signals.length > 0 ? signals.join(', ') : 'inauthentic identity criteria';
+                    subjectBasis = signals.length > 0 ? '__BULLETS__' : 'inauthentic identity criteria';
+                    subjectBasisBullets = signals;
                 } else {
                     subjectBasis = 'IDV, aliases and location review';
                     if (signals.length > 0) {
-                        subjectBasis += '. Signals noted but inauthentic criteria not met: ' + signals.join(', ');
+                        subjectBasisBullets = signals;
+                        subjectBasisBulletsPrefix = 'Signals noted but inauthentic criteria not met:';
                     }
                 }
                 const acctNotes = document.getElementById('account-info-notes');
                 if (acctNotes && acctNotes.value.trim()) {
-                    subjectBasis += '. ' + acctNotes.value.trim();
+                    subjectBasisNotes = acctNotes.value.trim();
                 }
             } else if (subjectStatus === 'authentic') {
                 subjectLabel = 'Authentic';
                 subjectBasis = 'IDV, aliases and location review';
             }
             
-            if (subjectLabel === 'unable to proceed') {
-                notes.push('Subject Account ' + subjectCtoken + ' is unable to proceed based on ' + (subjectBasis || 'evaluation criteria'));
-            } else {
+            if (subjectBasis === '__BULLETS__') {
+                // Output with bullet points
+                if (subjectLabel === 'unable to proceed') {
+                    notes.push('Subject Account ' + subjectCtoken + ' is unable to proceed based on:');
+                } else {
+                    notes.push('Subject Account ' + subjectCtoken + ' is ' + subjectLabel + ' based on:');
+                }
+                if (subjectBasisBulletsPrefix) {
+                    notes.push(subjectBasisBulletsPrefix);
+                }
+                subjectBasisBullets.forEach(s => notes.push('  • ' + s));
+                if (subjectBasisNotes) {
+                    notes.push(subjectBasisNotes);
+                }
+            } else if (subjectBasisBullets.length > 0) {
+                // Has basis text AND bullets (e.g., authentic with signals noted)
                 notes.push('Subject Account ' + subjectCtoken + ' is ' + subjectLabel + ' based on ' + (subjectBasis || 'evaluation criteria'));
+                if (subjectBasisBulletsPrefix) {
+                    notes.push(subjectBasisBulletsPrefix);
+                }
+                subjectBasisBullets.forEach(s => notes.push('  • ' + s));
+                if (subjectBasisNotes) {
+                    notes.push(subjectBasisNotes);
+                }
+            } else {
+                if (subjectLabel === 'unable to proceed') {
+                    notes.push('Subject Account ' + subjectCtoken + ' is unable to proceed based on ' + (subjectBasis || 'evaluation criteria'));
+                } else {
+                    notes.push('Subject Account ' + subjectCtoken + ' is ' + subjectLabel + ' based on ' + (subjectBasis || 'evaluation criteria'));
+                }
+                if (subjectBasisNotes) {
+                    notes.push(subjectBasisNotes);
+                }
             }
             notes.push('');
             
@@ -5804,11 +6163,14 @@
                 notes.push('');
             }
             
-            // --- SOURCE ACCOUNT (only for authentic path) ---
-            if (subjectStatus === 'authentic') {
-                const sourceLocated = document.querySelector('input[name="source-account-located"]:checked');
+            // --- SOURCE ACCOUNT (show if source was reviewed — covers authentic and inauthentic-threshold-not-met paths) ---
+            const noteSourceCtokenEl = document.getElementById('source-ctoken');
+            const noteSourceLocated = document.querySelector('input[name="source-account-located"]:checked');
+            const noteSourceWasReviewed = noteSourceLocated || (noteSourceCtokenEl && noteSourceCtokenEl.value.trim());
+            if (subjectStatus !== 'id-concerns' && subjectStatus !== 'selfie-concerns' && noteSourceWasReviewed) {
+                const sourceLocated = noteSourceLocated;
                 
-                if (sourceLocated && sourceLocated.value === 'yes') {
+                if ((sourceLocated && sourceLocated.value === 'yes') || (!sourceLocated && noteSourceCtokenEl && noteSourceCtokenEl.value.trim())) {
                     // 2.5.1 Source Identity
                     const sourceCtokenEl = document.getElementById('source-ctoken');
                     const sourceCtoken = sourceCtokenEl ? sourceCtokenEl.value.trim() : '[C_Token]';
@@ -5875,7 +6237,7 @@
                         const cb = document.getElementById('source-compromised-item' + i);
                         if (cb && cb.checked) {
                             const label = document.querySelector('label[for="source-compromised-item' + i + '"]');
-                            if (label) compromisedDeviceSignals.push(label.textContent.trim());
+                            if (label) compromisedDeviceSignals.push(shortenLabel(label.textContent.trim()));
                         }
                     }
                     let compromisedAccessSignals = [];
@@ -5883,7 +6245,7 @@
                         const cb = document.getElementById('source-compromised-access' + i);
                         if (cb && cb.checked) {
                             const label = document.querySelector('label[for="source-compromised-access' + i + '"]');
-                            if (label) compromisedAccessSignals.push(label.textContent.trim());
+                            if (label) compromisedAccessSignals.push(shortenLabel(label.textContent.trim()));
                         }
                     }
                     
@@ -5946,11 +6308,18 @@
                 });
             }
             
+            // Get subject activity notes (general notes field)
+            const subjectActivityNotesEl = document.getElementById('subject-activity-notes');
+            const subjectActivityNotesVal = subjectActivityNotesEl ? subjectActivityNotesEl.value.trim() : '';
+            
             if (subjectSignalLabels.length > 0) {
                 notes.push('Evaluated signals for (' + subjectCtokenVal + '):');
                 subjectSignalLabels.forEach(s => notes.push('  • ' + s));
                 if (subjectSavedState && subjectSavedState.notes) {
                     notes.push(subjectSavedState.notes);
+                }
+                if (subjectActivityNotesVal) {
+                    notes.push(subjectActivityNotesVal);
                 }
                 notes.push('');
             } else if (noPaymentHistory) {
@@ -5965,6 +6334,13 @@
                 if (subjectSavedState && subjectSavedState.notes) {
                     notes.push(subjectSavedState.notes);
                 }
+                if (subjectActivityNotesVal) {
+                    notes.push(subjectActivityNotesVal);
+                }
+                notes.push('');
+            } else if (subjectActivityNotesVal) {
+                notes.push('Subject Account Activity (' + subjectCtokenVal + '):');
+                notes.push(subjectActivityNotesVal);
                 notes.push('');
             }
             
@@ -5998,16 +6374,16 @@
             
             // --- CONNECTED ACCOUNTS (2.6) ---
             // Only skip connected accounts note for straight fail cases (id-concerns, selfie-concerns, inauthentic threshold met without continuing)
-            const noteSourceLocated = document.querySelector('input[name="source-account-located"]:checked');
+            const connSourceLocated = document.querySelector('input[name="source-account-located"]:checked');
             const notesSsnDeceased = document.getElementById('ssn-deceased-yes') && document.getElementById('ssn-deceased-yes').checked;
-            const notesSourceCtokenEl = document.getElementById('source-ctoken');
-            const notesSourceWasReviewed = noteSourceLocated || (notesSourceCtokenEl && notesSourceCtokenEl.value.trim());
+            const connSourceCtokenEl = document.getElementById('source-ctoken');
+            const notesSourceWasReviewed = connSourceLocated || (connSourceCtokenEl && connSourceCtokenEl.value.trim());
             const notesInauthenticThresholdMet = subjectStatus === 'inauthentic' && !notesSourceWasReviewed && !notesSsnDeceased;
             
             const notesSourceStatusEl = document.getElementById('summary-source-status');
             const notesSourceStatusText = notesSourceStatusEl ? notesSourceStatusEl.textContent : '';
             const notesBothAuthentic = subjectStatus === 'authentic' && (notesSourceStatusText === 'Authentic' || notesSourceStatusText === 'N/A') && !notesSsnDeceased;
-            const notesGeneralConnNotesEl = document.getElementById('connected-accounts-general-notes');
+            const notesGeneralConnNotesEl = document.getElementById('subject-activity-notes');
             const notesHasConnectedNotes = notesGeneralConnNotesEl && notesGeneralConnNotesEl.value.trim();
             
             if (subjectStatus !== 'id-concerns' && subjectStatus !== 'selfie-concerns' && !notesInauthenticThresholdMet && !(notesBothAuthentic && !notesHasConnectedNotes)) {
@@ -6027,7 +6403,7 @@
                             accountsWithSignals.forEach((account) => {
                                 const ctokenLabel = account.ctoken || 'Connected Account #' + account.id;
                                 notes.push('Evaluated signals for (' + ctokenLabel + '):');
-                                account.signals.forEach(s => notes.push('  • ' + s));
+                                account.signals.forEach(s => notes.push('  • ' + shortenLabel(s)));
                                 if (account.notes) {
                                     notes.push(account.notes);
                                 }
@@ -6128,6 +6504,93 @@
             // Subject C_Token
             const subjectCtoken = document.getElementById('subject-ctoken') || document.getElementById('c-token');
             document.getElementById('summary-subject-ctoken').textContent = (subjectCtoken && subjectCtoken.value) ? subjectCtoken.value : 'Not provided';
+            
+            // Subject Identity Signals (Steps 3-4)
+            const summarySubjectSignals = document.getElementById('summary-subject-signals');
+            const summarySubjectSignalsText = document.getElementById('summary-subject-signals-text');
+            if (dropdown.value === 'inauthentic') {
+                // Collect checked signals from Steps 3 and 4
+                const step3Signals = [];
+                const step4Signals = [];
+                document.querySelectorAll('#step3-content input[type="checkbox"]:checked').forEach(cb => {
+                    const label = document.querySelector(`label[for="${cb.id}"]`);
+                    if (label) step3Signals.push(shortenLabel(label.textContent.trim()));
+                });
+                document.querySelectorAll('#step4-content input[type="checkbox"]:checked').forEach(cb => {
+                    const label = document.querySelector(`label[for="${cb.id}"]`);
+                    if (label) step4Signals.push(shortenLabel(label.textContent.trim()));
+                });
+                if (step3Signals.length > 0 || step4Signals.length > 0) {
+                    summarySubjectSignals.style.display = '';
+                    let signalHtml = '';
+                    if (step3Signals.length > 0) {
+                        signalHtml += '<p style="margin: 0 0 4px 0; font-size: 12px; color: #666;">Step 3 (' + step3Signals.length + '):</p>';
+                        signalHtml += '<ul style="margin: 0 0 8px 0; padding-left: 20px; list-style: disc;">';
+                        step3Signals.forEach(s => signalHtml += '<li style="font-size: 13px; color: #555; margin-bottom: 3px;">' + s + '</li>');
+                        signalHtml += '</ul>';
+                    }
+                    if (step4Signals.length > 0) {
+                        signalHtml += '<p style="margin: 0 0 4px 0; font-size: 12px; color: #666;">Step 4 (' + step4Signals.length + '):</p>';
+                        signalHtml += '<ul style="margin: 0 0 0 0; padding-left: 20px; list-style: disc;">';
+                        step4Signals.forEach(s => signalHtml += '<li style="font-size: 13px; color: #555; margin-bottom: 3px;">' + s + '</li>');
+                        signalHtml += '</ul>';
+                    }
+                    summarySubjectSignalsText.innerHTML = signalHtml;
+                } else {
+                    summarySubjectSignals.style.display = 'none';
+                }
+            } else if (dropdown.value === 'id-concerns') {
+                // Show ID concern signals as bullets
+                const idSignals = [];
+                for (let i = 1; i <= 20; i++) {
+                    const cb = document.getElementById('item' + i);
+                    if (cb && cb.checked) {
+                        const label = document.querySelector('label[for="item' + i + '"]');
+                        if (label) idSignals.push(shortenLabel(label.textContent.trim()));
+                    }
+                }
+                if (idSignals.length > 0) {
+                    summarySubjectSignals.style.display = '';
+                    let signalHtml = '<ul style="margin: 0; padding-left: 20px; list-style: disc;">';
+                    idSignals.forEach(s => signalHtml += '<li style="font-size: 13px; color: #555; margin-bottom: 3px;">' + s + '</li>');
+                    signalHtml += '</ul>';
+                    summarySubjectSignalsText.innerHTML = signalHtml;
+                } else {
+                    summarySubjectSignals.style.display = 'none';
+                }
+            } else if (dropdown.value === 'selfie-concerns') {
+                // Show selfie concern signals as bullets
+                const selfieSignals = [];
+                for (let i = 2; i <= 11; i++) {
+                    const cb = document.getElementById('selfie-item' + i);
+                    if (cb && cb.checked) {
+                        const label = document.querySelector('label[for="selfie-item' + i + '"]');
+                        if (label) selfieSignals.push(shortenLabel(label.textContent.trim()));
+                    }
+                }
+                if (selfieSignals.length > 0) {
+                    summarySubjectSignals.style.display = '';
+                    let signalHtml = '<ul style="margin: 0; padding-left: 20px; list-style: disc;">';
+                    selfieSignals.forEach(s => signalHtml += '<li style="font-size: 13px; color: #555; margin-bottom: 3px;">' + s + '</li>');
+                    signalHtml += '</ul>';
+                    summarySubjectSignalsText.innerHTML = signalHtml;
+                } else {
+                    summarySubjectSignals.style.display = 'none';
+                }
+            } else {
+                summarySubjectSignals.style.display = 'none';
+            }
+            
+            // Subject Additional Notes
+            const summarySubjectNotes = document.getElementById('summary-subject-notes');
+            const summarySubjectNotesText = document.getElementById('summary-subject-notes-text');
+            const authenticNotesVal = document.getElementById('authentic-notes');
+            if (authenticNotesVal && authenticNotesVal.value.trim()) {
+                summarySubjectNotes.style.display = '';
+                summarySubjectNotesText.textContent = authenticNotesVal.value.trim();
+            } else {
+                summarySubjectNotes.style.display = 'none';
+            }
             
             // Deceased SSN
             const deceasedSSNSection = document.getElementById('summary-deceased-ssn-section');
@@ -6231,30 +6694,58 @@
             const subjectStateForSummary = accountSignalStates['subject'];
             const subjectSignalCount = subjectStateForSummary ? Object.values(subjectStateForSummary.checkboxStates || {}).filter(v => v).length : 0;
             const paymentHistoryForSummary = document.querySelector('input[name="payment-history"]:checked');
-            const noPaymentHistoryForSummary = paymentHistoryForSummary && paymentHistoryForSummary.value === 'no';
+            const paymentHistoryValForSummary = paymentHistoryForSummary ? paymentHistoryForSummary.value : '';
+            const noPaymentHistoryForSummary = paymentHistoryValForSummary === 'no';
+            const noAdverseActivityForSummary = paymentHistoryValForSummary === 'yes-no-adverse';
             
             if (subjectSignalCount > 0) {
                 activitySection.style.display = '';
                 document.getElementById('summary-typology-findings').textContent = `${subjectSignalCount} signal(s) identified`;
+                // List the actual signals as bullet points
+                const subjectSignalsList = document.getElementById('summary-typology-signals-list');
+                subjectSignalsList.innerHTML = '';
+                Object.entries(subjectStateForSummary.checkboxStates).forEach(([cbId, checked]) => {
+                    if (checked) {
+                        const labelEl = document.querySelector(`label[for="${cbId}"]`);
+                        const li = document.createElement('li');
+                        li.style.cssText = 'font-size: 13px; color: #555; margin-bottom: 4px;';
+                        li.textContent = shortenLabel(labelEl ? labelEl.textContent.trim() : cbId);
+                        subjectSignalsList.appendChild(li);
+                    }
+                });
+                subjectSignalsList.style.display = subjectSignalsList.children.length > 0 ? '' : 'none';
+            } else if (noAdverseActivityForSummary) {
+                activitySection.style.display = '';
+                document.getElementById('summary-typology-signals-list').style.display = 'none';
+                document.getElementById('summary-typology-findings').textContent = 'Payment history reviewed, no adverse activity found';
             } else if (noPaymentHistoryForSummary) {
                 activitySection.style.display = '';
-                const paymentRadioForSummary = document.querySelector('input[name="payment-history"]:checked');
-                const paymentValForSummary = paymentRadioForSummary ? paymentRadioForSummary.value : 'no';
-                if (paymentValForSummary === 'yes-no-adverse') {
-                    document.getElementById('summary-typology-findings').textContent = 'Payment history reviewed, no adverse activity found';
-                } else {
-                    document.getElementById('summary-typology-findings').textContent = 'No payment history to consider';
-                }
+                document.getElementById('summary-typology-signals-list').style.display = 'none';
+                document.getElementById('summary-typology-findings').textContent = 'No payment history to consider';
             } else if (subjectStateForSummary && subjectStateForSummary.notes) {
                 activitySection.style.display = '';
+                document.getElementById('summary-typology-signals-list').style.display = 'none';
                 document.getElementById('summary-typology-findings').textContent = 'No activity signals identified';
             } else {
-                activitySection.style.display = 'none';
+                // Check if subject activity notes exist (general notes without signals)
+                const subjectActivityNotesEl = document.getElementById('subject-activity-notes');
+                const subjectActivityNotesVal = subjectActivityNotesEl ? subjectActivityNotesEl.value.trim() : '';
+                if (subjectActivityNotesVal) {
+                    activitySection.style.display = '';
+                    document.getElementById('summary-typology-signals-list').style.display = 'none';
+                    document.getElementById('summary-typology-findings').textContent = 'No activity signals identified';
+                } else {
+                    activitySection.style.display = 'none';
+                }
             }
-            // Show assessment notes if present
+            // Show assessment notes if present (from signal modal or general subject activity notes)
             const summaryAssessmentNotes = document.getElementById('summary-assessment-notes');
-            if (subjectStateForSummary && subjectStateForSummary.notes) {
-                summaryAssessmentNotes.textContent = subjectStateForSummary.notes;
+            const subjectActivityNotesForSummary = document.getElementById('subject-activity-notes');
+            const signalModalNotes = (subjectStateForSummary && subjectStateForSummary.notes) ? subjectStateForSummary.notes : '';
+            const generalActivityNotes = subjectActivityNotesForSummary ? subjectActivityNotesForSummary.value.trim() : '';
+            const combinedNotes = [signalModalNotes, generalActivityNotes].filter(n => n).join('\n');
+            if (combinedNotes) {
+                summaryAssessmentNotes.textContent = combinedNotes;
                 summaryAssessmentNotes.style.display = '';
             } else {
                 summaryAssessmentNotes.style.display = 'none';
@@ -6272,7 +6763,7 @@
                 Object.entries(sourceSavedStateForSummary.checkboxStates).forEach(([cbId, checked]) => {
                     if (checked) {
                         const labelEl = document.querySelector(`label[for="${cbId}"]`);
-                        sourceSignals.push(labelEl ? labelEl.textContent.trim() : cbId);
+                        sourceSignals.push(shortenLabel(labelEl ? labelEl.textContent.trim() : cbId));
                     }
                 });
                 if (sourceSignals.length > 0) {
@@ -6280,10 +6771,12 @@
                     const listEl = document.getElementById('summary-source-signals-list');
                     const sourceCtokenEl = document.getElementById('source-ctoken');
                     const sourceCtoken = sourceCtokenEl ? sourceCtokenEl.value.trim() : '';
+                    const sourceBullets = sourceSignals.map(s => `<li style="font-size: 13px; color: #555; margin-bottom: 4px;">${s}</li>`).join('');
                     listEl.innerHTML = `
                         <div style="background: #f8f9fa; padding: 12px; border-radius: 6px; border-left: 4px solid #dc3545;">
                             <p style="margin: 0 0 6px 0; font-weight: 600; font-size: 14px; font-family: monospace;">${sourceCtoken || 'Source Account'}</p>
-                            <p style="margin: 0; font-size: 12px; color: #dc3545;"><strong>Signals (${sourceSignals.length}):</strong> ${sourceSignals.join(', ')}</p>
+                            <p style="margin: 0 0 6px 0; font-size: 12px; color: #dc3545;"><strong>Signals (${sourceSignals.length}):</strong></p>
+                            <ul style="margin: 0; padding-left: 20px; list-style: disc;">${sourceBullets}</ul>
                             ${sourceSavedStateForSummary.notes ? `<p style="margin: 6px 0 0 0; font-size: 13px; color: #555;">${sourceSavedStateForSummary.notes}</p>` : ''}
                         </div>`;
                 } else {
@@ -6298,11 +6791,12 @@
             const connectedSummarySection = document.getElementById('summary-connected-accounts-section');
             const sourceStatusText = document.getElementById('summary-source-status') ? document.getElementById('summary-source-status').textContent : '';
             const summarySsnDeceased = document.getElementById('ssn-deceased-yes') && document.getElementById('ssn-deceased-yes').checked;
-            const bothAuthentic = dropdown.value === 'authentic' && (sourceStatusText === 'Authentic' || sourceStatusText === 'N/A') && !summarySsnDeceased;
+            const sourceActuallyAuthentic = sourceStatusText === 'Authentic';
+            const bothAuthentic = dropdown.value === 'authentic' && sourceActuallyAuthentic && !summarySsnDeceased;
             const connSourceCtokenEl = document.getElementById('source-ctoken');
             const connSourceWasReviewed = sourceLocated || (connSourceCtokenEl && connSourceCtokenEl.value.trim());
             const inauthenticThresholdMet = dropdown.value === 'inauthentic' && !connSourceWasReviewed && !summarySsnDeceased;
-            const generalConnNotesEl = document.getElementById('connected-accounts-general-notes');
+            const generalConnNotesEl = document.getElementById('subject-activity-notes');
             const hasConnectedNotes = generalConnNotesEl && generalConnNotesEl.value.trim();
             if (dropdown.value === 'id-concerns' || dropdown.value === 'selfie-concerns' || inauthenticThresholdMet || (bothAuthentic && !hasConnectedNotes)) {
                 connectedSummarySection.style.display = 'none';
@@ -6336,7 +6830,12 @@
                         cardHtml += '<span style="font-size: 12px; font-weight: 600; color: #dc3545;">⚠ Signals Found</span>';
                         cardHtml += '</div>';
                         if (account.signals && account.signals.length > 0) {
-                            cardHtml += '<p style="margin: 6px 0 0 0; font-size: 12px; color: #dc3545;"><strong>Signals:</strong> ' + account.signals.join(', ') + '</p>';
+                            cardHtml += '<p style="margin: 6px 0 0 0; font-size: 12px; color: #dc3545;"><strong>Signals (' + account.signals.length + '):</strong></p>';
+                            cardHtml += '<ul style="margin: 4px 0 0 0; padding-left: 20px; list-style: disc;">';
+                            account.signals.forEach(s => {
+                                cardHtml += '<li style="font-size: 13px; color: #555; margin-bottom: 4px;">' + shortenLabel(s) + '</li>';
+                            });
+                            cardHtml += '</ul>';
                         }
                         if (account.notes) {
                             cardHtml += '<p style="margin: 6px 0 0 0; font-size: 13px; color: #555;">' + account.notes + '</p>';
@@ -6374,14 +6873,6 @@
                 card.style.cssText = 'background: #f8f9fa; padding: 12px; border-radius: 6px; border-left: 4px solid #28a745;';
                 card.innerHTML = '<p style="margin: 0; font-size: 14px; color: #28a745; font-weight: 600;">✓ No adverse activity found on any true connected accounts</p>';
                 listEl.appendChild(card);
-            }
-            // Append general connected account notes if present
-            const generalConnNotes = document.getElementById('connected-accounts-general-notes');
-            if (generalConnNotes && generalConnNotes.value.trim()) {
-                const notesCard = document.createElement('div');
-                notesCard.style.cssText = 'background: #f8f9fa; padding: 12px; border-radius: 6px; border-left: 4px solid #17a2b8; margin-top: 8px;';
-                notesCard.innerHTML = '<p style="margin: 0 0 4px 0; font-size: 12px; color: #17a2b8; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">Notes</p><p style="margin: 0; font-size: 13px; color: #555; white-space: pre-wrap;">' + generalConnNotes.value.trim() + '</p>';
-                listEl.appendChild(notesCard);
             }
             } // end else (not id-concerns/selfie-concerns)
             
@@ -6485,8 +6976,8 @@
                 noConnBtn.style.boxShadow = 'none';
                 noConnBtn.textContent = 'No connected accounts to consider';
             }
-            const generalConnNotes = document.getElementById('connected-accounts-general-notes');
-            if (generalConnNotes) generalConnNotes.value = '';
+            const activityReviewNotes = document.getElementById('subject-activity-notes');
+            if (activityReviewNotes) activityReviewNotes.value = '';
             const connectedSummary = document.getElementById('summary-connected-accounts-section');
             if (connectedSummary) connectedSummary.style.display = 'none';
             const sourceSignalsSummary = document.getElementById('summary-source-signals-section');
@@ -6659,14 +7150,5 @@
         updateSectionStatus();
     </script>
 
-    <!-- Bug Report Button -->
-    <a href="https://github.com/ccamonsq/subject-account-evaluation-checklist/issues/new?title=Bug%20Report&body=%23%23%20Description%0ADescribe%20the%20issue%20you%20found.%0A%0A%23%23%20Steps%20to%20Reproduce%0A1.%20%0A2.%20%0A3.%20%0A%0A%23%23%20Expected%20Behavior%0AWhat%20should%20have%20happened%3F%0A%0A%23%23%20Actual%20Behavior%0AWhat%20actually%20happened%3F%0A%0A%23%23%20Screenshots%0AAttach%20any%20screenshots%20if%20helpful." 
-       target="_blank"
-       id="bug-report-btn"
-       style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; background: #6c757d; color: white; border: none; border-radius: 50px; padding: 10px 16px; font-size: 13px; text-decoration: none; box-shadow: 0 2px 8px rgba(0,0,0,0.3); cursor: pointer; display: flex; align-items: center; gap: 6px; transition: background 0.2s;"
-       onmouseover="this.style.background='#5a6268'"
-       onmouseout="this.style.background='#6c757d'">
-        🐛 Report Bug
-    </a>
 </body>
 </html>
