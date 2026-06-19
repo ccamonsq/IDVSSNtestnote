@@ -2323,15 +2323,33 @@
             const sidebarSubjectCtoken = document.getElementById('c-token');
             const mainSubjectCtoken = document.getElementById('subject-ctoken');
             
+            // Duplicate ctoken check — highlights sidebar inputs red if they match
+            function checkDuplicateCtokens() {
+                const subjectVal = (sidebarSubjectCtoken ? sidebarSubjectCtoken.value.trim().toLowerCase() : '');
+                const sourceVal = (document.getElementById('source-c-token') ? document.getElementById('source-c-token').value.trim().toLowerCase() : '');
+                const isDuplicate = subjectVal && sourceVal && subjectVal === sourceVal;
+                if (sidebarSubjectCtoken) {
+                    sidebarSubjectCtoken.style.border = isDuplicate ? '2px solid #dc3545' : '';
+                    sidebarSubjectCtoken.style.backgroundColor = isDuplicate ? '#fff5f5' : '';
+                }
+                const sidebarSource = document.getElementById('source-c-token');
+                if (sidebarSource) {
+                    sidebarSource.style.border = isDuplicate ? '2px solid #dc3545' : '';
+                    sidebarSource.style.backgroundColor = isDuplicate ? '#fff5f5' : '';
+                }
+            }
+            
             if (sidebarSubjectCtoken && mainSubjectCtoken) {
                 // Main form input syncs TO sidebar
                 mainSubjectCtoken.addEventListener('input', function() {
                     sidebarSubjectCtoken.value = this.value;
+                    checkDuplicateCtokens();
                 });
                 
                 // Sidebar input syncs TO main form
                 sidebarSubjectCtoken.addEventListener('input', function() {
                     mainSubjectCtoken.value = this.value;
+                    checkDuplicateCtokens();
                 });
             }
             
@@ -2345,12 +2363,14 @@
                 sourceAccountCtoken.addEventListener('input', function() {
                     sidebarSourceCtoken.value = this.value;
                     if (sourceCtokenDisplay) sourceCtokenDisplay.textContent = this.value || 'Not provided';
+                    checkDuplicateCtokens();
                 });
                 
                 // Sidebar input syncs TO Source Account Identification and display
                 sidebarSourceCtoken.addEventListener('input', function() {
                     sourceAccountCtoken.value = this.value;
                     if (sourceCtokenDisplay) sourceCtokenDisplay.textContent = this.value || 'Not provided';
+                    checkDuplicateCtokens();
                 });
             }
         });
