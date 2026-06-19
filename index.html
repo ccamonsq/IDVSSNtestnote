@@ -6403,10 +6403,11 @@
             const notesSourceStatusEl = document.getElementById('summary-source-status');
             const notesSourceStatusText = notesSourceStatusEl ? notesSourceStatusEl.textContent : '';
             const notesBothAuthentic = subjectStatus === 'authentic' && (notesSourceStatusText === 'Authentic' || notesSourceStatusText === 'N/A') && !notesSsnDeceased;
-            const notesGeneralConnNotesEl = document.getElementById('subject-activity-notes');
-            const notesHasConnectedNotes = notesGeneralConnNotesEl && notesGeneralConnNotesEl.value.trim();
+            // Check if there are any connected accounts with data to report
+            const connectedDataForNotes = (typeof getConnectedAccountsData === 'function') ? getConnectedAccountsData() : [];
+            const hasConnectedAccountData = connectedDataForNotes.length > 0 || noConnectedAccountsSelected || Object.keys(connectedAccountsData || {}).length > 0;
             
-            if (subjectStatus !== 'id-concerns' && subjectStatus !== 'selfie-concerns' && !notesInauthenticThresholdMet && !(notesBothAuthentic && !notesHasConnectedNotes)) {
+            if (subjectStatus !== 'id-concerns' && subjectStatus !== 'selfie-concerns' && !notesInauthenticThresholdMet && !(notesBothAuthentic && !hasConnectedAccountData)) {
                 if (noConnectedAccountsSelected) {
                     // User explicitly marked "No connected accounts to consider"
                     notes.push('Connected Accounts: No connected accounts to consider.');
@@ -6454,11 +6455,8 @@
                     notes.push('Connected Accounts: No adverse activity found on any true connected accounts.');
                     notes.push('');
                 }
-                // Append general connected account notes if present
-                if (notesHasConnectedNotes) {
-                    notes.push('Connected Account Notes: ' + notesGeneralConnNotesEl.value.trim());
-                    notes.push('');
-                }
+                // Note: subject-activity-notes is already output in the subject activity section above
+                // so we do not repeat it here as "Connected Account Notes"
             }
             
             // --- ADDITIONAL NOTES (from any remaining textareas not already captured) ---
