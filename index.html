@@ -1972,7 +1972,8 @@
             
             <!-- Outcome Banner -->
             <div id="case-summary-outcome" style="padding: 20px 30px; border-bottom: 1px solid #e9ecef;">
-                <div style="display: flex; align-items: center; gap: 12px; justify-content: space-between;">
+                <div style="position: relative;">
+                    <button id="toggle-outcome-btn" onclick="toggleCaseOutcome()" style="position: absolute; top: 0; right: 0; padding: 3px 8px; border: 1px solid #999; background: transparent; color: #777; border-radius: 4px; font-size: 11px; cursor: pointer; white-space: nowrap;">✎ Override</button>
                     <div style="display: flex; align-items: center; gap: 12px;">
                         <span id="case-summary-icon" style="font-size: 28px;"></span>
                         <div>
@@ -1980,7 +1981,6 @@
                             <p id="case-summary-reason" style="margin: 4px 0 0 0; font-size: 14px; color: #666;"></p>
                         </div>
                     </div>
-                    <button id="toggle-outcome-btn" onclick="toggleCaseOutcome()" style="padding: 8px 16px; border: 2px solid #666; background: transparent; color: #666; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; white-space: nowrap;">✎ Change to FAIL</button>
                 </div>
             </div>
             
@@ -5901,7 +5901,7 @@
                 icon.textContent = '⚠️';
                 result.textContent = 'CASE FAIL';
                 result.style.color = '#dc3545';
-                toggleBtn.textContent = '✎ Change to PASS';
+                toggleBtn.textContent = '✎ Override to PASS';
                 toggleBtn.style.borderColor = '#28a745';
                 toggleBtn.style.color = '#28a745';
             } else {
@@ -5913,7 +5913,7 @@
                 icon.textContent = '✓';
                 result.textContent = 'CASE PASS';
                 result.style.color = '#28a745';
-                toggleBtn.textContent = '✎ Change to FAIL';
+                toggleBtn.textContent = '✎ Override to FAIL';
                 toggleBtn.style.borderColor = '#dc3545';
                 toggleBtn.style.color = '#dc3545';
             }
@@ -5975,7 +5975,7 @@
                 icon.textContent = '⚠️';
                 result.textContent = 'CASE FAIL';
                 result.style.color = '#dc3545';
-                if (toggleBtn) { toggleBtn.textContent = '✎ Change to PASS'; toggleBtn.style.borderColor = '#28a745'; toggleBtn.style.color = '#28a745'; }
+                if (toggleBtn) { toggleBtn.textContent = '✎ Override to PASS'; toggleBtn.style.borderColor = '#28a745'; toggleBtn.style.color = '#28a745'; }
             } else {
                 header.style.backgroundColor = '#28a745';
                 title.textContent = '✓ Case Summary — PASS';
@@ -5983,7 +5983,7 @@
                 icon.textContent = '✓';
                 result.textContent = 'CASE PASS';
                 result.style.color = '#28a745';
-                if (toggleBtn) { toggleBtn.textContent = '✎ Change to FAIL'; toggleBtn.style.borderColor = '#dc3545'; toggleBtn.style.color = '#dc3545'; }
+                if (toggleBtn) { toggleBtn.textContent = '✎ Override to FAIL'; toggleBtn.style.borderColor = '#dc3545'; toggleBtn.style.color = '#dc3545'; }
             }
             
             reasonEl.textContent = reason || '';
