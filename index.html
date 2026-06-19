@@ -6049,7 +6049,8 @@
             
             // --- SUBJECT ACCOUNT LINE ---
             const subjectCtokenEl = document.getElementById('subject-ctoken');
-            const subjectCtoken = subjectCtokenEl ? subjectCtokenEl.value.trim() : '[C_Token]';
+            const subjectCtokenRaw = subjectCtokenEl ? subjectCtokenEl.value.trim() : '[C_Token]';
+            const subjectCtoken = '(' + subjectCtokenRaw + ')';
             let subjectLabel = 'Authentic';
             let subjectBasis = '';
             let subjectBasisBullets = [];
