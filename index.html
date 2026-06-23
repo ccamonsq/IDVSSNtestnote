@@ -6193,6 +6193,16 @@
                 subjectBasis = 'IDV, aliases and location review';
             }
             
+            // Override: If deceased SSN confirmed, subject is Inauthentic
+            const deceasedConfirmed = document.getElementById('ssn-deceased-yes') && document.getElementById('ssn-deceased-yes').checked;
+            const deceasedResultsConfirmed = document.querySelector('input[name="deceased-indicator"]:checked');
+            if (deceasedConfirmed && deceasedResultsConfirmed && deceasedResultsConfirmed.value === 'yes') {
+                subjectLabel = 'Inauthentic';
+                subjectBasis = 'deceased SSN confirmed via TLO/open source search';
+                subjectBasisBullets = [];
+                subjectBasisBulletsPrefix = '';
+            }
+            
             if (subjectBasis === '__BULLETS__') {
                 // Output with bullet points
                 if (subjectLabel === 'unable to proceed') {
@@ -6455,21 +6465,31 @@
             }
             
             // --- CONNECTED ACCOUNTS (2.6) ---
-            // Only skip connected accounts note for straight fail cases (id-concerns, selfie-concerns, inauthentic threshold met without continuing)
+            // Skip connected accounts for: id-concerns, selfie-concerns, deceased confirmed, inauthentic threshold met without continuing
             const connSourceLocated = document.querySelector('input[name="source-account-located"]:checked');
-            const notesSsnDeceased = document.getElementById('ssn-deceased-yes') && document.getElementById('ssn-deceased-yes').checked;
+            const notesSsnDeceasedCb = document.getElementById('ssn-deceased-yes') && document.getElementById('ssn-deceased-yes').checked;
+            const notesSsnDeceasedResults = document.querySelector('input[name="deceased-indicator"]:checked');
+            const notesSsnDeceased = notesSsnDeceasedCb && notesSsnDeceasedResults && notesSsnDeceasedResults.value === 'yes';
             const connSourceCtokenEl = document.getElementById('source-ctoken');
             const notesSourceWasReviewed = connSourceLocated || (connSourceCtokenEl && connSourceCtokenEl.value.trim());
             const notesInauthenticThresholdMet = subjectStatus === 'inauthentic' && !notesSourceWasReviewed && !notesSsnDeceased;
             
             const notesSourceStatusEl = document.getElementById('summary-source-status');
             const notesSourceStatusText = notesSourceStatusEl ? notesSourceStatusEl.textContent : '';
-            const notesBothAuthentic = subjectStatus === 'authentic' && (notesSourceStatusText === 'Authentic' || notesSourceStatusText === 'N/A') && !notesSsnDeceased;
+            // "Both authentic" only when source was actually reviewed and found authentic (not N/A or unreviewed)
+            const notesBothAuthentic = subjectStatus === 'authentic' && notesSourceStatusText === 'Authentic' && !notesSsnDeceased;
             // Check if there are any connected accounts with data to report
             const connectedDataForNotes = (typeof getConnectedAccountsData === 'function') ? getConnectedAccountsData() : [];
             const hasConnectedAccountData = connectedDataForNotes.length > 0 || noConnectedAccountsSelected || Object.keys(connectedAccountsData || {}).length > 0;
             
-            if (subjectStatus !== 'id-concerns' && subjectStatus !== 'selfie-concerns' && !notesInauthenticThresholdMet && !(notesBothAuthentic && !hasConnectedAccountData)) {
+            // Determine if subject failed due to bad activity (has activity signals)
+            const subjectFailedDueToActivity = !isPass && subjectSignalLabels.length > 0;
+            
+            if (notesSsnDeceased || subjectStatus === 'id-concerns' || subjectStatus === 'selfie-concerns' || notesInauthenticThresholdMet || (notesBothAuthentic && !hasConnectedAccountData)) {
+                // Skip connected accounts entirely for these cases
+            } else if (subjectFailedDueToActivity && !hasConnectedAccountData) {
+                // Failed due to subject bad activity with no connected account data — skip generic statement
+            } else {
                 if (noConnectedAccountsSelected) {
                     // User explicitly marked "No connected accounts to consider"
                     notes.push('Connected Accounts: No connected accounts to consider.');
@@ -6480,8 +6500,12 @@
                         const accountsWithSignals = connectedData.filter(a => a.signalsFound);
                         const accountsWithoutSignals = connectedData.filter(a => !a.signalsFound);
                         if (accountsWithSignals.length === 0 && accountsWithoutSignals.every(a => !a.notes && !(accountSignalStates['connected-' + a.id] && accountSignalStates['connected-' + a.id].notes))) {
-                            notes.push('Connected Accounts: No adverse activity found associated with connected accounts.');
-                            notes.push('');
+                            // No signals or notes on any connected account
+                            if (!subjectFailedDueToActivity) {
+                                notes.push('Connected Accounts: No adverse activity found associated with connected accounts.');
+                                notes.push('');
+                            }
+                            // If failed due to activity but no connected signals/notes, skip the generic statement
                         } else {
                             accountsWithSignals.forEach((account) => {
                                 const ctokenLabel = account.ctoken || 'Connected Account #' + account.id;
@@ -6514,8 +6538,10 @@
                     }
                 } else {
                     // No connected accounts added and button not selected — reviewed, no adverse activity
-                    notes.push('Connected Accounts: No adverse activity found on any true connected accounts.');
-                    notes.push('');
+                    if (!subjectFailedDueToActivity) {
+                        notes.push('Connected Accounts: No adverse activity found on any true connected accounts.');
+                        notes.push('');
+                    }
                 }
                 // Note: subject-activity-notes is already output in the subject activity section above
                 // so we do not repeat it here as "Connected Account Notes"
@@ -6579,6 +6605,14 @@
             } else {
                 subjectStatusEl.textContent = 'Not selected';
                 subjectStatusEl.style.color = '#333';
+            }
+            
+            // Override: If deceased SSN confirmed with results, subject is Inauthentic
+            const deceasedCb = document.getElementById('ssn-deceased-yes');
+            const deceasedResults = document.querySelector('input[name="deceased-indicator"]:checked');
+            if (deceasedCb && deceasedCb.checked && deceasedResults && deceasedResults.value === 'yes') {
+                subjectStatusEl.textContent = 'Inauthentic';
+                subjectStatusEl.style.color = '#dc3545';
             }
             
             // Subject C_Token
@@ -6870,15 +6904,17 @@
             // Connected Accounts Summary - hide for ID/Selfie concern failures or when both subject and source are authentic
             const connectedSummarySection = document.getElementById('summary-connected-accounts-section');
             const sourceStatusText = document.getElementById('summary-source-status') ? document.getElementById('summary-source-status').textContent : '';
-            const summarySsnDeceased = document.getElementById('ssn-deceased-yes') && document.getElementById('ssn-deceased-yes').checked;
+            const summarySsnDeceasedCb2 = document.getElementById('ssn-deceased-yes') && document.getElementById('ssn-deceased-yes').checked;
+            const summarySsnDeceasedResults2 = document.querySelector('input[name="deceased-indicator"]:checked');
+            const summarySsnDeceasedConfirmed = summarySsnDeceasedCb2 && summarySsnDeceasedResults2 && summarySsnDeceasedResults2.value === 'yes';
             const sourceActuallyAuthentic = sourceStatusText === 'Authentic';
-            const bothAuthentic = dropdown.value === 'authentic' && sourceActuallyAuthentic && !summarySsnDeceased;
+            const bothAuthentic = dropdown.value === 'authentic' && sourceActuallyAuthentic && !summarySsnDeceasedConfirmed;
             const connSourceCtokenEl = document.getElementById('source-ctoken');
             const connSourceWasReviewed = sourceLocated || (connSourceCtokenEl && connSourceCtokenEl.value.trim());
-            const inauthenticThresholdMet = dropdown.value === 'inauthentic' && !connSourceWasReviewed && !summarySsnDeceased;
+            const inauthenticThresholdMet = dropdown.value === 'inauthentic' && !connSourceWasReviewed && !summarySsnDeceasedConfirmed;
             const generalConnNotesEl = document.getElementById('subject-activity-notes');
             const hasConnectedNotes = generalConnNotesEl && generalConnNotesEl.value.trim();
-            if (dropdown.value === 'id-concerns' || dropdown.value === 'selfie-concerns' || inauthenticThresholdMet || (bothAuthentic && !hasConnectedNotes)) {
+            if (summarySsnDeceasedConfirmed || dropdown.value === 'id-concerns' || dropdown.value === 'selfie-concerns' || inauthenticThresholdMet || (bothAuthentic && !hasConnectedNotes)) {
                 connectedSummarySection.style.display = 'none';
             } else {
             connectedSummarySection.style.display = '';
