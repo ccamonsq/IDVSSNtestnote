@@ -6438,7 +6438,13 @@
             const notesSsnDeceased = notesSsnDeceasedCb && notesSsnDeceasedResults && notesSsnDeceasedResults.value === 'yes';
             const connSourceCtokenEl = document.getElementById('source-ctoken');
             const notesSourceWasReviewed = connSourceLocated || (connSourceCtokenEl && connSourceCtokenEl.value.trim());
-            const notesInauthenticThresholdMet = subjectStatus === 'inauthentic' && !notesSourceWasReviewed && !notesSsnDeceased;
+            // Check if subject actually meets inauthentic threshold (not just dropdown selection)
+            let notesStep3Count = 0;
+            document.querySelectorAll('input[id^="auth-item"]').forEach(function(cb) { if (cb.checked) notesStep3Count++; });
+            let notesStep4Count = 0;
+            document.querySelectorAll('input[id^="acct-item"]').forEach(function(cb) { if (cb.checked) notesStep4Count++; });
+            const notesSubjectActuallyInauthentic = subjectStatus === 'inauthentic' && ((notesStep3Count >= 1 && notesStep4Count >= 1) || notesStep4Count >= 3);
+            const notesInauthenticThresholdMet = notesSubjectActuallyInauthentic && !notesSourceWasReviewed && !notesSsnDeceased;
             
             const notesSourceStatusEl = document.getElementById('summary-source-status');
             const notesSourceStatusText = notesSourceStatusEl ? notesSourceStatusEl.textContent : '';
@@ -6877,7 +6883,13 @@
             const bothAuthentic = dropdown.value === 'authentic' && sourceActuallyAuthentic && !summarySsnDeceasedConfirmed;
             const connSourceCtokenEl = document.getElementById('source-ctoken');
             const connSourceWasReviewed = sourceLocated || (connSourceCtokenEl && connSourceCtokenEl.value.trim());
-            const inauthenticThresholdMet = dropdown.value === 'inauthentic' && !connSourceWasReviewed && !summarySsnDeceasedConfirmed;
+            // Check if subject actually meets inauthentic threshold (not just dropdown selection)
+            let summaryStep3Count = 0;
+            document.querySelectorAll('input[id^="auth-item"]').forEach(function(cb) { if (cb.checked) summaryStep3Count++; });
+            let summaryStep4Count = 0;
+            document.querySelectorAll('input[id^="acct-item"]').forEach(function(cb) { if (cb.checked) summaryStep4Count++; });
+            const subjectActuallyInauthentic = dropdown.value === 'inauthentic' && ((summaryStep3Count >= 1 && summaryStep4Count >= 1) || summaryStep4Count >= 3);
+            const inauthenticThresholdMet = subjectActuallyInauthentic && !connSourceWasReviewed && !summarySsnDeceasedConfirmed;
             const generalConnNotesEl = document.getElementById('subject-activity-notes');
             const hasConnectedNotes = generalConnNotesEl && generalConnNotesEl.value.trim();
             if (summarySsnDeceasedConfirmed || dropdown.value === 'id-concerns' || dropdown.value === 'selfie-concerns' || inauthenticThresholdMet || (bothAuthentic && !hasConnectedNotes)) {
