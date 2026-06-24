@@ -844,6 +844,11 @@
                 🐛 Report Bug
             </a>
         </div>
+
+        <!-- New Case Button (shown after subject review) -->
+        <div id="sidebar-new-case" style="display: none; padding: 10px 15px; border-top: 1px solid #333; margin-top: 5px;">
+            <button onclick="clearFormForNewCase()" style="width: 100%; padding: 10px 12px; background-color: #c67a2e; color: white; border: none; border-radius: 5px; font-size: 13px; font-weight: bold; cursor: pointer; transition: background 0.2s;" onmouseover="this.style.background='#d4893a'" onmouseout="this.style.background='#c67a2e'">🔄 New Case</button>
+        </div>
     </div>
     
     <div class="main-content" id="subject-account-section">
@@ -5850,6 +5855,11 @@
                 item.classList.add('complete');
                 item.classList.remove('skipped');
             }
+            // Show sidebar New Case button once subject review is done
+            if (itemId === 'progress-subject-review') {
+                const sidebarNewCase = document.getElementById('sidebar-new-case');
+                if (sidebarNewCase) sidebarNewCase.style.display = '';
+            }
         }
         
         function markProgressSkipped(itemId) {
@@ -7125,6 +7135,10 @@
                 item.style.fontStyle = '';
                 item.style.color = '';
             });
+            
+            // Hide sidebar New Case button
+            const sidebarNewCase = document.getElementById('sidebar-new-case');
+            if (sidebarNewCase) sidebarNewCase.style.display = 'none';
             
             // Reset sidebar C_Token fields
             const sidebarSubjectCtoken = document.getElementById('c-token');
