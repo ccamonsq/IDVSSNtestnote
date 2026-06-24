@@ -4456,6 +4456,8 @@
                 statusIcon.style.color = '#2ecc71';
                 progressItem.classList.add('complete');
             }
+            const sidebarNewCase1 = document.getElementById('sidebar-new-case');
+            if (sidebarNewCase1) sidebarNewCase1.style.display = '';
             
             // Update page heading indicator - change from incomplete to complete
             const pageHeading = document.getElementById('id-verification-heading');
@@ -4535,6 +4537,8 @@
                 statusIcon.style.color = '#2ecc71';
                 progressItem2.classList.add('complete');
             }
+            const sidebarNewCase2 = document.getElementById('sidebar-new-case');
+            if (sidebarNewCase2) sidebarNewCase2.style.display = '';
             
             // Update page heading indicator - change from incomplete to complete
             const pageHeading = document.getElementById('subject-authenticity-heading');
@@ -4787,6 +4791,8 @@
                 if (icon) { icon.textContent = '✓'; icon.style.color = '#2ecc71'; }
                 progressSubject.classList.add('complete');
             }
+            const sidebarNewCase3 = document.getElementById('sidebar-new-case');
+            if (sidebarNewCase3) sidebarNewCase3.style.display = '';
             
             // Mark Source Account Review and Access as skipped (no source account path)
             ['progress-source-review', 'progress-access'].forEach(function(id) {
@@ -4935,6 +4941,8 @@
                 if (icon) { icon.textContent = '✓'; icon.style.color = '#2ecc71'; }
                 progressSubject.classList.add('complete');
             }
+            const sidebarNewCase4 = document.getElementById('sidebar-new-case');
+            if (sidebarNewCase4) sidebarNewCase4.style.display = '';
             
             // Mark headings as complete
             const headings = ['id-verification-heading', 'subject-authenticity-heading', 'account-information-heading'];
@@ -5549,6 +5557,8 @@
                 }
                 progressAcct2.classList.add('complete');
             }
+            const sidebarNewCase5 = document.getElementById('sidebar-new-case');
+            if (sidebarNewCase5) sidebarNewCase5.style.display = '';
             
             // Update page heading indicator - change from incomplete to complete
             const pageHeading = document.getElementById('account-information-heading');
@@ -5861,6 +5871,7 @@
                 if (sidebarNewCase) sidebarNewCase.style.display = '';
             }
         }
+        
         
         function markProgressSkipped(itemId) {
             const item = document.getElementById(itemId);
