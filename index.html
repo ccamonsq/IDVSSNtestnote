@@ -6893,9 +6893,22 @@
             const inauthenticThresholdMet = subjectActuallyInauthentic && !connSourceWasReviewed && !summarySsnDeceasedConfirmed;
             const generalConnNotesEl = document.getElementById('subject-activity-notes');
             const hasConnectedNotes = generalConnNotesEl && generalConnNotesEl.value.trim();
+            console.log('DEBUG Connected Accounts:', JSON.stringify({
+                summarySsnDeceasedConfirmed,
+                dropdownValue: dropdown.value,
+                inauthenticThresholdMet,
+                bothAuthentic,
+                hasConnectedNotes: !!hasConnectedNotes,
+                subjectActuallyInauthentic,
+                summaryStep3Count,
+                summaryStep4Count,
+                connSourceWasReviewed: !!connSourceWasReviewed
+            }));
             if (summarySsnDeceasedConfirmed || dropdown.value === 'id-concerns' || dropdown.value === 'selfie-concerns' || inauthenticThresholdMet || (bothAuthentic && !hasConnectedNotes)) {
+                console.log('DEBUG: HIDING connected accounts');
                 connectedSummarySection.style.display = 'none';
             } else {
+                console.log('DEBUG: SHOWING connected accounts');
             connectedSummarySection.style.display = '';
             const listEl = document.getElementById('summary-connected-accounts-list');
             listEl.innerHTML = '';
