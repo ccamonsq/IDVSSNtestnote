@@ -836,13 +836,25 @@
 
         <!-- Bug Report Button -->
         <div style="padding: 10px 15px; border-top: 1px solid #333; margin-top: 10px;">
-            <a href="https://github.com/ccamonsq/subject-account-evaluation-checklist/issues/new?title=Bug%20Report&body=%23%23%20Description%0ADescribe%20the%20issue%20you%20found.%0A%0A%23%23%20Steps%20to%20Reproduce%0A1.%20%0A2.%20%0A3.%20%0A%0A%23%23%20Expected%20Behavior%0AWhat%20should%20have%20happened%3F%0A%0A%23%23%20Actual%20Behavior%0AWhat%20actually%20happened%3F%0A%0A%23%23%20Screenshots%0AAttach%20any%20screenshots%20if%20helpful." 
-               target="_blank"
-               style="display: flex; align-items: center; justify-content: center; gap: 6px; padding: 8px 12px; background: #3a3a55; color: #b8c0cc; border: 1px solid #444; border-radius: 5px; font-size: 12px; text-decoration: none; cursor: pointer; transition: background 0.2s;"
+            <button onclick="document.getElementById('bug-report-modal').style.display='flex'"
+               style="display: flex; align-items: center; justify-content: center; gap: 6px; padding: 8px 12px; background: #3a3a55; color: #b8c0cc; border: 1px solid #444; border-radius: 5px; font-size: 12px; text-decoration: none; cursor: pointer; transition: background 0.2s; width: 100%;"
                onmouseover="this.style.background='#4a4a65'"
                onmouseout="this.style.background='#3a3a55'">
                 🐛 Report Bug
-            </a>
+            </button>
+        </div>
+
+        <!-- Bug Report Modal -->
+        <div id="bug-report-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 10000; justify-content: center; align-items: center;">
+            <div style="background: #2a2a3e; border-radius: 10px; width: 90%; max-width: 700px; height: 85vh; display: flex; flex-direction: column; box-shadow: 0 4px 20px rgba(0,0,0,0.5);">
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid #444;">
+                    <h3 style="margin: 0; color: #e0e0e0; font-size: 16px;">🐛 Report a Bug</h3>
+                    <button onclick="document.getElementById('bug-report-modal').style.display='none'"
+                        style="background: none; border: none; color: #b8c0cc; font-size: 22px; cursor: pointer; padding: 0 5px;">&times;</button>
+                </div>
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSebpxIxaF6rjOp_UgPkfNDK6a7VAJEIvUbEJ8X8QTqTv317Fw/viewform?embedded=true"
+                    style="flex: 1; border: none; border-radius: 0 0 10px 10px;" allowfullscreen></iframe>
+            </div>
         </div>
 
         <!-- New Case Button (shown after subject review) -->
